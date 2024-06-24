@@ -1,0 +1,59 @@
+﻿@page "/transacciones"
+@using PaseoExpressWebApp.Context;
+@using PaseoExpressWebApp.Services;
+@inject TransaccionesService transaccionesService
+
+<h3>Transacciones</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>Ultima Suma</th>
+            <th>Id Vehículo</th>
+            <th>Año</th>
+            <th>Placa</th>
+            <th>Nombre</th>
+            <th>Tarifa Diaria</th>
+            <th>Tarifa Ahorro</th>
+            <th>Fecha Transacción</th>
+            <th>Comentario</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (transacciones == null)
+        {
+            <tr>
+                <td colspan="10">Cargando...</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var transaccion in transacciones)
+            {
+                <tr>
+                    <td><img src="@transaccion.Imagen" alt="Imagen" class="img-thumbnail" /></td>
+                    <td>@transaccion.UltimaSuma</td>
+                    <td>@transaccion.IdVehiculo</td>
+                    <td>@transaccion.Anio</td>
+                    <td>@transaccion.Placa</td>
+                    <td>@transaccion.Nombre</td>
+                    <td>@transaccion.TarifaDiaria</td>
+                    <td>@transaccion.TarifaAhorro</td>
+                    <td>@transaccion.FechaTransaccion.ToString("dd/MM/yyyy")</td>
+                    <td>@transaccion.Comentario</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+@code {
+    private List<ObtenerTransaccionesResult> transacciones;
+
+    protected override async Task OnInitializedAsync()
+    {
+        transacciones = await transaccionesService.ObtenerTransaccionesAsync();
+    }
+}

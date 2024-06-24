@@ -1,0 +1,117 @@
+﻿@page "/counter"
+@using PaseoExpressWebApp.Context;
+@using PaseoExpressWebApp.Data;
+@using PaseoExpressWebApp.Services;
+
+@inject comprobantediarioservice ComprobanteDiarioService
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="ObtenerVehiculosSinExistenciaHoy">Click me</button>
+<button class="btn btn-primary" @onclick="CierreDiarioAsync">Cierre Diario</button>
+
+
+@if (vehiculosSinExistencia == null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <div class="container">
+
+        <div class="row">
+            @foreach (var vehiculo in vehiculosSinExistencia)
+            {
+                <div class="col-sm-4 ">
+                    <div class="card">
+                        <img src="@vehiculo.Imagen" class="card-img-top" alt="Imagen de @vehiculo.Imagen">
+                        <div class="card-body">
+                            <h5 class="card-title">Vehículo @vehiculo.IdVehiculo</h5>
+                            <p class="card-text">
+                                Año: @vehiculo.Anio<br>
+                                Placa: @vehiculo.Placa<br>
+                                Tarifa Diaria: @vehiculo.TarifaDiaria<br>
+                                Tarifa Ahorro: @vehiculo.TarifaAhorro
+                            </p>
+                        </div>
+
+                        <button class="btn btn-primary" @onclick="() => EnviarIdVehiculo(vehiculo.IdVehiculo)">Pago</button>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">An item</li>
+                            <li class="list-group-item">A second item</li>
+                            <li class="list-group-item">A third item</li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+}
+
+
+
+@code {
+    private int currentCount = 0;
+    //private List<ObtenerVehiculosSinExistenciaHoyResult> vehiculosSinExistencia = new List<ObtenerVehiculosSinExistenciaHoyResult>(); // Initialize an empty list
+
+    public async Task OnInitializedAsync()
+    {
+        ObtenerVehiculosSinExistenciaHoy();
+    }
+    private List<ObtenerVehiculosSinExistenciaHoyResult> vehiculosSinExistencia;
+
+    private async Task ObtenerVehiculosSinExistenciaHoy()
+    {
+        vehiculosSinExistencia = await ComprobanteDiarioService.obtenervehiculossinexistenciahoy();
+        //try
+        //{
+        //    HttpClient httpClient = new HttpClient();
+        //    var response = await httpClient.GetAsync("https://localhost:7048/api/ComprobanteDiario/ObtenerVehiculosSinExistenciaHoy");
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        vehiculosSinExistencia = await response.Content.ReadFromJsonAsync<List<ObtenerVehiculosSinExistenciaHoyResult>>(); // Assuming your API endpoint returns a list of VehiculoSinExistencia objects
+        //    }
+        //    else
+        //    {
+        //        // Handle API call failure (e.g., show an error message)
+        //    }
+        //}
+        //catch (Exception e)
+        //{
+        //    // Handle exceptions (e.g., log the error)
+        //}
+
+
+
+        // Update the UI to reflect the loaded data (call a separate method)
+        UpdateTable();
+    }
+
+    private async Task EnviarIdVehiculo(int idVehiculo)
+    {
+        ComprobanteDiarioService.TransaccionTarifaNoPagada(idVehiculo);
+        ObtenerVehiculosSinExistenciaHoy();
+
+    }
+
+    private async Task CierreDiarioAsync()
+    {
+        ComprobanteDiarioService.CierreDiarioAsync();
+    }
+
+    private void UpdateTable()
+    {
+        // Notify the UI that data has changed (if using Blazor)
+        StateHasChanged();
+    }
+}

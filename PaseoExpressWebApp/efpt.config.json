@@ -1,0 +1,78 @@
+﻿{
+   "CodeGenerationMode": 2,
+   "ContextClassName": "DB_UberContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Context",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "PaseoExpressWebApp",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[CierreDiario]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[ConfirmarTransaccion]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[InsertarDatosTransaccion]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[ObtenerServiciosProximoCambio]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[ObtenerTransacciones]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[ObtenerVehiculos]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[ObtenerVehiculosSinExistenciaHoy]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[ro]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[TransaccionTarifaNoPagada]",
+         "ObjectType": 1
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false
+}
