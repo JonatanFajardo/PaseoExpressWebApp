@@ -15,6 +15,70 @@
    "T4TemplatePath": null,
    "Tables": [
       {
+         "Name": "[dbo].[InformacionCompra]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SaleInformation]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbConductoresEli]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbHistorialMantenimiento]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbPropietariosELI]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbRol]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbServicios]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbServicios_tbTransacciones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbServiciosRecurrentesELI]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbTipoMantenimientos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbTipoServicios]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbTipoTransaccion]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbTransacciones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbUbicacionEnAutomovil]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbUsuarios]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbVehiculo]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[CierreDiario]",
          "ObjectType": 1
       },
@@ -27,6 +91,18 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[InsertarUnServicios]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[ObtenerServicios]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[ObtenerServiciosPorVehiculo]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[ObtenerServiciosProximoCambio]",
          "ObjectType": 1
       },
@@ -35,11 +111,19 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[ObtenerTransaccionesPorVehiculo]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[ObtenerVehiculos]",
          "ObjectType": 1
       },
       {
          "Name": "[dbo].[ObtenerVehiculosSinExistenciaHoy]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[ResumenTotal]",
          "ObjectType": 1
       },
       {

@@ -18,6 +18,22 @@ namespace PaseoExpressWebApp.Context
         {
         }
 
+        public virtual DbSet<InformacionCompra> InformacionCompra { get; set; }
+        public virtual DbSet<SaleInformation> SaleInformation { get; set; }
+        public virtual DbSet<tbConductoresEli> tbConductoresEli { get; set; }
+        public virtual DbSet<tbHistorialMantenimiento> tbHistorialMantenimiento { get; set; }
+        public virtual DbSet<tbPropietariosELI> tbPropietariosELI { get; set; }
+        public virtual DbSet<tbRol> tbRol { get; set; }
+        public virtual DbSet<tbServicios> tbServicios { get; set; }
+        public virtual DbSet<tbServiciosRecurrentesELI> tbServiciosRecurrentesELI { get; set; }
+        public virtual DbSet<tbTipoMantenimientos> tbTipoMantenimientos { get; set; }
+        public virtual DbSet<tbTipoServicios> tbTipoServicios { get; set; }
+        public virtual DbSet<tbTipoTransaccion> tbTipoTransaccion { get; set; }
+        public virtual DbSet<tbTransacciones> tbTransacciones { get; set; }
+        public virtual DbSet<tbUbicacionEnAutomovil> tbUbicacionEnAutomovil { get; set; }
+        public virtual DbSet<tbUsuarios> tbUsuarios { get; set; }
+        public virtual DbSet<tbVehiculo> tbVehiculo { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -29,6 +45,318 @@ namespace PaseoExpressWebApp.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<InformacionCompra>(entity =>
+            {
+                entity.HasKey(e => e.IdPurchase)
+                    .HasName("PK__Informac__D99D14A5DF8BF3B3");
+
+                entity.Property(e => e.PurchaseDate).HasColumnType("date");
+
+                entity.Property(e => e.PurchasePrice).HasColumnType("decimal(10, 2)");
+
+                entity.Property(e => e.SellerDetails)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<SaleInformation>(entity =>
+            {
+                entity.HasKey(e => e.IdSale)
+                    .HasName("PK__SaleInfo__A04F9B3738ADD604");
+
+                entity.Property(e => e.BuyerDetails)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SaleDate).HasColumnType("date");
+
+                entity.Property(e => e.SalePrice).HasColumnType("decimal(10, 2)");
+
+                entity.HasOne(d => d.Vehicle)
+                    .WithMany(p => p.SaleInformation)
+                    .HasForeignKey(d => d.VehicleId)
+                    .HasConstraintName("FK__SaleInfor__Vehic__3C69FB99");
+            });
+
+            modelBuilder.Entity<tbConductoresEli>(entity =>
+            {
+                entity.HasKey(e => e.IdConductor)
+                    .HasName("PK_tbConductor");
+
+                entity.Property(e => e.Cuenta)
+                    .HasMaxLength(350)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre).HasMaxLength(350);
+            });
+
+            modelBuilder.Entity<tbHistorialMantenimiento>(entity =>
+            {
+                entity.HasKey(e => e.IdMantenimiento)
+                    .HasName("PK__Historia__DD1C4417FAD86A75");
+
+                entity.Property(e => e.CostoManoObra)
+                    .HasColumnType("decimal(10, 2)")
+                    .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.CostoTotal)
+                    .HasColumnType("decimal(10, 2)")
+                    .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.CostoUnitario)
+                    .HasColumnType("decimal(10, 2)")
+                    .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.DescripcionMantenimiento).HasColumnType("text");
+
+                entity.Property(e => e.FechaMantenimiento).HasColumnType("date");
+
+                entity.Property(e => e.MiMano).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.ProximaFechaMantenimiento).HasColumnType("date");
+            });
+
+            modelBuilder.Entity<tbPropietariosELI>(entity =>
+            {
+                entity.HasKey(e => e.IdPropietario)
+                    .HasName("PK_tbDueno");
+
+                entity.Property(e => e.Cuenta)
+                    .HasMaxLength(350)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Identidad)
+                    .HasMaxLength(13)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .HasMaxLength(350)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<tbRol>(entity =>
+            {
+                entity.HasKey(e => e.IdRol);
+
+                entity.Property(e => e.Nombre).HasMaxLength(530);
+            });
+
+            modelBuilder.Entity<tbServicios>(entity =>
+            {
+                entity.HasKey(e => e.IdServicios)
+                    .HasName("PK_tbServicio");
+
+                entity.Property(e => e.CostoTotal)
+                    .HasColumnType("decimal(10, 2)")
+                    .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.CostoUnitario).HasColumnType("decimal(10, 2)");
+
+                entity.Property(e => e.Descripcion).HasMaxLength(550);
+
+                entity.Property(e => e.FechaServicio).HasColumnType("date");
+
+                entity.Property(e => e.IdUbicacionEnAutomovil).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Imagenes).HasMaxLength(4000);
+
+                entity.Property(e => e.ManoObraPersonal).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Marca).HasMaxLength(250);
+
+                entity.Property(e => e.PrecioManoObra).HasColumnType("decimal(10, 2)");
+
+                entity.Property(e => e.ProximaFechaMantenimiento).HasColumnType("date");
+
+                entity.Property(e => e.Titulo)
+                    .IsRequired()
+                    .HasMaxLength(250);
+
+                entity.Property(e => e.Viaticos).HasMaxLength(250);
+
+                entity.HasOne(d => d.IdTipoMantenimientoNavigation)
+                    .WithMany(p => p.tbServicios)
+                    .HasForeignKey(d => d.IdTipoMantenimiento)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tbServicios_tbTipoMantenimientos");
+
+                entity.HasOne(d => d.IdTipoServicioNavigation)
+                    .WithMany(p => p.tbServicios)
+                    .HasForeignKey(d => d.IdTipoServicio)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tbServicios_tbTipoServicio");
+
+                entity.HasOne(d => d.IdVehiculoNavigation)
+                    .WithMany(p => p.tbServicios)
+                    .HasForeignKey(d => d.IdVehiculo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tbServicios_tbInformacionVehiculo");
+
+                entity.HasMany(d => d.IdTransaccion)
+                    .WithMany(p => p.IdServicios)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "tbServicios_tbTransacciones",
+                        l => l.HasOne<tbTransacciones>().WithMany().HasForeignKey("IdTransaccion").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__tbTipoSer__IdTra__778AC167"),
+                        r => r.HasOne<tbServicios>().WithMany().HasForeignKey("IdServicios").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__tbTipoSer__IdSer__76969D2E"),
+                        j =>
+                        {
+                            j.HasKey("IdServicios", "IdTransaccion").HasName("PK__tbTipoSe__6227C36EF04CEBE3");
+
+                            j.ToTable("tbServicios_tbTransacciones");
+                        });
+            });
+
+            modelBuilder.Entity<tbServiciosRecurrentesELI>(entity =>
+            {
+                entity.HasKey(e => e.IdServiciosRecurrentes)
+                    .HasName("PK_tbServiciosRecurrentes");
+
+                entity.Property(e => e.Descripcion).HasMaxLength(550);
+
+                entity.Property(e => e.FechaActual).HasColumnType("date");
+
+                entity.Property(e => e.FechaProxima).HasColumnType("date");
+
+                entity.Property(e => e.Titulo).HasMaxLength(250);
+            });
+
+            modelBuilder.Entity<tbTipoMantenimientos>(entity =>
+            {
+                entity.HasKey(e => e.IdTipoMantenimiento)
+                    .HasName("PK_tbTipoMantenimiento");
+
+                entity.Property(e => e.Nombre).HasMaxLength(350);
+            });
+
+            modelBuilder.Entity<tbTipoServicios>(entity =>
+            {
+                entity.HasKey(e => e.IdTipoServicio)
+                    .HasName("PK_tbTipoServicio");
+
+                entity.Property(e => e.KilometrajeCambioRecomendado)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.MillajeCambioRecomendado)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre).HasMaxLength(350);
+            });
+
+            modelBuilder.Entity<tbTipoTransaccion>(entity =>
+            {
+                entity.HasKey(e => e.IdTipoTransaccion);
+
+                entity.Property(e => e.Nombre)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<tbTransacciones>(entity =>
+            {
+                entity.HasKey(e => e.IdTransaccion)
+                    .HasName("PK_tbTransaccion");
+
+                entity.Property(e => e.Comentario)
+                    .HasMaxLength(4000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaTransaccion).HasColumnType("date");
+
+                entity.Property(e => e.Imagen)
+                    .HasMaxLength(4000)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdTipoTransaccionNavigation)
+                    .WithMany(p => p.tbTransacciones)
+                    .HasForeignKey(d => d.IdTipoTransaccion)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tbTransacciones_tbTipoTransaccion");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithMany(p => p.tbTransacciones)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .HasConstraintName("FK_tbTransacciones_tbUsuarios");
+
+                entity.HasOne(d => d.IdVehiculoNavigation)
+                    .WithMany(p => p.tbTransacciones)
+                    .HasForeignKey(d => d.IdVehiculo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tbTransacciones_tbInformacionVehiculo");
+            });
+
+            modelBuilder.Entity<tbUbicacionEnAutomovil>(entity =>
+            {
+                entity.HasKey(e => e.IdUbicacionEnAutomovil);
+
+                entity.Property(e => e.Ubicacion).HasMaxLength(250);
+            });
+
+            modelBuilder.Entity<tbUsuarios>(entity =>
+            {
+                entity.HasKey(e => e.IdUsuario);
+
+                entity.Property(e => e.Cuenta)
+                    .HasMaxLength(350)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EstaActivo).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Identidad)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre).HasMaxLength(350);
+
+                entity.HasOne(d => d.IdRolNavigation)
+                    .WithMany(p => p.tbUsuarios)
+                    .HasForeignKey(d => d.IdRol)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tbUsuarios_tbRol");
+            });
+
+            modelBuilder.Entity<tbVehiculo>(entity =>
+            {
+                entity.HasKey(e => e.IdVehiculo)
+                    .HasName("PK__VehicleI__64D74CC8A61356E4");
+
+                entity.Property(e => e.Color)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Imagen)
+                    .HasMaxLength(600)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Inhabilitado).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Marca)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Modelo)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Placa)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TipoAceite)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.VIN)
+                    .HasMaxLength(17)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdConductorNavigation)
+                    .WithMany(p => p.tbVehiculo)
+                    .HasForeignKey(d => d.IdConductor)
+                    .HasConstraintName("FK_tbVehiculo_tbUsuarios");
+            });
+
             OnModelCreatingGeneratedProcedures(modelBuilder);
             OnModelCreatingPartial(modelBuilder);
         }

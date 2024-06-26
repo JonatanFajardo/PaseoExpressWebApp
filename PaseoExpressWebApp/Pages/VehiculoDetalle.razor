@@ -1,8 +1,141 @@
-﻿<h3>Vehiculos</h3>
+﻿@inject NavigationManager Navigation
+@inject VehiculoService VehiculoService
+@page "/vehiculodetalle/{idVehiculo:int}"
+@using PaseoExpressWebApp.Context;
+@using PaseoExpressWebApp.Services;
 
+
+
+<h3>Vehiculos</h3>
+
+
+
+@if (cuotaDiaria == null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <div class="card">
+        <h1>Cuota Diaria</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Ultima Suma</th>
+                    <th>Conductor</th>
+                    <th>Tarifa Diaria</th>
+                    <th>Tarifa Ahorro</th>
+                    <th>Fecha Transacción</th>
+                    <th>Comentario</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transaccion in cuotaDiaria)
+                {
+                    <tr>
+                        <td><img src="@transaccion.Imagen" alt="Imagen" width="50" height="50" /></td>
+                        <td>@transaccion.UltimaSuma</td>
+                        <td>@transaccion.Conductor</td>
+                        <td>@transaccion.TarifaDiaria</td>
+                        <td>@transaccion.TarifaAhorro</td>
+                        <td>@transaccion.FechaTransaccion.ToString("dd/MM/yyyy")</td>
+                        <td>@transaccion.Comentario</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+
+@if (servicios == null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <div class="card">
+        <h1>Servicios</h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tipo de Servicio</th>
+                    <th>Imágenes</th>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Fecha de Servicio</th>
+                    <th>Cantidad Comprada</th>
+                    <th>Costo Unitario</th>
+                    <th>Costo Total</th>
+                    <th>Marca</th>
+                    @*<th>Tipo de Mantenimiento</th>*@
+                    <th>Kilometraje del Vehículo</th>
+                    <th>Millaje del Vehículo</th>
+                    <th>Próxima Fecha de Mantenimiento</th>
+                    <th>Marca del Vehículo</th>
+                    <th>Modelo del Vehículo</th>
+                    <th>Año del Vehículo</th>
+                    <th>Es Recurrente</th>
+                    <th>Próximo Kilometraje</th>
+                    <th>Próximo Millaje</th>
+                    <th>Ubicación en el Automóvil</th>
+                    <th>Precio Mano de Obra</th>
+                    <th>Confirmado</th>
+                    <th>Viáticos</th>
+                    <th>Mano de Obra Personal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var servicio in servicios)
+                {
+                    <tr>
+                        <td>@servicio.TipoServicio</td>
+                        <td>@servicio.Imagenes</td>
+                        <td>@servicio.Titulo</td>
+                        <td>@servicio.Descripcion</td>
+                        <td>@servicio.FechaServicio.ToShortDateString()</td>
+                        <td>@servicio.CantidadComprada</td>
+                        <td>@servicio.CostoUnitario</td>
+                        <td>@servicio.CostoTotal</td>
+                        <td>@servicio.Marca</td>
+                        @*<td>@servicio.Nombre</td>*@
+                        <td>@servicio.KilometrajeVehiculo</td>
+                        <td>@servicio.MillajeVehiculo</td>
+                        <td>@servicio.ProximaFechaMantenimiento.ToString()</td>
+                        <td>@servicio.VehiculoMarca</td>
+                        <td>@servicio.VehiculoModelo</td>
+                        <td>@servicio.VehiculoAnio</td>
+                        <td>@(servicio.EsRecurrente ? "Sí" : "No")</td>
+                        <td>@servicio.ProximoKilometraje</td>
+                        <td>@servicio.ProximoMillaje</td>
+                        <td>@servicio.UbicacionEnAutomovil</td>
+                        <td>@servicio.PrecioManoObra</td>
+                        <td>@(servicio.Confirmado ? "Sí" : "No")</td>
+                        <td>@servicio.Viaticos</td>
+                        <td>@servicio.ManoObraPersonal</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
 
 
 
 @code {
+    [Parameter]
+    public int IdVehiculo { get; set; }
+
+    private List<ObtenerTransaccionesPorVehiculoResult> cuotaDiaria;
+    List<ObtenerServiciosPorVehiculoResult> servicios;
+
+    protected override async Task OnInitializedAsync()
+    {
+        servicios = await VehiculoService.ObtenerServiciosPorVehiculoAsync(IdVehiculo);
+        cuotaDiaria = await VehiculoService.ObtenerTransaccionesPorVehiculo(IdVehiculo);
+    }
 
 }

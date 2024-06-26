@@ -1,0 +1,179 @@
+﻿@page "/servicios"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+@using PaseoExpressWebApp.Context;
+@using PaseoExpressWebApp.Models;
+@using PaseoExpressWebApp.Services;
+@inject ServicioServices servicioServices
+
+<EditForm Model="@servicio" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary class="alert alert-danger" />
+
+    <div class="mb-3">
+        <label class="form-label">Tipo Servicio</label>
+        <select @bind="servicio.IdTipoServicio" class="form-select">
+            <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
+            @foreach (var tipoServicio in tiposServicios)
+            {
+                <option value="@tipoServicio.IdTipoServicio">@tipoServicio.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Imágenes</label>
+        <InputTextArea @bind-Value="servicio.Imagenes" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Título</label>
+        <InputText @bind-Value="servicio.Titulo" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Descripción</label>
+        <InputTextArea @bind-Value="servicio.Descripcion" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Fecha Servicio</label>
+        <InputDate @bind-Value="servicio.FechaServicio" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Cantidad Comprada</label>
+        <InputNumber @bind-Value="servicio.CantidadComprada" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Costo Unitario</label>
+        <InputNumber @bind-Value="servicio.CostoUnitario" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Costo Total</label>
+        <InputNumber @bind-Value="servicio.CostoTotal" class="form-control" Disabled="true" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Marca</label>
+        <InputText @bind-Value="servicio.Marca" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Tipo Mantenimiento</label>
+        <select @bind="servicio.IdTipoMantenimiento" class="form-select">
+            <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
+            @foreach (var tipoMantenimiento in tiposMantenimientos)
+            {
+                <option value="@tipoMantenimiento.IdTipoMantenimiento">@tipoMantenimiento.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Kilometraje Vehículo</label>
+        <InputNumber @bind-Value="servicio.KilometrajeVehiculo" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Millaje Vehículo</label>
+        <InputNumber @bind-Value="servicio.MillajeVehiculo" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Próxima Fecha Mantenimiento</label>
+        <InputDate @bind-Value="servicio.ProximaFechaMantenimiento" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Vehículo</label>
+        <select @bind="servicio.IdVehiculo" class="form-select">
+            <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
+            @foreach (var vehiculo in vehiculos)
+            {
+                <option value="@vehiculo.IdVehiculo">@vehiculo.Placa</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Es Recurrente</label>
+        <InputCheckbox @bind-Value="servicio.EsRecurrente" class="form-check-input" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Próximo Kilometraje</label>
+        <InputNumber @bind-Value="servicio.ProximoKilometraje" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Próximo Millaje</label>
+        <InputNumber @bind-Value="servicio.ProximoMillaje" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Ubicación en Automóvil</label>
+        <select @bind="servicio.IdUbicacionEnAutomovil" class="form-select">
+            <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
+            @foreach (var ubicacion in ubicacionesEnAutomovil)
+            {
+                <option value="@ubicacion.IdUbicacionEnAutomovil">@ubicacion.Ubicacion</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Precio Mano Obra</label>
+        <InputNumber @bind-Value="servicio.PrecioManoObra" class="form-control" />
+    </div>
+
+    <div class="mb-3 form-check">
+        <label class="form-check-label">Confirmado</label>
+        <InputCheckbox @bind-Value="servicio.Confirmado" class="form-check-input" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Viáticos</label>
+        <InputTextArea @bind-Value="servicio.Viaticos" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Mano Obra Personal</label>
+        <InputNumber @bind-Value="servicio.ManoObraPersonal" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+
+</EditForm>
+@code {
+    private ServicioModel servicio = new ServicioModel();
+
+    private List<tbTipoServicios> tiposServicios;
+    private List<tbTipoMantenimientos> tiposMantenimientos;
+    private List<tbVehiculo> vehiculos;
+    private List<tbUbicacionEnAutomovil> ubicacionesEnAutomovil;
+
+    protected override void OnInitialized()
+    {
+        servicio.FechaServicio = DateTime.Now;
+        tiposServicios = servicioServices.TipoServicios();
+        tiposMantenimientos = servicioServices.TipoMantenimientos();
+        vehiculos = servicioServices.Vehiculos();
+        ubicacionesEnAutomovil = servicioServices.UbicacionesEnAutomovil();
+
+    }
+
+    private void HandleValidSubmit()
+    {
+        servicioServices.InsertarUnServicios(servicio);
+        // Lógica para manejar el formulario válido
+        Console.WriteLine("Formulario válido");
+    }
+
+    private void CalcularCostoTotal()
+    {
+        servicio.CostoTotal = servicio.CantidadComprada * servicio.CostoUnitario;
+    }
+}

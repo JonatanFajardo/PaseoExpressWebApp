@@ -53,6 +53,7 @@
     private List<ObtenerTransaccionesResult> transacciones;
 
     protected override async Task OnInitializedAsync()
+    
     {
         transacciones = await transaccionesService.ObtenerTransaccionesAsync();
     }

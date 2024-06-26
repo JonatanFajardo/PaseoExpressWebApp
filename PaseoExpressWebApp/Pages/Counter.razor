@@ -2,12 +2,12 @@
 @using PaseoExpressWebApp.Context;
 @using PaseoExpressWebApp.Data;
 @using PaseoExpressWebApp.Services;
-
+@inject NavigationManager Navigation
 @inject comprobantediarioservice ComprobanteDiarioService
 
 <PageTitle>Counter</PageTitle>
 
-<h1>Counter</h1>
+<h1>Cuota pendiente</h1>
 
 <p role="status">Current count: @currentCount</p>
 
@@ -39,11 +39,11 @@ else
                             </p>
                         </div>
 
-                        <button class="btn btn-primary" @onclick="() => EnviarIdVehiculo(vehiculo.IdVehiculo)">Pago</button>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">An item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
+                            <li class="list-group-item">
+                                <button class="btn btn-primary" @onclick="() => EnviarIdVehiculo(vehiculo.IdVehiculo)">Pago</button>
+
+                            </li>
                         </ul>
                         <div class="card-body">
                             <a href="#" class="card-link">Card link</a>
@@ -56,44 +56,86 @@ else
     </div>
 
 }
-
+@if (vehiculos == null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <div class="card">
+        <h1>Vehiculos</h1>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Acciones</th>
+                        <th>IdVehiculo</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Anio</th>
+                        <th>VIN</th>
+                        <th>Placa</th>
+                        <th>Kilometraje</th>
+                        <th>Millaje</th>
+                        <th>Color</th>
+                        <th>TarifaDiaria</th>
+                        <th>TarifaAhorro</th>
+                        <th>Propietario</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var vehiculo in vehiculos)
+                    {
+                        <tr>
+                            <td>
+                                <button class="btn btn-primary" @onclick="() => DetalleVehiculo(vehiculo.IdVehiculo)">Ver detalles</button>
+                            </td>
+                            <td>@vehiculo.IdVehiculo</td>
+                            <td>@vehiculo.Marca</td>
+                            <td>@vehiculo.Modelo</td>
+                            <td>@vehiculo.Anio</td>
+                            <td>@vehiculo.VIN</td>
+                            <td>@vehiculo.Placa</td>
+                            <td>@vehiculo.Kilometraje</td>
+                            <td>@vehiculo.Millaje</td>
+                            <td>@vehiculo.Color</td>
+                            <td>@vehiculo.TarifaDiaria</td>
+                            <td>@vehiculo.TarifaAhorro</td>
+                            <td>@vehiculo.Propietario</td>
+                            <td>@vehiculo.Nombre</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
 
 
 @code {
     private int currentCount = 0;
     //private List<ObtenerVehiculosSinExistenciaHoyResult> vehiculosSinExistencia = new List<ObtenerVehiculosSinExistenciaHoyResult>(); // Initialize an empty list
 
-    public async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
+        vehiculosSinExistencia = await ComprobanteDiarioService.obtenervehiculossinexistenciahoy();
+
+        Obtenervehiculos();
         ObtenerVehiculosSinExistenciaHoy();
     }
     private List<ObtenerVehiculosSinExistenciaHoyResult> vehiculosSinExistencia;
+    private List<ObtenerVehiculosResult> vehiculos;
 
     private async Task ObtenerVehiculosSinExistenciaHoy()
     {
-        vehiculosSinExistencia = await ComprobanteDiarioService.obtenervehiculossinexistenciahoy();
-        //try
-        //{
-        //    HttpClient httpClient = new HttpClient();
-        //    var response = await httpClient.GetAsync("https://localhost:7048/api/ComprobanteDiario/ObtenerVehiculosSinExistenciaHoy");
+  
+    }
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        vehiculosSinExistencia = await response.Content.ReadFromJsonAsync<List<ObtenerVehiculosSinExistenciaHoyResult>>(); // Assuming your API endpoint returns a list of VehiculoSinExistencia objects
-        //    }
-        //    else
-        //    {
-        //        // Handle API call failure (e.g., show an error message)
-        //    }
-        //}
-        //catch (Exception e)
-        //{
-        //    // Handle exceptions (e.g., log the error)
-        //}
+    private async Task Obtenervehiculos()
+    {
+        vehiculos = await ComprobanteDiarioService.Obtenervehiculos();
 
-
-
-        // Update the UI to reflect the loaded data (call a separate method)
         UpdateTable();
     }
 
@@ -103,6 +145,17 @@ else
         ObtenerVehiculosSinExistenciaHoy();
 
     }
+
+
+    private async Task DetalleVehiculo(int idVehiculo)
+    {
+        Navigation.NavigateTo($"/vehiculodetalle/{idVehiculo}");
+        //ComprobanteDiarioService.TransaccionTarifaNoPagada(idVehiculo);
+        //ObtenerVehiculosSinExistenciaHoy();
+
+    }
+
+
 
     private async Task CierreDiarioAsync()
     {

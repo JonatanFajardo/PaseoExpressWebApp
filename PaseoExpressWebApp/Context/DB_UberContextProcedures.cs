@@ -36,10 +36,14 @@ namespace PaseoExpressWebApp.Context
         protected void OnModelCreatingGeneratedProcedures(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ConfirmarTransaccionResult>().HasNoKey().ToView(null);
+            modelBuilder.Entity<ObtenerServiciosResult>().HasNoKey().ToView(null);
+            modelBuilder.Entity<ObtenerServiciosPorVehiculoResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ObtenerServiciosProximoCambioResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ObtenerTransaccionesResult>().HasNoKey().ToView(null);
+            modelBuilder.Entity<ObtenerTransaccionesPorVehiculoResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ObtenerVehiculosResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ObtenerVehiculosSinExistenciaHoyResult>().HasNoKey().ToView(null);
+            modelBuilder.Entity<ResumenTotalResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<roResult>().HasNoKey().ToView(null);
         }
     }
@@ -150,6 +154,215 @@ namespace PaseoExpressWebApp.Context
             return _;
         }
 
+        public virtual async Task<int> InsertarUnServiciosAsync(int? IdTipoServicio, string Imagenes, string Titulo, string Descripcion, DateTime? FechaServicio, int? CantidadComprada, decimal? CostoUnitario, decimal? CostoTotal, string Marca, int? IdTipoMantenimiento, int? KilometrajeVehiculo, int? MillajeVehiculo, DateTime? ProximaFechaMantenimiento, int? IdVehiculo, bool? EsRecurrente, long? ProximoKilometraje, long? ProximoMillaje, int? IdUbicacionEnAutomovil, decimal? PrecioManoObra, bool? Confirmado, string Viaticos, int? ManoObraPersonal, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "IdTipoServicio",
+                    Value = IdTipoServicio ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Imagenes",
+                    Size = 8000,
+                    Value = Imagenes ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Titulo",
+                    Size = 500,
+                    Value = Titulo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Descripcion",
+                    Size = 1100,
+                    Value = Descripcion ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FechaServicio",
+                    Value = FechaServicio ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Date,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CantidadComprada",
+                    Value = CantidadComprada ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CostoUnitario",
+                    Precision = 10,
+                    Scale = 2,
+                    Value = CostoUnitario ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CostoTotal",
+                    Precision = 10,
+                    Scale = 2,
+                    Value = CostoTotal ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Marca",
+                    Size = 500,
+                    Value = Marca ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "IdTipoMantenimiento",
+                    Value = IdTipoMantenimiento ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "KilometrajeVehiculo",
+                    Value = KilometrajeVehiculo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "MillajeVehiculo",
+                    Value = MillajeVehiculo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProximaFechaMantenimiento",
+                    Value = ProximaFechaMantenimiento ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Date,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "IdVehiculo",
+                    Value = IdVehiculo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "EsRecurrente",
+                    Value = EsRecurrente ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Bit,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProximoKilometraje",
+                    Value = ProximoKilometraje ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.BigInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProximoMillaje",
+                    Value = ProximoMillaje ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.BigInt,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "IdUbicacionEnAutomovil",
+                    Value = IdUbicacionEnAutomovil ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PrecioManoObra",
+                    Precision = 10,
+                    Scale = 2,
+                    Value = PrecioManoObra ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Decimal,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Confirmado",
+                    Value = Confirmado ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Bit,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Viaticos",
+                    Size = 500,
+                    Value = Viaticos ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ManoObraPersonal",
+                    Value = ManoObraPersonal ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[InsertarUnServicios] @IdTipoServicio = @IdTipoServicio, @Imagenes = @Imagenes, @Titulo = @Titulo, @Descripcion = @Descripcion, @FechaServicio = @FechaServicio, @CantidadComprada = @CantidadComprada, @CostoUnitario = @CostoUnitario, @CostoTotal = @CostoTotal, @Marca = @Marca, @IdTipoMantenimiento = @IdTipoMantenimiento, @KilometrajeVehiculo = @KilometrajeVehiculo, @MillajeVehiculo = @MillajeVehiculo, @ProximaFechaMantenimiento = @ProximaFechaMantenimiento, @IdVehiculo = @IdVehiculo, @EsRecurrente = @EsRecurrente, @ProximoKilometraje = @ProximoKilometraje, @ProximoMillaje = @ProximoMillaje, @IdUbicacionEnAutomovil = @IdUbicacionEnAutomovil, @PrecioManoObra = @PrecioManoObra, @Confirmado = @Confirmado, @Viaticos = @Viaticos, @ManoObraPersonal = @ManoObraPersonal", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<ObtenerServiciosResult>> ObtenerServiciosAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<ObtenerServiciosResult>("EXEC @returnValue = [dbo].[ObtenerServicios]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<ObtenerServiciosPorVehiculoResult>> ObtenerServiciosPorVehiculoAsync(int? IdVehiculo, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "IdVehiculo",
+                    Value = IdVehiculo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<ObtenerServiciosPorVehiculoResult>("EXEC @returnValue = [dbo].[ObtenerServiciosPorVehiculo] @IdVehiculo = @IdVehiculo", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
         public virtual async Task<List<ObtenerServiciosProximoCambioResult>> ObtenerServiciosProximoCambioAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
@@ -190,6 +403,32 @@ namespace PaseoExpressWebApp.Context
             return _;
         }
 
+        public virtual async Task<List<ObtenerTransaccionesPorVehiculoResult>> ObtenerTransaccionesPorVehiculoAsync(int? IdVehiculo, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "IdVehiculo",
+                    Value = IdVehiculo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<ObtenerTransaccionesPorVehiculoResult>("EXEC @returnValue = [dbo].[ObtenerTransaccionesPorVehiculo] @IdVehiculo = @IdVehiculo", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
         public virtual async Task<List<ObtenerVehiculosResult>> ObtenerVehiculosAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
@@ -224,6 +463,26 @@ namespace PaseoExpressWebApp.Context
                 parameterreturnValue,
             };
             var _ = await _context.SqlQueryAsync<ObtenerVehiculosSinExistenciaHoyResult>("EXEC @returnValue = [dbo].[ObtenerVehiculosSinExistenciaHoy]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<ResumenTotalResult>> ResumenTotalAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<ResumenTotalResult>("EXEC @returnValue = [dbo].[ResumenTotal]", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

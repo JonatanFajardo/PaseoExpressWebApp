@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PaseoExpressWebApp.Context;
-using PaseoExpressWebApp.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using PaseoExpressWebApp.Context;
+using PaseoExpressWebApp.Data;
 
 namespace PaseoExpressWebApp.Services
 {
@@ -23,10 +20,8 @@ namespace PaseoExpressWebApp.Services
         }
 
         public async Task TransaccionTarifaNoPagada(int idVehiculo)
-        {
-
-            _context.Procedures.TransaccionTarifaNoPagadaAsync(idVehiculo);
-           
+        { 
+            _context.Procedures.TransaccionTarifaNoPagadaAsync(idVehiculo); 
         }
 
         public async Task CierreDiarioAsync()
@@ -34,6 +29,12 @@ namespace PaseoExpressWebApp.Services
 
             _context.Procedures.CierreDiarioAsync();
 
+        }
+
+        public async Task<List<ObtenerVehiculosResult>> Obtenervehiculos()
+        {
+            List<ObtenerVehiculosResult> lista = await _context.Procedures.ObtenerVehiculosAsync();
+            return lista;
         }
     }
 }
