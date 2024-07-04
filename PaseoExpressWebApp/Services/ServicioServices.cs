@@ -31,17 +31,19 @@ namespace PaseoExpressWebApp.Services
             };
         }
 
-        public virtual async Task<int> InsertarUnServicios(ServicioModel servicio, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<bool> InsertarUnServicios(ServicioModel servicio, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
-            var parameterreturnValue = new SqlParameter
+            try
             {
-                ParameterName = "returnValue",
-                Direction = ParameterDirection.Output,
-                SqlDbType = SqlDbType.Int,
-            };
+                var parameterreturnValue = new SqlParameter
+                {
+                    ParameterName = "returnValue",
+                    Direction = ParameterDirection.Output,
+                    SqlDbType = SqlDbType.Int,
+                };
 
-            var sqlParameters = new[]
-            {
+                var sqlParameters = new[]
+                {
                 CreateSqlParameter("IdTipoServicio", servicio.IdTipoServicio != 0 ? (object)servicio.IdTipoServicio : DBNull.Value, SqlDbType.Int),
                 CreateSqlParameter("Imagenes", !string.IsNullOrEmpty(servicio.Imagenes) ? (object)servicio.Imagenes : DBNull.Value, SqlDbType.NVarChar, 4000),
                 CreateSqlParameter("Titulo", !string.IsNullOrEmpty(servicio.Titulo) ? (object)servicio.Titulo : DBNull.Value, SqlDbType.NVarChar, 250),
@@ -67,14 +69,21 @@ namespace PaseoExpressWebApp.Services
                 parameterreturnValue
             };
 
-            var _ = await _context.Database.ExecuteSqlRawAsync(
-                "EXEC @returnValue = [dbo].[InsertarUnServicios] @IdTipoServicio = @IdTipoServicio, @Imagenes = @Imagenes, @Titulo = @Titulo, @Descripcion = @Descripcion, @FechaServicio = @FechaServicio, @CantidadComprada = @CantidadComprada, @CostoUnitario = @CostoUnitario, @CostoTotal = @CostoTotal, @Marca = @Marca, @IdTipoMantenimiento = @IdTipoMantenimiento, @KilometrajeVehiculo = @KilometrajeVehiculo, @MillajeVehiculo = @MillajeVehiculo, @ProximaFechaMantenimiento = @ProximaFechaMantenimiento, @IdVehiculo = @IdVehiculo, @EsRecurrente = @EsRecurrente, @ProximoKilometraje = @ProximoKilometraje, @ProximoMillaje = @ProximoMillaje, @IdUbicacionEnAutomovil = @IdUbicacionEnAutomovil, @PrecioManoObra = @PrecioManoObra, @Confirmado = @Confirmado, @Viaticos = @Viaticos, @ManoObraPersonal = @ManoObraPersonal",
-                sqlParameters,
-                cancellationToken);
+                var _ = await _context.Database.ExecuteSqlRawAsync(
+                    "EXEC @returnValue = [dbo].[InsertarUnServicios] @IdTipoServicio = @IdTipoServicio, @Imagenes = @Imagenes, @Titulo = @Titulo, @Descripcion = @Descripcion, @FechaServicio = @FechaServicio, @CantidadComprada = @CantidadComprada, @CostoUnitario = @CostoUnitario, @CostoTotal = @CostoTotal, @Marca = @Marca, @IdTipoMantenimiento = @IdTipoMantenimiento, @KilometrajeVehiculo = @KilometrajeVehiculo, @MillajeVehiculo = @MillajeVehiculo, @ProximaFechaMantenimiento = @ProximaFechaMantenimiento, @IdVehiculo = @IdVehiculo, @EsRecurrente = @EsRecurrente, @ProximoKilometraje = @ProximoKilometraje, @ProximoMillaje = @ProximoMillaje, @IdUbicacionEnAutomovil = @IdUbicacionEnAutomovil, @PrecioManoObra = @PrecioManoObra, @Confirmado = @Confirmado, @Viaticos = @Viaticos, @ManoObraPersonal = @ManoObraPersonal",
+                    sqlParameters,
+                    cancellationToken);
 
-            returnValue?.SetValue((int)parameterreturnValue.Value);
+                returnValue?.SetValue((int)parameterreturnValue.Value);
 
-            return _;
+                //return _;
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
 

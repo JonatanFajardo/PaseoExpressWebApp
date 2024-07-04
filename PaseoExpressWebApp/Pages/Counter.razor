@@ -26,23 +26,43 @@ else
         <div class="row">
             @foreach (var vehiculo in vehiculosSinExistencia)
             {
-                <div class="col-sm-4 ">
+                <div class="col-sm-4">
                     <div class="card">
-                        <img ng-src="@vehiculo.Imagen" class="card-img-top" alt="Imagen de @vehiculo.Imagen">
+                        <img ng-src="img/@vehiculo.Imagen" class="card-img-top" alt="Imagen de {{vehiculo.Imagen}}">
+
                         <div class="card-body">
                             <h5 class="card-title">Vehículo @vehiculo.IdVehiculo</h5>
                             <p class="card-text">
                                 Año: @vehiculo.Anio<br>
                                 Placa: @vehiculo.Placa<br>
                                 Tarifa Diaria: @vehiculo.TarifaDiaria<br>
-                                Tarifa Ahorro: @vehiculo.TarifaAhorro
+                                Tarifa Ahorro: @vehiculo.TarifaAhorro<br>
+
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" @bind="@mostrarFechaTransaccionHasta">
+                                    <label class="form-check-label">
+                                        Mostrar Fecha de Transacción Hasta
+                                    </label>
+                                </div>
+
+                                @if (mostrarFechaTransaccionHasta)
+                                {
+                                    <div>
+                                        Fecha de Transacción:
+                                        <input type="date"  @bind="@FechaTransaccion" name="FechaTransaccion" class="form-control" /><br>
+                              
+                                        Fecha de Transacción Hasta:
+                                        <input type="date" @bind="@FechaTransaccionHasta" name="FechaTransaccionHasta"  class="form-control" />
+                                    </div>
+                                }
+
                             </p>
                         </div>
 
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <button class="btn btn-primary" @onclick="() => EnviarIdVehiculo(vehiculo.IdVehiculo)">Pago</button>
-
+                                <button class="btn btn-primary" @onclick="() => EnviarIdVehiculo(vehiculo.IdVehiculo, FechaTransaccion, FechaTransaccionHasta)">Pago</button>
                             </li>
                         </ul>
                         <div class="card-body">
@@ -115,6 +135,11 @@ else
 
 @code {
     private int currentCount = 0;
+    DateTime FechaActual = DateTime.Now;
+    DateTime FechaTransaccion = DateTime.Now;
+    DateTime FechaTransaccionHasta = DateTime.Now;
+    bool mostrarFechaTransaccionHasta = false;
+
     //private List<ObtenerVehiculosSinExistenciaHoyResult> vehiculosSinExistencia = new List<ObtenerVehiculosSinExistenciaHoyResult>(); // Initialize an empty list
 
     protected override async Task OnInitializedAsync()
@@ -139,10 +164,16 @@ else
         UpdateTable();
     }
 
-    private async Task EnviarIdVehiculo(int idVehiculo)
+    private async Task EnviarIdVehiculo(int idVehiculo, DateTime FechaTransaccion, DateTime FechaTransaccionHasta)
     {
-        ComprobanteDiarioService.TransaccionTarifaNoPagada(idVehiculo);
-        ObtenerVehiculosSinExistenciaHoy();
+        if (FechaTransaccionHasta.ToString() == FechaActual.ToString())
+        {
+            ComprobanteDiarioService.TransaccionTarifaNoPagada(idVehiculo, FechaTransaccion, null);
+        }else
+        {
+            ComprobanteDiarioService.TransaccionTarifaNoPagada(idVehiculo, FechaTransaccion, FechaTransaccionHasta);
+        }
+        //vehiculosSinExistencia = await ComprobanteDiarioService.obtenervehiculossinexistenciahoy();
 
     }
 

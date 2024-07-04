@@ -11,6 +11,7 @@ namespace PaseoExpressWebApp.Models
         public string Imagenes { get; set; }
 
         [StringLength(250)]
+        [Required(ErrorMessage = "El campo es obligatorio.")]
         public string Titulo { get; set; }
 
         [StringLength(550)]
@@ -18,17 +19,21 @@ namespace PaseoExpressWebApp.Models
 
         public DateTime FechaServicio { get; set; }
 
+        [Required(ErrorMessage = "El campo es obligatorio.")]
         public int CantidadComprada { get; set; }
 
         [Range(0, 9999999999.99)]
+        [Required(ErrorMessage = "El campo es obligatorio.")]
         public decimal CostoUnitario { get; set; }
 
         [Range(0, 9999999999.99)]
+        [Required(ErrorMessage = "El campo es obligatorio.")]
         public decimal CostoTotal { get; set; }
 
         [StringLength(250)]
         public string Marca { get; set; }
 
+        [Required(ErrorMessage = "El campo es obligatorio.")]
         public int IdTipoMantenimiento { get; set; }
 
         public int KilometrajeVehiculo { get; set; }
@@ -37,6 +42,7 @@ namespace PaseoExpressWebApp.Models
 
         public DateTime ProximaFechaMantenimiento { get; set; }
 
+        [Required(ErrorMessage = "El campo es obligatorio.")]
         public int IdVehiculo { get; set; }
 
         public bool EsRecurrente { get; set; }
@@ -44,12 +50,12 @@ namespace PaseoExpressWebApp.Models
         public long ProximoKilometraje { get; set; }
 
         public long ProximoMillaje { get; set; }
-
+         
         public int IdUbicacionEnAutomovil { get; set; }
 
         [Range(0, 9999999999.99)]
         public decimal PrecioManoObra { get; set; }
-
+         
         public bool Confirmado { get; set; }
 
         [StringLength(250)]

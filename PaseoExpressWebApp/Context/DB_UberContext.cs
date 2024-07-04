@@ -237,6 +237,8 @@ namespace PaseoExpressWebApp.Context
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Meses).HasColumnType("decimal(10, 2)");
+
                 entity.Property(e => e.MillajeCambioRecomendado)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -258,11 +260,17 @@ namespace PaseoExpressWebApp.Context
                 entity.HasKey(e => e.IdTransaccion)
                     .HasName("PK_tbTransaccion");
 
+                entity.HasComment("Fecha de hasta el dia que pago");
+
                 entity.Property(e => e.Comentario)
                     .HasMaxLength(4000)
                     .IsUnicode(false);
 
+                entity.Property(e => e.FechaCreacion).HasColumnType("date");
+
                 entity.Property(e => e.FechaTransaccion).HasColumnType("date");
+
+                entity.Property(e => e.FechaTransaccionHasta).HasColumnType("date");
 
                 entity.Property(e => e.Imagen)
                     .HasMaxLength(4000)

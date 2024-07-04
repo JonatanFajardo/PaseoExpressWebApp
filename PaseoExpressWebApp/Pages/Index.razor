@@ -72,22 +72,23 @@ Welcome to your new app.
         transaccionesMensuales = transacciones
             .GroupBy(t => t.FechaTransaccion.Month)
             .Select(g => new TransaccionesMensuales
-            {
-                Mes = g.Key,
-                Gastos = g.Where(t => t.IdTipoTransaccion == 1).Sum(t => t.TarifaDiaria),
-                Ingresos = g.Where(t => t.IdTipoTransaccion == 2).Sum(t => t.TarifaDiaria)
-            }).ToList();
+                {
+                    Mes = g.Key,
+                    Gastos = g.Where(t => t.IdTipoTransaccion == 2).Sum(t => Math.Abs(t.TarifaDiaria)),
+                    Ingresos = g.Where(t => t.IdTipoTransaccion == 1).Sum(t => t.TarifaDiaria)
+                }).ToList();
 
         transaccionesMensualesVehiculo = transacciones
             .Where(t => t.IdVehiculo == selectedVehiculoId)
             .GroupBy(t => t.FechaTransaccion.Month)
             .Select(g => new TransaccionesMensuales
-            {
-                Mes = g.Key,
-                Gastos = g.Where(t => t.IdTipoTransaccion == 1).Sum(t => t.TarifaDiaria),
-                Ingresos = g.Where(t => t.IdTipoTransaccion == 2).Sum(t => t.TarifaDiaria)
-            }).ToList();
+                {
+                    Mes = g.Key,
+                    Gastos = g.Where(t => t.IdTipoTransaccion == 2).Sum(t => Math.Abs(t.TarifaDiaria)),
+                    Ingresos = g.Where(t => t.IdTipoTransaccion == 1).Sum(t => t.TarifaDiaria)
+                }).ToList();
     }
+
 
     public class Vehiculo
     {

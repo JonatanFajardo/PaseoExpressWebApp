@@ -1,7 +1,6 @@
 window.crearGraficaTransacciones = (transaccionesMensuales) => {
     const ctx = document.getElementById('transaccionesChart').getContext('2d');
     const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-
     const datosGastos = new Array(12).fill(0);
     const datosIngresos = new Array(12).fill(0);
 
@@ -32,12 +31,22 @@ window.crearGraficaTransacciones = (transaccionesMensuales) => {
             ]
         },
         options: {
+            plugins: {
+                datalabels: {
+                    display: true,
+                    anchor: 'end',
+                    align: 'top',
+                    formatter: (value, context) => value,
+                    color: 'black'
+                }
+            },
             scales: {
                 y: {
                     beginAtZero: true
                 }
             }
-        }
+        },
+        plugins: [ChartDataLabels]
     });
 };
 
@@ -75,11 +84,21 @@ window.crearGraficaTransaccionesVehiculo = (transaccionesMensuales) => {
             ]
         },
         options: {
+            plugins: {
+                datalabels: {
+                    display: true,
+                    anchor: 'end',
+                    align: 'top',
+                    formatter: (value, context) => value.toFixed(2),
+                    color: 'black'
+                }
+            },
             scales: {
                 y: {
                     beginAtZero: true
                 }
             }
-        }
+        },
+        plugins: [ChartDataLabels]
     });
 };

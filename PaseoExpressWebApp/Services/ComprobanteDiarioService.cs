@@ -19,9 +19,9 @@ namespace PaseoExpressWebApp.Services
             return lista;
         }
 
-        public async Task TransaccionTarifaNoPagada(int idVehiculo)
+        public async Task TransaccionTarifaNoPagada(int idVehiculo, DateTime FechaTransaccion, DateTime? FechaTransaccionHasta)
         { 
-            _context.Procedures.TransaccionTarifaNoPagadaAsync(idVehiculo); 
+            _context.Procedures.TransaccionTarifaNoPagadaAsync(idVehiculo, FechaTransaccion, FechaTransaccionHasta); 
         }
 
         public async Task CierreDiarioAsync()

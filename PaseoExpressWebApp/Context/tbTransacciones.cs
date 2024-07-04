@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace PaseoExpressWebApp.Context
 {
+    /// <summary>
+    /// Fecha de hasta el dia que pago
+    /// </summary>
     public partial class tbTransacciones
     {
         public tbTransacciones()
@@ -19,10 +22,12 @@ namespace PaseoExpressWebApp.Context
         public int IdVehiculo { get; set; }
         public int? IdUsuario { get; set; }
         public DateTime FechaTransaccion { get; set; }
+        public DateTime? FechaTransaccionHasta { get; set; }
         public bool Confirmada { get; set; }
         public int? UltimaSuma { get; set; }
         public string Comentario { get; set; }
         public int IdTipoTransaccion { get; set; }
+        public DateTime? FechaCreacion { get; set; }
 
         public virtual tbTipoTransaccion IdTipoTransaccionNavigation { get; set; }
         public virtual tbUsuarios IdUsuarioNavigation { get; set; }

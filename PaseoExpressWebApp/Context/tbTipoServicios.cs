@@ -16,6 +16,7 @@ namespace PaseoExpressWebApp.Context
         public string Nombre { get; set; }
         public string MillajeCambioRecomendado { get; set; }
         public string KilometrajeCambioRecomendado { get; set; }
+        public decimal? Meses { get; set; }
 
         public virtual ICollection<tbServicios> tbServicios { get; set; }
     }
