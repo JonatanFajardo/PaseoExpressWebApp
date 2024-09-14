@@ -23,6 +23,8 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<DB_UberContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddAutoMapper(typeof(Program).Assembly); // Configuración de AutoMapper
+
 //builder.Services.AddDbContext<DB_UberContext_My>(options =>
 //{
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

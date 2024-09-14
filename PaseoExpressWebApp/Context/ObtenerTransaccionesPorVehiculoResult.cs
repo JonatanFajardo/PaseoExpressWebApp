@@ -13,6 +13,7 @@ namespace PaseoExpressWebApp.Context
         public int TarifaDiaria { get; set; }
         public int TarifaAhorro { get; set; }
         public DateTime FechaTransaccion { get; set; }
+        public DateTime? FechaTransaccionHasta { get; set; }
         public string Comentario { get; set; }
     }
 }

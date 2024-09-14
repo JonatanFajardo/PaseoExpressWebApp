@@ -136,6 +136,8 @@ else
     {
         servicios = await VehiculoService.ObtenerServiciosPorVehiculoAsync(IdVehiculo);
         cuotaDiaria = await VehiculoService.ObtenerTransaccionesPorVehiculo(IdVehiculo);
+
+        cuotaDiaria.OrderBy(x => x.FechaTransaccionHasta).ToList();
     }
 
 }

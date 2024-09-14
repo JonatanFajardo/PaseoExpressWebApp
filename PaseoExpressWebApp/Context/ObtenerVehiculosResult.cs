@@ -19,6 +19,7 @@ namespace PaseoExpressWebApp.Context
         public int TarifaDiaria { get; set; }
         public int TarifaAhorro { get; set; }
         public string Propietario { get; set; }
+        public int? IdConductor { get; set; }
         public string Nombre { get; set; }
     }
 }

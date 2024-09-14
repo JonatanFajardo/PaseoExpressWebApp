@@ -6,131 +6,133 @@
 @inject comprobantediarioservice ComprobanteDiarioService
 
 <PageTitle>Counter</PageTitle>
+<div class="container">
 
-<h1>Cuota pendiente</h1>
+    <h1>Cuota pendiente</h1>
 
-<p role="status">Current count: @currentCount</p>
+    <p role="status">Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="ObtenerVehiculosSinExistenciaHoy">Click me</button>
-<button class="btn btn-primary" @onclick="CierreDiarioAsync">Cierre Diario</button>
-
-
-@if (vehiculosSinExistencia == null)
-{
-    <p>Cargando...</p>
-}
-else
-{
-    <div class="container">
-
-        <div class="row">
-            @foreach (var vehiculo in vehiculosSinExistencia)
-            {
-                <div class="col-sm-4">
-                    <div class="card">
-                        <img ng-src="img/@vehiculo.Imagen" class="card-img-top" alt="Imagen de {{vehiculo.Imagen}}">
-
-                        <div class="card-body">
-                            <h5 class="card-title">Vehículo @vehiculo.IdVehiculo</h5>
-                            <p class="card-text">
-                                Año: @vehiculo.Anio<br>
-                                Placa: @vehiculo.Placa<br>
-                                Tarifa Diaria: @vehiculo.TarifaDiaria<br>
-                                Tarifa Ahorro: @vehiculo.TarifaAhorro<br>
+    <button class="btn btn-primary" @onclick="ObtenerVehiculosSinExistenciaHoy">Click me</button>
+    <button class="btn btn-primary" @onclick="CierreDiarioAsync">Cierre Diario</button>
 
 
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" @bind="@mostrarFechaTransaccionHasta">
-                                    <label class="form-check-label">
-                                        Mostrar Fecha de Transacción Hasta
-                                    </label>
-                                </div>
+    @if (vehiculosSinExistencia == null)
+    {
+        <p>Cargando...</p>
+    }
+    else
+    {
+        <div class="container">
 
-                                @if (mostrarFechaTransaccionHasta)
-                                {
-                                    <div>
-                                        Fecha de Transacción:
-                                        <input type="date"  @bind="@FechaTransaccion" name="FechaTransaccion" class="form-control" /><br>
-                              
-                                        Fecha de Transacción Hasta:
-                                        <input type="date" @bind="@FechaTransaccionHasta" name="FechaTransaccionHasta"  class="form-control" />
+            <div class="row">
+                @foreach (var vehiculo in vehiculosSinExistencia)
+                {
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <img ng-src="img/@vehiculo.Imagen" class="card-img-top" alt="Imagen de {{vehiculo.Imagen}}">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Vehículo @vehiculo.IdVehiculo</h5>
+                                <p class="card-text">
+                                    Año: @vehiculo.Anio<br>
+                                    Placa: @vehiculo.Placa<br>
+                                    Tarifa Diaria: @vehiculo.TarifaDiaria<br>
+                                    Tarifa Ahorro: @vehiculo.TarifaAhorro<br>
+
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" @bind="@mostrarFechaTransaccionHasta">
+                                        <label class="form-check-label">
+                                            Mostrar Fecha de Transacción Hasta
+                                        </label>
                                     </div>
-                                }
 
-                            </p>
-                        </div>
+                                    @if (mostrarFechaTransaccionHasta)
+                                    {
+                                        <div>
+                                            Fecha de Transacción:
+                                            <input type="date" @bind="@FechaTransaccion" name="FechaTransaccion" class="form-control" /><br>
 
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <button class="btn btn-primary" @onclick="() => EnviarIdVehiculo(vehiculo.IdVehiculo, FechaTransaccion, FechaTransaccionHasta)">Pago</button>
-                            </li>
-                        </ul>
-                        <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
+                                            Fecha de Transacción Hasta:
+                                            <input type="date" @bind="@FechaTransaccionHasta" name="FechaTransaccionHasta" class="form-control" />
+                                        </div>
+                                    }
+
+                                </p>
+                            </div>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <button class="btn btn-primary" @onclick="() => EnviarIdVehiculo(vehiculo.IdVehiculo, FechaTransaccion, FechaTransaccionHasta)">Pago</button>
+                                </li>
+                            </ul>
+                            <div class="card-body">
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
         </div>
-    </div>
 
-}
-@if (vehiculos == null)
-{
-    <p>Cargando...</p>
-}
-else
-{
-    <div class="card">
-        <h1>Vehiculos</h1>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Acciones</th>
-                        <th>IdVehiculo</th>
-                        <th>Marca</th>
-                        <th>Modelo</th>
-                        <th>Anio</th>
-                        <th>VIN</th>
-                        <th>Placa</th>
-                        <th>Kilometraje</th>
-                        <th>Millaje</th>
-                        <th>Color</th>
-                        <th>TarifaDiaria</th>
-                        <th>TarifaAhorro</th>
-                        <th>Propietario</th>
-                        <th>Nombre</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var vehiculo in vehiculos)
-                    {
+    }
+    @if (vehiculos == null)
+    {
+        <p>Cargando...</p>
+    }
+    else
+    {
+        <div class="card">
+            <div class="card-header"><h1>Vehiculos</h1></div>
+            <div class="table-responsive">
+                <table class="table">
+                <thead class="table-light">
                         <tr>
-                            <td>
-                                <button class="btn btn-primary" @onclick="() => DetalleVehiculo(vehiculo.IdVehiculo)">Ver detalles</button>
-                            </td>
-                            <td>@vehiculo.IdVehiculo</td>
-                            <td>@vehiculo.Marca</td>
-                            <td>@vehiculo.Modelo</td>
-                            <td>@vehiculo.Anio</td>
-                            <td>@vehiculo.VIN</td>
-                            <td>@vehiculo.Placa</td>
-                            <td>@vehiculo.Kilometraje</td>
-                            <td>@vehiculo.Millaje</td>
-                            <td>@vehiculo.Color</td>
-                            <td>@vehiculo.TarifaDiaria</td>
-                            <td>@vehiculo.TarifaAhorro</td>
-                            <td>@vehiculo.Propietario</td>
-                            <td>@vehiculo.Nombre</td>
+                            <th>Acciones</th>
+                            <th>IdVehiculo</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Anio</th>
+                            <th>VIN</th>
+                            <th>Placa</th>
+                            <th>Kilometraje</th>
+                            <th>Millaje</th>
+                            <th>Color</th>
+                            <th>TarifaDiaria</th>
+                            <th>TarifaAhorro</th>
+                            <th>Propietario</th>
+                            <th>Nombre</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var vehiculo in vehiculos)
+                        {
+                            <tr>
+                                <td>
+                                    <button class="btn btn-primary" @onclick="() => DetalleVehiculo(vehiculo.IdVehiculo)">Ver detalles</button>
+                                </td>
+                                <td>@vehiculo.IdVehiculo</td>
+                                <td>@vehiculo.Marca</td>
+                                <td>@vehiculo.Modelo</td>
+                                <td>@vehiculo.Anio</td>
+                                <td>@vehiculo.VIN</td>
+                                <td>@vehiculo.Placa</td>
+                                <td>@vehiculo.Kilometraje</td>
+                                <td>@vehiculo.Millaje</td>
+                                <td>@vehiculo.Color</td>
+                                <td>@vehiculo.TarifaDiaria</td>
+                                <td>@vehiculo.TarifaAhorro</td>
+                                <td>@vehiculo.Propietario</td>
+                                <td>@vehiculo.Nombre</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-}
+    }
+</div>
 
 
 @code {

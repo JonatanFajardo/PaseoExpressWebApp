@@ -1,4 +1,5 @@
-﻿using PaseoExpressWebApp.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using PaseoExpressWebApp.Context;
 using PaseoExpressWebApp.Data;
 
 namespace PaseoExpressWebApp.Services
@@ -32,6 +33,8 @@ namespace PaseoExpressWebApp.Services
             List<ObtenerServiciosPorVehiculoResult> results = await _context.Procedures.ObtenerServiciosPorVehiculoAsync(IdVehiculo);
             return results;
         }
+
+    
 
     }
 }

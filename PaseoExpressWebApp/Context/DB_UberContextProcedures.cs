@@ -154,7 +154,7 @@ namespace PaseoExpressWebApp.Context
             return _;
         }
 
-        public virtual async Task<int> InsertarUnServiciosAsync(int? IdTipoServicio, string Imagenes, string Titulo, string Descripcion, DateTime? FechaServicio, int? CantidadComprada, decimal? CostoUnitario, decimal? CostoTotal, string Marca, int? IdTipoMantenimiento, int? KilometrajeVehiculo, int? MillajeVehiculo, DateTime? ProximaFechaMantenimiento, int? IdVehiculo, bool? EsRecurrente, long? ProximoKilometraje, long? ProximoMillaje, int? IdUbicacionEnAutomovil, decimal? PrecioManoObra, bool? Confirmado, string Viaticos, int? ManoObraPersonal, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<int> InsertarUnServiciosAsync(int? IdTipoServicio, string Imagenes, string Titulo, string Descripcion, DateTime? FechaServicio, int? CantidadComprada, decimal? CostoUnitario, decimal? CostoTotal, string Marca, int? IdTipoMantenimiento, int? KilometrajeVehiculo, int? MillajeVehiculo, DateTime? ProximaFechaMantenimiento, int? IdVehiculo, int? IdUsuario, bool? EsRecurrente, long? ProximoKilometraje, long? ProximoMillaje, int? IdUbicacionEnAutomovil, decimal? PrecioManoObra, bool? Confirmado, string Viaticos, int? ManoObraPersonal, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
             {
@@ -259,6 +259,12 @@ namespace PaseoExpressWebApp.Context
                 },
                 new SqlParameter
                 {
+                    ParameterName = "IdUsuario",
+                    Value = IdUsuario ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
                     ParameterName = "EsRecurrente",
                     Value = EsRecurrente ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.Bit,
@@ -310,7 +316,7 @@ namespace PaseoExpressWebApp.Context
                 },
                 parameterreturnValue,
             };
-            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[InsertarUnServicios] @IdTipoServicio = @IdTipoServicio, @Imagenes = @Imagenes, @Titulo = @Titulo, @Descripcion = @Descripcion, @FechaServicio = @FechaServicio, @CantidadComprada = @CantidadComprada, @CostoUnitario = @CostoUnitario, @CostoTotal = @CostoTotal, @Marca = @Marca, @IdTipoMantenimiento = @IdTipoMantenimiento, @KilometrajeVehiculo = @KilometrajeVehiculo, @MillajeVehiculo = @MillajeVehiculo, @ProximaFechaMantenimiento = @ProximaFechaMantenimiento, @IdVehiculo = @IdVehiculo, @EsRecurrente = @EsRecurrente, @ProximoKilometraje = @ProximoKilometraje, @ProximoMillaje = @ProximoMillaje, @IdUbicacionEnAutomovil = @IdUbicacionEnAutomovil, @PrecioManoObra = @PrecioManoObra, @Confirmado = @Confirmado, @Viaticos = @Viaticos, @ManoObraPersonal = @ManoObraPersonal", sqlParameters, cancellationToken);
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[InsertarUnServicios] @IdTipoServicio = @IdTipoServicio, @Imagenes = @Imagenes, @Titulo = @Titulo, @Descripcion = @Descripcion, @FechaServicio = @FechaServicio, @CantidadComprada = @CantidadComprada, @CostoUnitario = @CostoUnitario, @CostoTotal = @CostoTotal, @Marca = @Marca, @IdTipoMantenimiento = @IdTipoMantenimiento, @KilometrajeVehiculo = @KilometrajeVehiculo, @MillajeVehiculo = @MillajeVehiculo, @ProximaFechaMantenimiento = @ProximaFechaMantenimiento, @IdVehiculo = @IdVehiculo, @IdUsuario = @IdUsuario, @EsRecurrente = @EsRecurrente, @ProximoKilometraje = @ProximoKilometraje, @ProximoMillaje = @ProximoMillaje, @IdUbicacionEnAutomovil = @IdUbicacionEnAutomovil, @PrecioManoObra = @PrecioManoObra, @Confirmado = @Confirmado, @Viaticos = @Viaticos, @ManoObraPersonal = @ManoObraPersonal", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

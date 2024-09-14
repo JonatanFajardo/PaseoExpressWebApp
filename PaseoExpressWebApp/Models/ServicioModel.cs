@@ -41,9 +41,10 @@ namespace PaseoExpressWebApp.Models
         public int MillajeVehiculo { get; set; }
 
         public DateTime ProximaFechaMantenimiento { get; set; }
-
-        [Required(ErrorMessage = "El campo es obligatorio.")]
+         
         public int IdVehiculo { get; set; }
+         
+        public int? IdUsuario { get; set; }
 
         public bool EsRecurrente { get; set; }
 

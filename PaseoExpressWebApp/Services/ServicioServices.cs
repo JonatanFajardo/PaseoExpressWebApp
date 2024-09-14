@@ -58,6 +58,7 @@ namespace PaseoExpressWebApp.Services
                 CreateSqlParameter("MillajeVehiculo", servicio.MillajeVehiculo != 0 ? (object)servicio.MillajeVehiculo : DBNull.Value, SqlDbType.Int),
                 CreateSqlParameter("ProximaFechaMantenimiento", servicio.ProximaFechaMantenimiento != DateTime.MinValue ? (object)servicio.ProximaFechaMantenimiento : DBNull.Value, SqlDbType.Date),
                 CreateSqlParameter("IdVehiculo", servicio.IdVehiculo != 0 ? (object)servicio.IdVehiculo : DBNull.Value, SqlDbType.Int),
+                CreateSqlParameter("IdUsuario", servicio.IdUsuario != 0 ? (object)servicio.IdUsuario : DBNull.Value, SqlDbType.Int),
                 CreateSqlParameter("EsRecurrente", servicio.EsRecurrente, SqlDbType.Bit),
                 CreateSqlParameter("ProximoKilometraje", servicio.ProximoKilometraje != 0 ? (object)servicio.ProximoKilometraje : DBNull.Value, SqlDbType.BigInt),
                 CreateSqlParameter("ProximoMillaje", servicio.ProximoMillaje != 0 ? (object)servicio.ProximoMillaje : DBNull.Value, SqlDbType.BigInt),
@@ -70,7 +71,7 @@ namespace PaseoExpressWebApp.Services
             };
 
                 var _ = await _context.Database.ExecuteSqlRawAsync(
-                    "EXEC @returnValue = [dbo].[InsertarUnServicios] @IdTipoServicio = @IdTipoServicio, @Imagenes = @Imagenes, @Titulo = @Titulo, @Descripcion = @Descripcion, @FechaServicio = @FechaServicio, @CantidadComprada = @CantidadComprada, @CostoUnitario = @CostoUnitario, @CostoTotal = @CostoTotal, @Marca = @Marca, @IdTipoMantenimiento = @IdTipoMantenimiento, @KilometrajeVehiculo = @KilometrajeVehiculo, @MillajeVehiculo = @MillajeVehiculo, @ProximaFechaMantenimiento = @ProximaFechaMantenimiento, @IdVehiculo = @IdVehiculo, @EsRecurrente = @EsRecurrente, @ProximoKilometraje = @ProximoKilometraje, @ProximoMillaje = @ProximoMillaje, @IdUbicacionEnAutomovil = @IdUbicacionEnAutomovil, @PrecioManoObra = @PrecioManoObra, @Confirmado = @Confirmado, @Viaticos = @Viaticos, @ManoObraPersonal = @ManoObraPersonal",
+                    "EXEC @returnValue = [dbo].[InsertarUnServicios] @IdTipoServicio = @IdTipoServicio, @Imagenes = @Imagenes, @Titulo = @Titulo, @Descripcion = @Descripcion, @FechaServicio = @FechaServicio, @CantidadComprada = @CantidadComprada, @CostoUnitario = @CostoUnitario, @CostoTotal = @CostoTotal, @Marca = @Marca, @IdTipoMantenimiento = @IdTipoMantenimiento, @KilometrajeVehiculo = @KilometrajeVehiculo, @MillajeVehiculo = @MillajeVehiculo, @ProximaFechaMantenimiento = @ProximaFechaMantenimiento, @IdVehiculo = @IdVehiculo, @IdUsuario = @IdUsuario, @EsRecurrente = @EsRecurrente, @ProximoKilometraje = @ProximoKilometraje, @ProximoMillaje = @ProximoMillaje, @IdUbicacionEnAutomovil = @IdUbicacionEnAutomovil, @PrecioManoObra = @PrecioManoObra, @Confirmado = @Confirmado, @Viaticos = @Viaticos, @ManoObraPersonal = @ManoObraPersonal",
                     sqlParameters,
                     cancellationToken);
 
@@ -116,6 +117,11 @@ namespace PaseoExpressWebApp.Services
         {
 
             return _context.tbUbicacionEnAutomovil.ToList();
+        }
+
+        public List<tbUsuarios> ObtenerUsuarios()
+        {
+            return _context.tbUsuarios.ToList();
         }
     }
 }

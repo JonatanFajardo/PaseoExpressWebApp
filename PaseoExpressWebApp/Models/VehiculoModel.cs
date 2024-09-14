@@ -1,6 +1,6 @@
 ﻿namespace PaseoExpressWebApp.Models
 {
-    public class Vehiculo
+    public class VehiculoModel
     {
         public int IdVehiculo { get; set; }
         public string Placa { get; set; }

@@ -7,6 +7,8 @@
 @inject ServicioServices servicioServices
 @inject IJSRuntime JsRuntime
 @inject IWebHostEnvironment WebHostEnvironment
+@inject VehiculoService Vehiculo
+
 <EditForm Model="@servicio" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary class="alert alert-danger" />
@@ -41,33 +43,30 @@
                 <InputDate @bind-Value="servicio.FechaServicio" class="form-control" />
             </div>
 
-            <!-- Otros campos para PC -->
+
             <div class="mb-3">
                 <label class="form-label">Cantidad Comprada</label>
                 <InputNumber @bind-Value="servicio.CantidadComprada" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
             </div>
 
-            <!-- Otros campos para PC -->
             <div class="mb-3">
                 <label class="form-label">Costo Unitario</label>
                 <InputNumber @bind-Value="servicio.CostoUnitario" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
             </div>
 
-            <!-- Otros campos para PC -->
-            <!-- ... -->
-
-        </div>
-
-        <div class="col-md-6">
             <div class="mb-3">
-                <label class="form-label">Imágenes</label>
-                <InputFile OnChange="OnInputFileChange" class="form-control" />
+                <label class="form-label">Costo Total</label>
+                <InputNumber @bind-Value="servicio.CostoTotal" class="form-control" Disabled="true" />
             </div>
-
-            <!-- Otros campos para PC -->
             <div class="mb-3">
-                <label class="form-label">Marca</label>
-                <InputText @bind-Value="servicio.Marca" class="form-control" />
+                <label class="form-label">Ubicación en Automóvil</label>
+                <select @bind="servicio.IdUbicacionEnAutomovil" class="form-select">
+                    <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
+                    @foreach (var ubicacion in ubicacionesEnAutomovil)
+                    {
+                        <option value="@ubicacion.IdUbicacionEnAutomovil">@ubicacion.Ubicacion</option>
+                    }
+                </select>
             </div>
 
             <!-- Otros campos para PC -->
@@ -82,28 +81,9 @@
                 </select>
             </div>
 
-            <!-- Otros campos para PC -->
-            <div class="mb-3">
-                <label class="form-label">Kilometraje Vehículo</label>
-                <InputNumber @bind-Value="servicio.KilometrajeVehiculo" class="form-control" />
-            </div>
-
-            <!-- Otros campos para PC -->
-            <div class="mb-3">
-                <label class="form-label">Millaje Vehículo</label>
-                <InputNumber @bind-Value="servicio.MillajeVehiculo" class="form-control" />
-            </div>
-
-            <!-- Otros campos para PC -->
-            <!-- ... -->
-
         </div>
-    </div>
 
-    <!-- Campos que siempre se muestran en una línea -->
-    <div class="mb-3">
-        <label class="form-label">Próxima Fecha Mantenimiento</label>
-        <InputDate @bind-Value="servicio.ProximaFechaMantenimiento" class="form-control" />
+    
     </div>
 
     <!-- Otros campos que siempre se muestran en una línea -->
@@ -118,11 +98,26 @@
         </select>
     </div>
 
-    <!-- Otros campos que siempre se muestran en una línea -->
     <div class="mb-3">
-        <label class="form-label">Es Recurrente</label>
-        <InputCheckbox @bind-Value="servicio.EsRecurrente" class="form-check-input" />
+        <input type="checkbox" @bind="isCheckboxChecked" />
+        <label for="checkbox">Conductor actual</label>
+        <div class="m-3">
+            @if (!isCheckboxChecked)
+            {
+                <div class="mb-3">
+                    <label class="form-label">Conductor</label>
+                    <select @bind="servicio.IdUsuario" class="form-select">
+                        <option value="0">--Seleccionar--</option>
+                        @foreach (var conductor in Conductores)
+                        {
+                            <option value="@conductor.IdUsuario">@conductor.Nombre</option>
+                        }
+                    </select>
+                </div>
+            }
+        </div>
     </div>
+
 
     <!-- Otros campos que siempre se muestran en una línea -->
     <div class="mb-3">
@@ -148,6 +143,44 @@
         <InputNumber @bind-Value="servicio.ManoObraPersonal" class="form-control" />
     </div>
 
+
+    <!-- Campos que siempre se muestran en una línea -->
+    <div class="mb-3">
+        <label class="form-label">Próxima Fecha Mantenimiento</label>
+        <InputDate @bind-Value="servicio.ProximaFechaMantenimiento" class="form-control" />
+    </div>
+
+    <div class="col-md-6">
+        <div class="mb-3">
+            <label class="form-label">Imágenes</label>
+            <InputFile OnChange="OnInputFileChange" class="form-control" />
+        </div>
+
+        <!-- Otros campos para PC -->
+        <div class="mb-3">
+            <label class="form-label">Marca</label>
+            <InputText @bind-Value="servicio.Marca" class="form-control" />
+        </div>
+
+
+
+        <!-- Otros campos para PC -->
+        <div class="mb-3">
+            <label class="form-label">Kilometraje Vehículo</label>
+            <InputNumber @bind-Value="servicio.KilometrajeVehiculo" class="form-control" />
+        </div>
+
+        <!-- Otros campos para PC -->
+        <div class="mb-3">
+            <label class="form-label">Millaje Vehículo</label>
+            <InputNumber @bind-Value="servicio.MillajeVehiculo" class="form-control" />
+        </div>
+
+        <!-- Otros campos para PC -->
+        <!-- ... -->
+
+    </div>
+
     <button type="submit" class="btn btn-primary">Guardar</button>
 </EditForm>
 
@@ -158,7 +191,34 @@
     private List<tbTipoMantenimientos> tiposMantenimientos;
     private List<tbVehiculo> vehiculos;
     private List<tbUbicacionEnAutomovil> ubicacionesEnAutomovil;
+    private List<tbUsuarios> Conductores;
 
+    private bool isCheckboxChecked = true;
+    private bool isDropdownVisible = false;
+    private int? IdConductorCheckbox;
+
+    private void OnCheckboxChanged(ChangeEventArgs e)
+    {
+       
+    }
+
+    private async void MetodoSeleccionado()
+    {
+         //vehiculos = Vehiculo.Obtenervehiculos();
+        //List<ObtenerVehiculosResult> vehiculo = await Vehiculo.Obtenervehiculos();
+        servicio.IdUsuario = vehiculos.Where(x => x.IdVehiculo == servicio.IdVehiculo).FirstOrDefault().IdConductor;
+        
+        // Lógica para el método cuando el checkbox está seleccionado
+        Console.WriteLine("Checkbox seleccionado. ID del vehículo: [tu ID de vehículo aquí]");
+    }
+
+    private void MetodoNoSeleccionado()
+    {
+         //vehiculos = Vehiculo.Obtenervehiculos();
+        servicio.IdUsuario = servicio.IdVehiculo;
+        // Lógica para el método cuando el checkbox no está seleccionado
+        Console.WriteLine("Checkbox no seleccionado. ID del vehículo: [tu ID de vehículo aquí]");
+    }
 
     protected override void OnInitialized()
     {
@@ -168,6 +228,8 @@
         tiposMantenimientos = servicioServices.TipoMantenimientos();
         vehiculos = servicioServices.Vehiculos();
         ubicacionesEnAutomovil = servicioServices.UbicacionesEnAutomovil();
+
+        Conductores = servicioServices.ObtenerUsuarios();
     }
 
     private IBrowserFile? selectedImage;
@@ -183,6 +245,18 @@
 
     private async void HandleValidSubmit()
     {
+         
+        //isDropdownVisible = isCheckboxChecked;
+
+        if (isCheckboxChecked)
+        {
+            MetodoSeleccionado();
+        }
+        else
+        {
+            MetodoNoSeleccionado();
+        }
+
         if (selectedImage != null)
         {
             var filePath = Path.Combine(WebHostEnvironment.WebRootPath, "img", "servicios", selectedImage.Name);
@@ -233,5 +307,6 @@
             servicio.Titulo = selectedTipoServicio.Nombre;
         }
     }
+     
 
 }
