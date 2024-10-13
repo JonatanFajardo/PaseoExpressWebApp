@@ -4,11 +4,17 @@
 @using PaseoExpressWebApp.Services;
 @inject IJSRuntime JS
 @inject TransaccionesService transaccionesService
+@inject NavigationManager Navigation
+
+@using Microsoft.AspNetCore.SignalR.Client;
 
 <PageTitle>Index</PageTitle>
 
 <h1>Hello, world!</h1>
 Welcome to your new app.
+
+
+
 
 <h3>Gráfica de Transacciones Mensuales</h3>
 <canvas id="transaccionesChart" width="400" height="200"></canvas>
@@ -37,8 +43,13 @@ Welcome to your new app.
     private List<Vehiculo> vehiculos;
     private int selectedVehiculoId;
 
+ 
+
     protected override async Task OnInitializedAsync()
     {
+ 
+
+
         transacciones = await transaccionesService.ObtenerTransaccionesAsync();
         vehiculos = transacciones.Select(t => new Vehiculo { IdVehiculo = t.IdVehiculo, Placa = t.Placa })
                                  .Distinct()
@@ -47,7 +58,7 @@ Welcome to your new app.
         selectedVehiculoId = vehiculos.FirstOrDefault()?.IdVehiculo ?? 0;
         await UpdateGraficas();
     }
-
+ 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

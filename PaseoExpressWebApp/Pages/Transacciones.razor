@@ -2,6 +2,8 @@
 @using PaseoExpressWebApp.Context;
 @using PaseoExpressWebApp.Services;
 @inject TransaccionesService transaccionesService
+@using Microsoft.AspNetCore.SignalR.Client;
+@inject NavigationManager Navigation
 
 <h3>Transacciones</h3>
 
@@ -50,11 +52,82 @@
 
 
 @code {
+
+    private HubConnection? hubConnection;
+    private string message = "Esperando mensajes...";
+
     private List<ObtenerTransaccionesResult> transacciones;
 
     protected override async Task OnInitializedAsync()
-    
     {
-        transacciones = await transaccionesService.ObtenerTransaccionesAsync();
+
+        hubConnection = new HubConnectionBuilder()
+          .WithUrl(Navigation.ToAbsoluteUri("/YourHub")) // URL de tu hub
+          .Build();
+
+        //hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        //{
+        //    this.message = $"{user}: {message}";
+        //    InvokeAsync(StateHasChanged);
+        //});
+
+        hubConnection.On<List<ObtenerTransaccionesResult>>("RecibirTransacciones", (transaccionesRecibidas) =>
+      {
+          transacciones = transaccionesRecibidas;
+          InvokeAsync(StateHasChanged);
+      });
+
+
+        await hubConnection.StartAsync();
+
+        await ObtenerTransacciones();
+
+        //transacciones = await transaccionesService.ObtenerTransaccionesAsync();
     }
+
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+
+
+
+    private async Task StartConnection()
+    {
+        try
+        {
+            await hubConnection.StartAsync();
+            Console.WriteLine("Conexión establecida.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al conectar: {ex.Message}");
+        }
+    }
+
+    private async Task ObtenerTransacciones()
+    {
+        //if (hubConnection is not null)
+        //{
+        //    await hubConnection.SendAsync("ObtenerYEnviarTransacciones");
+        //}
+
+        if (hubConnection is not null)
+        {
+            if (hubConnection.State == HubConnectionState.Connected)
+            {
+                await hubConnection.SendAsync("ObtenerYEnviarTransacciones");
+            }
+            else
+            {
+                Console.WriteLine($"La conexión no está establecida. Estado actual: {hubConnection.State}");
+            }
+        }
+    }
+
+     
 }
