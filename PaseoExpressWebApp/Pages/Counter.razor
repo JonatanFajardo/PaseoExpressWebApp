@@ -28,59 +28,48 @@
     }
     else
     {
-        <div class="container">
-
-            <div class="row">
+        <MudContainer>
+            <MudGrid>
                 @foreach (var vehiculo in vehiculosSinExistencia)
                 {
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <img ng-src="img/@vehiculo.Imagen" class="card-img-top" alt="Imagen de {{vehiculo.Imagen}}">
+                    <MudItem xs="12" sm="6" md="4">
+                        <MudCard>
+                            <MudCardMedia Image="@vehiculo.Imagen"   />
 
-                            <div class="card-body">
-                                <h5 class="card-title">Vehículo @vehiculo.IdVehiculo</h5>
-                                <p class="card-text">
-                                    Año: @vehiculo.Anio<br>
-                                    Placa: @vehiculo.Placa<br>
-                                    Tarifa Diaria: @vehiculo.TarifaDiaria<br>
-                                    Tarifa Ahorro: @vehiculo.TarifaAhorro<br>
+                            <MudCardContent>
+                                <MudText Typo="Typo.h5">Vehículo @vehiculo.IdVehiculo</MudText>
+                                <MudText Typo="Typo.body2">
+                                    Año: @vehiculo.Anio<br />
+                                    Placa: @vehiculo.Placa<br />
+                                    Tarifa Diaria: @vehiculo.TarifaDiaria<br />
+                                    Tarifa Ahorro: @vehiculo.TarifaAhorro<br />
+                                </MudText>
 
+                                <MudCheckBox @bind-Checked="mostrarFechaTransaccionHasta" Label="Mostrar Fecha de Transacción Hasta" />
 
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" @bind="@mostrarFechaTransaccionHasta">
-                                        <label class="form-check-label">
-                                            Mostrar Fecha de Transacción Hasta
-                                        </label>
-                                    </div>
+                                @if (mostrarFechaTransaccionHasta)
+                                {
+                                    <MudTextField @bind-Value="FechaTransaccion" Label="Fecha de Transacción" Type="date" />
+                                    <MudTextField @bind-Value="FechaTransaccionHasta" Label="Fecha de Transacción Hasta" Type="date" />
+                                }
+                            </MudCardContent>
 
-                                    @if (mostrarFechaTransaccionHasta)
-                                    {
-                                        <div>
-                                            Fecha de Transacción:
-                                            <input type="date" @bind="@FechaTransaccion" name="FechaTransaccion" class="form-control" /><br>
+                            <MudCardActions >
+                                <MudPaper Class="pa-4" Style="@($"color:{Colors.LightGreen.Accent3}")" OnClick="() => EnviarIdVehiculo(vehiculo.IdVehiculo, FechaTransaccion, FechaTransaccionHasta)">
+                                    Pago realizado
+                                </MudPaper>
+                            </MudCardActions>
 
-                                            Fecha de Transacción Hasta:
-                                            <input type="date" @bind="@FechaTransaccionHasta" name="FechaTransaccionHasta" class="form-control" />
-                                        </div>
-                                    }
-
-                                </p>
-                            </div>
-
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <button class="btn btn-primary" @onclick="() => EnviarIdVehiculo(vehiculo.IdVehiculo, FechaTransaccion, FechaTransaccionHasta)">Pago</button>
-                                </li>
-                            </ul>
-                            <div class="card-body">
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                            </div>
-                        </div>
-                    </div>
+                            <MudCardContent>
+                                <MudLink Href="#">Card link</MudLink>
+                                <MudLink Href="#" Class="ml-2">Another link</MudLink>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudItem>
                 }
-            </div>
-        </div>
+            </MudGrid>
+        </MudContainer>
+
 
     }
     @if (vehiculos == null)
@@ -89,54 +78,52 @@
     }
     else
     {
-        <div class="card">
-            <div class="card-header"><h1>Vehiculos</h1></div>
-            <div class="table-responsive">
-                <table class="table">
-                <thead class="table-light">
-                        <tr>
-                            <th>Acciones</th>
-                            <th>IdVehiculo</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Anio</th>
-                            <th>VIN</th>
-                            <th>Placa</th>
-                            <th>Kilometraje</th>
-                            <th>Millaje</th>
-                            <th>Color</th>
-                            <th>TarifaDiaria</th>
-                            <th>TarifaAhorro</th>
-                            <th>Propietario</th>
-                            <th>Nombre</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var vehiculo in vehiculos)
-                        {
-                            <tr>
-                                <td>
-                                    <button class="btn btn-primary" @onclick="() => DetalleVehiculo(vehiculo.IdVehiculo)">Ver detalles</button>
-                                </td>
-                                <td>@vehiculo.IdVehiculo</td>
-                                <td>@vehiculo.Marca</td>
-                                <td>@vehiculo.Modelo</td>
-                                <td>@vehiculo.Anio</td>
-                                <td>@vehiculo.VIN</td>
-                                <td>@vehiculo.Placa</td>
-                                <td>@vehiculo.Kilometraje</td>
-                                <td>@vehiculo.Millaje</td>
-                                <td>@vehiculo.Color</td>
-                                <td>@vehiculo.TarifaDiaria</td>
-                                <td>@vehiculo.TarifaAhorro</td>
-                                <td>@vehiculo.Propietario</td>
-                                <td>@vehiculo.Nombre</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <MudCard>
+            <MudCardHeader>
+                <MudText Typo="Typo.h4">Vehículos</MudText>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudTable Items="@vehiculos" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" Loading="true" LoadingProgressColor="Color.Info">
+                    <HeaderContent>
+                        <MudTh>Acciones</MudTh>
+                        <MudTh>IdVehiculo</MudTh>
+                        <MudTh>Marca</MudTh>
+                        <MudTh>Modelo</MudTh>
+                        <MudTh>Anio</MudTh>
+                        <MudTh>VIN</MudTh>
+                        <MudTh>Placa</MudTh>
+                        <MudTh>Kilometraje</MudTh>
+                        <MudTh>Millaje</MudTh>
+                        <MudTh>Color</MudTh>
+                        <MudTh>Tarifa Diaria</MudTh>
+                        <MudTh>Tarifa Ahorro</MudTh>
+                        <MudTh>Propietario</MudTh>
+                        <MudTh>Nombre</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd>
+                            <MudButton  OnClick="() => DetalleVehiculo(context.IdVehiculo)">
+                                Ver detalles
+                            </MudButton>
+                        </MudTd>
+                        <MudTd DataLabel="Id Vehiculo">@context.IdVehiculo</MudTd>
+                        <MudTd DataLabel="Marca">@context.Marca</MudTd>
+                        <MudTd DataLabel="Modelo">@context.Modelo</MudTd>
+                        <MudTd DataLabel="año">@context.Anio</MudTd>
+                        <MudTd DataLabel="Vin">@context.VIN</MudTd>
+                        <MudTd DataLabel="Placa">@context.Placa</MudTd>
+                        <MudTd DataLabel="Kilometraje">@context.Kilometraje</MudTd>
+                        <MudTd DataLabel="Millaje">@context.Millaje</MudTd>
+                        <MudTd DataLabel="Color">@context.Color</MudTd>
+                        <MudTd DataLabel="TarifaDiaria">@context.TarifaDiaria</MudTd>
+                        <MudTd DataLabel="TarifaAhorro">@context.TarifaAhorro</MudTd>
+                        <MudTd DataLabel="Propietario">@context.Propietario</MudTd>
+                        <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+                    </RowTemplate>
+                </MudTable>
+            </MudCardContent>
+        </MudCard>
+
     }
 </div>
 

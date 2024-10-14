@@ -9,12 +9,14 @@
 @inject HttpClient httpClient
 
 <h3>Transacciones</h3>
+<p>Gestione y registre transacciones relacionadas con los servicios, incluyendo detalles de costos, mantenimiento y datos del vehículo.</p>
+
 
 
 <MudTable Items="@transacciones" SortLabel="Sort By" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
-    <ToolBarContent>
+    @*<ToolBarContent>
         <MudText Typo="Typo.h6">Periodic Elements</MudText>
-    </ToolBarContent>
+    </ToolBarContent>*@
     <HeaderContent>
         <MudTh>Imagen</MudTh>
         <MudTh>Ultima Suma</MudTh>

@@ -9,6 +9,100 @@
 @inject IWebHostEnvironment WebHostEnvironment
 @inject VehiculoService Vehiculo
 
+ 
+
+<MudForm Model="@servicio"  OnValidSubmit="HandleValidSubmit">
+    <MudDataGridValidator />
+    <MudValidationSummary Class="alert alert-danger" />
+
+    <MudGrid>
+        <MudItem xs="12" md="6">
+            <MudSelect T="int" Label="Tipo Servicio" @bind-Value="servicio.IdTipoServicio">
+                <MudSelectItem T="int" Value="0">--Seleccionar--</MudSelectItem>
+                @foreach (var tipoServicio in tiposServicios)
+                {
+                    <MudSelectItem T="int" Value="@tipoServicio.IdTipoServicio">@tipoServicio.Nombre</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+
+        <MudItem xs="12" md="6">
+            <MudTextField T="string" Label="Título" @bind-Value="servicio.Titulo" />
+        </MudItem>
+
+        <MudItem xs="12">
+            <MudTextField T="string" Label="Descripción" @bind-Value="servicio.Descripcion" Lines="3" />
+        </MudItem>
+
+        <MudItem xs="12" md="6">
+            <MudDatePicker Label="Fecha Servicio" @bind-Value="servicio.FechaServicio" />
+        </MudItem>
+
+        <MudItem xs="12" md="6">
+            <MudNumericField T="int" Label="Cantidad Comprada" @bind-Value="servicio.CantidadComprada" Immediate="true" />
+        </MudItem>
+
+        <MudItem xs="12" md="6">
+            <MudNumericField T="decimal" Label="Costo Unitario" @bind-Value="servicio.CostoUnitario" Immediate="true" />
+        </MudItem>
+
+        <MudItem xs="12" md="6">
+            <MudNumericField T="decimal" Label="Costo Total" @bind-Value="servicio.CostoTotal" Disabled="true" />
+        </MudItem>
+
+        <MudItem xs="12" md="6">
+            <MudSelect T="int" Label="Ubicación en Automóvil" @bind-Value="servicio.IdUbicacionEnAutomovil">
+                <MudSelectItem T="int" Value="0">--Seleccionar--</MudSelectItem>
+                @foreach (var ubicacion in ubicacionesEnAutomovil)
+                {
+                    <MudSelectItem T="int" Value="@ubicacion.IdUbicacionEnAutomovil">@ubicacion.Ubicacion</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+
+        <MudItem xs="12" md="6">
+            <MudSelect T="int" Label="Tipo de Mantenimiento" @bind-Value="servicio.IdTipoMantenimiento">
+                <MudSelectItem T="int" Value="0">--Seleccionar--</MudSelectItem>
+                @foreach (var mantenimiento in tiposMantenimientos)
+                {
+                    <MudSelectItem T="int" Value="@mantenimiento.IdTipoMantenimiento">@mantenimiento.Nombre</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+
+        <MudItem xs="12" md="6">
+            <MudSelect T="int" Label="Vehículo" @bind-Value="servicio.IdVehiculo">
+                <MudSelectItem T="int" Value="0">--Seleccionar--</MudSelectItem>
+                @foreach (var vehiculo in vehiculos)
+                {
+                    <MudSelectItem T="int" Value="@vehiculo.IdVehiculo">@vehiculo.Placa</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+
+        @*<MudItem xs="12" md="6">
+            <MudCheckbox Label="Confirmado" @bind-Checked="servicio.Confirmado" />
+        </MudItem>
+
+*@
+        <MudItem xs="12" md="6">
+            <MudNumericField T="decimal" Label="Precio Mano Obra" @bind-Value="servicio.PrecioManoObra" Immediate="true" />
+        </MudItem>
+
+        <MudItem xs="12" md="6">
+            <MudTextField T="string" Label="Viáticos" @bind-Value="servicio.Viaticos" />
+        </MudItem>
+
+        <MudItem xs="12" md="6">
+            <MudDatePicker Label="Próxima Fecha Mantenimiento" @bind-Value="servicio.ProximaFechaMantenimiento" />
+        </MudItem>
+
+        @*<MudItem xs="12">
+            <MudButton Type="Submit" Variant="Filled" Color="Primary">Guardar</MudButton>
+        </MudItem>*@
+    </MudGrid>
+</MudForm>
+
 <EditForm Model="@servicio" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary class="alert alert-danger" />

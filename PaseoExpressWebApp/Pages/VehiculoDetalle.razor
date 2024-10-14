@@ -9,119 +9,126 @@
 <h3>Vehiculos</h3>
 
 
-
+@*
 @if (cuotaDiaria == null)
 {
     <p>Cargando...</p>
 }
 else
-{
-    <div class="card">
-        <h1>Cuota Diaria</h1>
+{*@
+    <MudCard>
+        <MudCardHeader>
+            <H5>Cuotas Diarias</H5>
+            <br/>
+            <P>
+                Esta sección muestra la cuota diaria que se han pagado, incluyendo detalles sobre estos.
+            </P>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudTable Items="@cuotaDiaria" Striped="true" Hover="true" Bordered="true">
+                <HeaderContent>
+                    <MudTh>Imagen</MudTh>
+                    <MudTh>Última Suma</MudTh>
+                    <MudTh>Conductor</MudTh>
+                    <MudTh>Tarifa Diaria</MudTh>
+                    <MudTh>Tarifa Ahorro</MudTh>
+                    <MudTh>Fecha Transacción</MudTh>
+                    <MudTh>Comentario</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd>
+                        <img src="@context.Imagen" alt="Imagen" width="50" height="50" />
+                    </MudTd>
+                    <MudTd>@context.UltimaSuma</MudTd>
+                    <MudTd>@context.Conductor</MudTd>
+                    <MudTd>@context.TarifaDiaria.ToString()</MudTd>
+                    <MudTd>@context.TarifaAhorro.ToString()</MudTd>
+                    <MudTd>@context.FechaTransaccion.ToString("dd/MM/yyyy")</MudTd>
+                    <MudTd>@context.Comentario</MudTd>
+                </RowTemplate>
+            </MudTable>
+        </MudCardContent>
+    </MudCard>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Imagen</th>
-                    <th>Ultima Suma</th>
-                    <th>Conductor</th>
-                    <th>Tarifa Diaria</th>
-                    <th>Tarifa Ahorro</th>
-                    <th>Fecha Transacción</th>
-                    <th>Comentario</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var transaccion in cuotaDiaria)
-                {
-                    <tr>
-                        <td><img src="@transaccion.Imagen" alt="Imagen" width="50" height="50" /></td>
-                        <td>@transaccion.UltimaSuma</td>
-                        <td>@transaccion.Conductor</td>
-                        <td>@transaccion.TarifaDiaria</td>
-                        <td>@transaccion.TarifaAhorro</td>
-                        <td>@transaccion.FechaTransaccion.ToString("dd/MM/yyyy")</td>
-                        <td>@transaccion.Comentario</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
+@*}*@
 
-
+@*
 @if (servicios == null)
 {
     <p>Cargando...</p>
 }
 else
-{
-    <div class="card">
-        <h1>Servicios</h1>
+{*@
+    <MudCard>
+        <MudCardHeader>
+            <H5>Servicios</H5>
+            <br />
+            <P>
+                Aquí se detallan los servicios ofrecidos, incluyendo información relevante como el tipo de servicio, la fecha, costos y estado de confirmación.
+            </P>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudTable Items="@servicios"  Height="500px" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" Loading="true" LoadingProgressColor="Color.Info" Virtualize="true" FixedHeader="true">
+                <HeaderContent>
+                    <MudTh>Tipo de Servicio</MudTh>
+                    <MudTh>Imágenes</MudTh>
+                    <MudTh>Título</MudTh>
+                    <MudTh>Descripción</MudTh>
+                    <MudTh>Fecha de Servicio</MudTh>
+                    <MudTh>Cantidad Comprada</MudTh>
+                    <MudTh>Costo Unitario</MudTh>
+                    <MudTh>Costo Total</MudTh>
+                    <MudTh>Marca</MudTh>
+                    <MudTh>Kilometraje</MudTh>
+                    <MudTh>Millaje</MudTh>
+                    <MudTh>Próxima Fecha de Mantenimiento</MudTh>
+                    <MudTh>Marca</MudTh>
+                    <MudTh>Modelo</MudTh>
+                    <MudTh>Año</MudTh>
+                    <MudTh>Es Recurrente</MudTh>
+                    <MudTh>Próximo Kilometraje</MudTh>
+                    <MudTh>Próximo Millaje</MudTh>
+                    <MudTh>Ubicación en el Automóvil</MudTh>
+                    <MudTh>Precio Mano de Obra</MudTh>
+                    <MudTh>Confirmado</MudTh>
+                    <MudTh>Viáticos</MudTh>
+                    <MudTh>Mano de Obra Personal</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd>@context.TipoServicio</MudTd>
+                    <MudTd>
+                        @if (!string.IsNullOrWhiteSpace(@context.Imagenes))
+                        {
+                            <img src="@context.Imagenes" alt="Imagen" width="50" height="50" />
+                        }
+                    </MudTd>
+                    <MudTd>@context.Titulo</MudTd>
+                    <MudTd>@context.Descripcion</MudTd>
+                    <MudTd>@context.FechaServicio.ToShortDateString()</MudTd>
+                    <MudTd>@context.CantidadComprada</MudTd>
+                    <MudTd>@context.CostoUnitario.ToString()</MudTd>
+                    <MudTd>@context.CostoTotal.ToString()</MudTd>
+                    <MudTd>@context.Marca</MudTd>
+                    <MudTd>@context.KilometrajeVehiculo</MudTd>
+                    <MudTd>@context.MillajeVehiculo</MudTd>
+                    <MudTd>@context.ProximaFechaMantenimiento</MudTd>
+                    <MudTd>@context.VehiculoMarca</MudTd>
+                    <MudTd>@context.VehiculoModelo</MudTd>
+                    <MudTd>@context.VehiculoAnio</MudTd>
+                    <MudTd>@(context.EsRecurrente ? "Sí" : "No")</MudTd>
+                    <MudTd>@context.ProximoKilometraje</MudTd>
+                    <MudTd>@context.ProximoMillaje</MudTd>
+                    <MudTd>@context.UbicacionEnAutomovil</MudTd>
+                    <MudTd>@context.PrecioManoObra.ToString()</MudTd>
+                    <MudTd>@(context.Confirmado ? "Sí" : "No")</MudTd>
+                    <MudTd>@context.Viaticos?.ToString()</MudTd>
+                    <MudTd>@context.ManoObraPersonal.ToString()</MudTd>
+                    </RowTemplate>
+                </MudTable>
+            </MudCardContent>
+        </MudCard>
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Tipo de Servicio</th>
-                    <th>Imágenes</th>
-                    <th>Título</th>
-                    <th>Descripción</th>
-                    <th>Fecha de Servicio</th>
-                    <th>Cantidad Comprada</th>
-                    <th>Costo Unitario</th>
-                    <th>Costo Total</th>
-                    <th>Marca</th>
-                    @*<th>Tipo de Mantenimiento</th>*@
-                    <th>Kilometraje del Vehículo</th>
-                    <th>Millaje del Vehículo</th>
-                    <th>Próxima Fecha de Mantenimiento</th>
-                    <th>Marca del Vehículo</th>
-                    <th>Modelo del Vehículo</th>
-                    <th>Año del Vehículo</th>
-                    <th>Es Recurrente</th>
-                    <th>Próximo Kilometraje</th>
-                    <th>Próximo Millaje</th>
-                    <th>Ubicación en el Automóvil</th>
-                    <th>Precio Mano de Obra</th>
-                    <th>Confirmado</th>
-                    <th>Viáticos</th>
-                    <th>Mano de Obra Personal</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var servicio in servicios)
-                {
-                    <tr>
-                        <td>@servicio.TipoServicio</td>
-                        <td>@servicio.Imagenes</td>
-                        <td>@servicio.Titulo</td>
-                        <td>@servicio.Descripcion</td>
-                        <td>@servicio.FechaServicio.ToShortDateString()</td>
-                        <td>@servicio.CantidadComprada</td>
-                        <td>@servicio.CostoUnitario</td>
-                        <td>@servicio.CostoTotal</td>
-                        <td>@servicio.Marca</td>
-                        @*<td>@servicio.Nombre</td>*@
-                        <td>@servicio.KilometrajeVehiculo</td>
-                        <td>@servicio.MillajeVehiculo</td>
-                        <td>@servicio.ProximaFechaMantenimiento.ToString()</td>
-                        <td>@servicio.VehiculoMarca</td>
-                        <td>@servicio.VehiculoModelo</td>
-                        <td>@servicio.VehiculoAnio</td>
-                        <td>@(servicio.EsRecurrente ? "Sí" : "No")</td>
-                        <td>@servicio.ProximoKilometraje</td>
-                        <td>@servicio.ProximoMillaje</td>
-                        <td>@servicio.UbicacionEnAutomovil</td>
-                        <td>@servicio.PrecioManoObra</td>
-                        <td>@(servicio.Confirmado ? "Sí" : "No")</td>
-                        <td>@servicio.Viaticos</td>
-                        <td>@servicio.ManoObraPersonal</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
+@*}*@
 
 
 
