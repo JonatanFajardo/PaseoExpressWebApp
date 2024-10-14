@@ -2,6 +2,16 @@
 
 <PageTitle>PaseoExpressWebApp</PageTitle>
 
+@*mud*@
+@* Required *@
+<MudThemeProvider />
+@*<MudPopoverProvider />*@
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -11,6 +21,7 @@
         <div class="top-row px-4">
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
         </div>
+
 
         <article class="content px-4">
             @Body

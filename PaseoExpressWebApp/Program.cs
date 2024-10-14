@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MudBlazor.Services;
 using PaseoExpressWebApp.Context;
 using PaseoExpressWebApp.Data;
 using PaseoExpressWebApp.Hubs;
@@ -48,6 +49,9 @@ builder.Services.AddScoped<comprobantediarioservice>();
 builder.Services.AddScoped<TransaccionesService>();
 builder.Services.AddScoped<VehiculoService>();
 builder.Services.AddScoped<ServicioServices>();
+builder.Services.AddHttpClient();
+
+builder.Services.AddMudServices();
 
 //builder.Services.AddDbContext<DB_UberContext>(options =>
 //    options.UseSqlServer());
