@@ -10,7 +10,7 @@
 @inject VehiculoService Vehiculo
 
  
-
+@*
 <MudForm Model="@servicio"  OnValidSubmit="HandleValidSubmit">
     <MudDataGridValidator />
     <MudValidationSummary Class="alert alert-danger" />
@@ -80,11 +80,7 @@
             </MudSelect>
         </MudItem>
 
-        @*<MudItem xs="12" md="6">
-            <MudCheckbox Label="Confirmado" @bind-Checked="servicio.Confirmado" />
-        </MudItem>
 
-*@
         <MudItem xs="12" md="6">
             <MudNumericField T="decimal" Label="Precio Mano Obra" @bind-Value="servicio.PrecioManoObra" Immediate="true" />
         </MudItem>
@@ -97,19 +93,18 @@
             <MudDatePicker Label="Próxima Fecha Mantenimiento" @bind-Value="servicio.ProximaFechaMantenimiento" />
         </MudItem>
 
-        @*<MudItem xs="12">
-            <MudButton Type="Submit" Variant="Filled" Color="Primary">Guardar</MudButton>
-        </MudItem>*@
+       
     </MudGrid>
 </MudForm>
-
-<EditForm Model="@servicio" OnValidSubmit="HandleValidSubmit">
+*@
+<MudCard>
+    <EditForm Model="@servicio" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary class="alert alert-danger" />
 
     <div class="row">
-        <div class="col-md-6">
-            <div class="mb-3">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
                 <label class="form-label">Tipo Servicio</label>
                 <select class="form-select" @onchange="OnTipoServicioChanged">
                     <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
@@ -119,40 +114,73 @@
                     }
                 </select>
             </div>
-
-            <div class="mb-3">
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="form-group">
                 <label class="form-label">Título</label>
                 <InputText @bind-Value="servicio.Titulo" class="form-control" />
-            </div>
+                </div>
+        </div>
+    </div>
 
+    <div class="row">
+
+        <div class="col-12 col-md-6">
             <!-- Otros campos para PC -->
-            <div class="mb-3">
+            <div class="form-group">
                 <label class="form-label">Descripción</label>
                 <InputTextArea @bind-Value="servicio.Descripcion" class="form-control" />
             </div>
+        </div>
 
+        <div class="col-12 col-md-6">
             <!-- Otros campos para PC -->
-            <div class="mb-3">
+            <div class="form-group">
                 <label class="form-label">Fecha Servicio</label>
                 <InputDate @bind-Value="servicio.FechaServicio" class="form-control" />
             </div>
+        </div>
+    </div>
 
-
-            <div class="mb-3">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
                 <label class="form-label">Cantidad Comprada</label>
                 <InputNumber @bind-Value="servicio.CantidadComprada" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
             </div>
-
-            <div class="mb-3">
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="form-group">
                 <label class="form-label">Costo Unitario</label>
                 <InputNumber @bind-Value="servicio.CostoUnitario" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
             </div>
+        </div>
+    </div>
 
-            <div class="mb-3">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label class="form-label">Cantidad Comprada</label>
+                <InputNumber @bind-Value="servicio.CantidadComprada" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label class="form-label">Costo Unitario</label>
+                <InputNumber @bind-Value="servicio.CostoUnitario" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
                 <label class="form-label">Costo Total</label>
                 <InputNumber @bind-Value="servicio.CostoTotal" class="form-control" Disabled="true" />
             </div>
-            <div class="mb-3">
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="form-group">
                 <label class="form-label">Ubicación en Automóvil</label>
                 <select @bind="servicio.IdUbicacionEnAutomovil" class="form-select">
                     <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
@@ -162,9 +190,12 @@
                     }
                 </select>
             </div>
+        </div>
+    </div>
 
-            <!-- Otros campos para PC -->
-            <div class="mb-3">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
                 <label class="form-label">Tipo Mantenimiento</label>
                 <select @bind="servicio.IdTipoMantenimiento" class="form-select">
                     <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
@@ -174,109 +205,126 @@
                     }
                 </select>
             </div>
-
         </div>
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label class="form-label">Vehículo</label>
+                <select @bind="servicio.IdVehiculo" class="form-select">
+                    <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
+                    @foreach (var vehiculo in vehiculos)
+                    {
+                        <option value="@vehiculo.IdVehiculo">@vehiculo.Placa</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <input type="checkbox" @bind="isCheckboxChecked" />
+                <label for="checkbox">Conductor actual</label>
+                <div class="m-3">
+                    @if (!isCheckboxChecked)
+                    {
+                        <div class="form-group">
+                            <label class="form-label">Conductor</label>
+                            <select @bind="servicio.IdUsuario" class="form-select">
+                                <option value="0">--Seleccionar--</option>
+                                @foreach (var conductor in Conductores)
+                                {
+                                    <option value="@conductor.IdUsuario">@conductor.Nombre</option>
+                                }
+                                }
+                            </select>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label class="form-label">Precio Mano Obra</label>
+                <InputNumber @bind-Value="servicio.PrecioManoObra" class="form-control" />
+            </div>
+        </div>
+    </div>
 
     
+        
+    <div class="row">
+    <div class="col-12 col-md-6">
+        <div class="form-group form-check">
+            <InputCheckbox @bind-Value="servicio.Confirmado" class="form-check-input" />
+            <label class="form-check-label">Confirmado</label>
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="form-group">
+            <label class="form-label">Viáticos</label>
+            <InputTextArea @bind-Value="servicio.Viaticos" class="form-control" />
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label class="form-label">Mano Obra Personal</label>
+                <InputNumber @bind-Value="servicio.ManoObraPersonal" class="form-control" />
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label class="form-label">Próxima Fecha Mantenimiento</label>
+                <InputDate @bind-Value="servicio.ProximaFechaMantenimiento" class="form-control" />
+            </div>
+        </div>
     </div>
 
-    <!-- Otros campos que siempre se muestran en una línea -->
-    <div class="mb-3">
-        <label class="form-label">Vehículo</label>
-        <select @bind="servicio.IdVehiculo" class="form-select">
-            <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
-            @foreach (var vehiculo in vehiculos)
-            {
-                <option value="@vehiculo.IdVehiculo">@vehiculo.Placa</option>
-            }
-        </select>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label class="form-label">Imágenes</label>
+                <InputFile OnChange="OnInputFileChange" class="form-control" />
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label class="form-label">Marca</label>
+                <InputText @bind-Value="servicio.Marca" class="form-control" />
+            </div>
+        </div>
     </div>
 
-    <div class="mb-3">
-        <input type="checkbox" @bind="isCheckboxChecked" />
-        <label for="checkbox">Conductor actual</label>
-        <div class="m-3">
-            @if (!isCheckboxChecked)
-            {
-                <div class="mb-3">
-                    <label class="form-label">Conductor</label>
-                    <select @bind="servicio.IdUsuario" class="form-select">
-                        <option value="0">--Seleccionar--</option>
-                        @foreach (var conductor in Conductores)
-                        {
-                            <option value="@conductor.IdUsuario">@conductor.Nombre</option>
-                        }
-                    </select>
-                </div>
-            }
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label class="form-label">Kilometraje Vehículo</label>
+                <InputNumber @bind-Value="servicio.KilometrajeVehiculo" class="form-control" />
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="form-group">
+                <label class="form-label">Millaje Vehículo</label>
+                <InputNumber @bind-Value="servicio.MillajeVehiculo" class="form-control" />
+            </div>
         </div>
     </div>
 
 
-    <!-- Otros campos que siempre se muestran en una línea -->
-    <div class="mb-3">
-        <label class="form-label">Precio Mano Obra</label>
-        <InputNumber @bind-Value="servicio.PrecioManoObra" class="form-control" />
-    </div>
-
-    <!-- Otros campos que siempre se muestran en una línea -->
-    <div class="mb-3 form-check">
-        <label class="form-check-label">Confirmado</label>
-        <InputCheckbox @bind-Value="servicio.Confirmado" class="form-check-input" />
-    </div>
-
-    <!-- Otros campos que siempre se muestran en una línea -->
-    <div class="mb-3">
-        <label class="form-label">Viáticos</label>
-        <InputTextArea @bind-Value="servicio.Viaticos" class="form-control" />
-    </div>
-
-    <!-- Otros campos que siempre se muestran en una línea -->
-    <div class="mb-3">
-        <label class="form-label">Mano Obra Personal</label>
-        <InputNumber @bind-Value="servicio.ManoObraPersonal" class="form-control" />
-    </div>
-
-
-    <!-- Campos que siempre se muestran en una línea -->
-    <div class="mb-3">
-        <label class="form-label">Próxima Fecha Mantenimiento</label>
-        <InputDate @bind-Value="servicio.ProximaFechaMantenimiento" class="form-control" />
-    </div>
-
-    <div class="col-md-6">
-        <div class="mb-3">
-            <label class="form-label">Imágenes</label>
-            <InputFile OnChange="OnInputFileChange" class="form-control" />
-        </div>
-
-        <!-- Otros campos para PC -->
-        <div class="mb-3">
-            <label class="form-label">Marca</label>
-            <InputText @bind-Value="servicio.Marca" class="form-control" />
-        </div>
-
-
-
-        <!-- Otros campos para PC -->
-        <div class="mb-3">
-            <label class="form-label">Kilometraje Vehículo</label>
-            <InputNumber @bind-Value="servicio.KilometrajeVehiculo" class="form-control" />
-        </div>
-
-        <!-- Otros campos para PC -->
-        <div class="mb-3">
-            <label class="form-label">Millaje Vehículo</label>
-            <InputNumber @bind-Value="servicio.MillajeVehiculo" class="form-control" />
-        </div>
-
-        <!-- Otros campos para PC -->
-        <!-- ... -->
-
-    </div>
+        
 
     <button type="submit" class="btn btn-primary">Guardar</button>
 </EditForm>
+
+</MudCard>
 
 @code {
     private ServicioModel servicio = new ServicioModel();

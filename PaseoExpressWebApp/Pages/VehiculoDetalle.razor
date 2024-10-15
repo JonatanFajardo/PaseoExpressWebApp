@@ -25,7 +25,7 @@ else
             </P>
         </MudCardHeader>
         <MudCardContent>
-            <MudTable Items="@cuotaDiaria" Striped="true" Hover="true" Bordered="true">
+        <MudTable Items="@cuotaDiaria" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" Loading="true" LoadingProgressColor="Color.Info" Virtualize="true" FixedHeader="true">
                 <HeaderContent>
                     <MudTh>Imagen</MudTh>
                     <MudTh>Última Suma</MudTh>
@@ -46,6 +46,16 @@ else
                     <MudTd>@context.FechaTransaccion.ToString("dd/MM/yyyy")</MudTd>
                     <MudTd>@context.Comentario</MudTd>
                 </RowTemplate>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100, int.MaxValue }"
+                               RowsPerPageString="@rowsPerPageString"
+                               InfoFormat="@infoFormat"
+                               AllItemsText="@allItemsText"
+                               HorizontalAlignment="@horizontalAlignment"
+                               HideRowsPerPage="@hideRowsPerPage"
+                               HidePageNumber="@hidePageNumber"
+                               HidePagination="@hidePagination" />
+            </PagerContent>
             </MudTable>
         </MudCardContent>
     </MudCard>
@@ -124,6 +134,16 @@ else
                     <MudTd>@context.Viaticos?.ToString()</MudTd>
                     <MudTd>@context.ManoObraPersonal.ToString()</MudTd>
                     </RowTemplate>
+                <PagerContent>
+                    <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100, int.MaxValue }"
+                               RowsPerPageString="@rowsPerPageString"
+                               InfoFormat="@infoFormat"
+                               AllItemsText="@allItemsText"
+                               HorizontalAlignment="@horizontalAlignment"
+                               HideRowsPerPage="@hideRowsPerPage"
+                               HidePageNumber="@hidePageNumber"
+                               HidePagination="@hidePagination" />
+                </PagerContent>
                 </MudTable>
             </MudCardContent>
         </MudCard>
@@ -133,6 +153,13 @@ else
 
 
 @code {
+    private HorizontalAlignment horizontalAlignment = HorizontalAlignment.Right;
+    private bool hidePageNumber;
+    private bool hidePagination;
+    private bool hideRowsPerPage;
+    private string rowsPerPageString = "Rows per page:";
+    private string infoFormat = "{first_item}-{last_item} of {all_items}";
+    private string allItemsText = "All";
     [Parameter]
     public int IdVehiculo { get; set; }
 
