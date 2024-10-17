@@ -4,6 +4,8 @@
 @using PaseoExpressWebApp.Services;
 @inject TransaccionesService transaccionesService
 
+@inject comprobantediarioservice ComprobanteDiarioService
+
 <MudTabs Elevation="0" Height="600px" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
     <MudTabPanel Text="Pagos no confirmados">
 
@@ -96,8 +98,64 @@
 
         <MudText>Content One</MudText>
     </MudTabPanel>
-    <MudTabPanel Text="Tab Two">
-        <MudText>Content Two</MudText>
+    <MudTabPanel Text="Generar pago">
+        <div class="row">
+
+            <button class="btn btn-primary oi-align-right mb-3" @onclick="CierreDiarioAsync">Cierre Diario</button>
+        </div>
+
+
+        @if (vehiculosSinExistencia == null)
+        {
+            <p>Cargando...</p>
+        }
+        else
+        {
+            <MudContainer>
+                <MudGrid>
+                    @foreach (var vehiculo in vehiculosSinExistencia)
+                    {
+                        <MudItem xs="12" sm="6" md="4">
+                            <MudCard>
+                                <MudCardMedia Image="@vehiculo.Imagen" />
+
+                                <MudCardContent>
+                                    <MudText Typo="Typo.h5">Vehículo @vehiculo.IdVehiculo</MudText>
+                                    <MudText Typo="Typo.body2">
+                                        Año: @vehiculo.Anio<br />
+                                        Placa: @vehiculo.Placa<br />
+                                        Tarifa Diaria: @vehiculo.TarifaDiaria<br />
+                                        Tarifa Ahorro: @vehiculo.TarifaAhorro<br />
+                                    </MudText>
+
+                                    <MudCheckBox @bind-Checked="mostrarFechaTransaccionHasta" Label="Mostrar Fecha de Transacción Hasta" />
+
+                                    @if (mostrarFechaTransaccionHasta)
+                                    {
+                                        <MudTextField @bind-Value="FechaTransaccion" Label="Fecha de Transacción" Type="date" />
+                                        <MudTextField @bind-Value="FechaTransaccionHasta" Label="Fecha de Transacción Hasta" Type="date" />
+                                    }
+                                </MudCardContent>
+
+                                <MudCardActions>
+                                    <MudPaper Class="pa-4" Style="@($"color:{Colors.LightGreen.Accent3}")" OnClick="() => EnviarIdVehiculo(vehiculo.IdVehiculo, FechaTransaccion, FechaTransaccionHasta)">
+                                        Pago realizado
+                                    </MudPaper>
+                                </MudCardActions>
+
+                                <MudCardContent>
+                                    <MudLink Href="#">Card link</MudLink>
+                                    <MudLink Href="#" Class="ml-2">Another link</MudLink>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+                    }
+                </MudGrid>
+            </MudContainer>
+
+
+        }
+
     </MudTabPanel>
 </MudTabs>
 
@@ -106,12 +164,29 @@
     List<ObtenerTransaccionesResult> _transacciones = new List<ObtenerTransaccionesResult>();
     private ObtenerTransaccionesResult seleccion = new ObtenerTransaccionesResult();
     private bool mostrarDetalles = false;
+
+    DateTime FechaActual = DateTime.Now;
+    DateTime FechaTransaccion = DateTime.Now;
+    DateTime FechaTransaccionHasta = DateTime.Now;
+    bool mostrarFechaTransaccionHasta = false;
+
+
+    private List<ObtenerVehiculosSinExistenciaHoyResult> vehiculosSinExistencia;
+    private List<ObtenerVehiculosResult> vehiculos;
+
+
     protected override async Task OnInitializedAsync()
     {
         seleccion.Imagen = "img/5861769.jpg";
         _transacciones = await transaccionesService.ObtenerTransaccionesNoConfirmadasAsync();
 
+
+        vehiculosSinExistencia = await ComprobanteDiarioService.obtenervehiculossinexistenciahoy();
+
+        Obtenervehiculos(); 
+
     } 
+
 
     // Método para seleccionar la información
     private void SeleccionarInformacion(ObtenerTransaccionesResult info)
@@ -128,5 +203,17 @@
         return $"Hace {diasPasados} días";
          
     }
-   
+
+
+
+    private async Task CierreDiarioAsync()
+    {
+        ComprobanteDiarioService.CierreDiarioAsync();
+    }
+
+    private async Task Obtenervehiculos()
+    {
+        vehiculos = await ComprobanteDiarioService.Obtenervehiculos();
+
+    }
 }
