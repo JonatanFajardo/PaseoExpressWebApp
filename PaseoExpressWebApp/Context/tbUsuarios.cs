@@ -9,11 +9,11 @@ namespace PaseoExpressWebApp.Context
     {
         public tbUsuarios()
         {
-            tbTransacciones = new HashSet<tbTransacciones>();
             tbVehiculo = new HashSet<tbVehiculo>();
         }
 
         public int IdUsuario { get; set; }
+        public string Imagen { get; set; }
         public int IdRol { get; set; }
         public string Nombre { get; set; }
         public string Identidad { get; set; }
@@ -21,7 +21,6 @@ namespace PaseoExpressWebApp.Context
         public bool? EstaActivo { get; set; }
 
         public virtual tbRol IdRolNavigation { get; set; }
-        public virtual ICollection<tbTransacciones> tbTransacciones { get; set; }
         public virtual ICollection<tbVehiculo> tbVehiculo { get; set; }
     }
 }

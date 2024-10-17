@@ -39,7 +39,7 @@ namespace PaseoExpressWebApp.Context
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-I0I12OB;Initial Catalog=DB_Uber;Persist Security Info=True;User ID=jonna;Password=admin");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-I0I12OB;Initial Catalog=DB_Uber;Persist Security Info=True;User ID=jonna;Password=admin1");
             }
         }
 
@@ -273,25 +273,8 @@ namespace PaseoExpressWebApp.Context
                 entity.Property(e => e.FechaTransaccionHasta).HasColumnType("date");
 
                 entity.Property(e => e.Imagen)
-                    .HasMaxLength(4000)
+                    .HasMaxLength(800)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.IdTipoTransaccionNavigation)
-                    .WithMany(p => p.tbTransacciones)
-                    .HasForeignKey(d => d.IdTipoTransaccion)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tbTransacciones_tbTipoTransaccion");
-
-                entity.HasOne(d => d.IdUsuarioNavigation)
-                    .WithMany(p => p.tbTransacciones)
-                    .HasForeignKey(d => d.IdUsuario)
-                    .HasConstraintName("FK_tbTransacciones_tbUsuarios");
-
-                entity.HasOne(d => d.IdVehiculoNavigation)
-                    .WithMany(p => p.tbTransacciones)
-                    .HasForeignKey(d => d.IdVehiculo)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tbTransacciones_tbInformacionVehiculo");
             });
 
             modelBuilder.Entity<tbUbicacionEnAutomovil>(entity =>
@@ -313,6 +296,10 @@ namespace PaseoExpressWebApp.Context
 
                 entity.Property(e => e.Identidad)
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Imagen)
+                    .HasMaxLength(650)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Nombre).HasMaxLength(350);

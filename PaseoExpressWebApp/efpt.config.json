@@ -127,11 +127,11 @@
          "ObjectType": 1
       },
       {
-         "Name": "[dbo].[ro]",
+         "Name": "[dbo].[TransaccionTarifaNoPagada]",
          "ObjectType": 1
       },
       {
-         "Name": "[dbo].[TransaccionTarifaNoPagada]",
+         "Name": "[dbo].[TransaccionTarifaNoPagadaNoConfirmada]",
          "ObjectType": 1
       }
    ],

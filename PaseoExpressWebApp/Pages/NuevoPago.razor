@@ -1,7 +1,45 @@
 ﻿<h3>NuevoPago</h3>
 
+<div class="row">
+    <div class="col-12 col-md-6">
+        <div class="form-control"></div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="form-control">
+            Fecha de Transacción:
+            <input type="date" @bind="@FechaTransaccion" name="FechaTransaccion" class="form-control" /><br> Fecha de Transacción Hasta:
+            <input type="date" @bind="@FechaTransaccionHasta" name="FechaTransaccionHasta" class="form-control" />
+
+        </div>
+    </div>
+</div>
 
 
+@*
+<div class="row">
+    <div class="col-12 col-md-6">
+        <div class="form-control"></div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="form-control"></div>
+    </div>
+</div>*@
 @code {
+    DateTime FechaActual = DateTime.Now;
+    DateTime FechaTransaccion = DateTime.Now;
+    DateTime FechaTransaccionHasta = DateTime.Now;
 
+    //private async Task EnviarIdVehiculo(int idVehiculo, DateTime FechaTransaccion, DateTime FechaTransaccionHasta)
+    //{
+    //    if (FechaTransaccionHasta.ToString() == FechaActual.ToString())
+    //    {
+    //        ComprobanteDiarioService.TransaccionTarifaNoPagada(idVehiculo, FechaTransaccion, null);
+    //    }
+    //    else
+    //    {
+    //        ComprobanteDiarioService.TransaccionTarifaNoPagada(idVehiculo, FechaTransaccion, FechaTransaccionHasta);
+    //    }
+    //    //vehiculosSinExistencia = await ComprobanteDiarioService.obtenervehiculossinexistenciahoy();
+
+    //}
 }

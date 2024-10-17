@@ -11,7 +11,6 @@ namespace PaseoExpressWebApp.Context
         {
             SaleInformation = new HashSet<SaleInformation>();
             tbServicios = new HashSet<tbServicios>();
-            tbTransacciones = new HashSet<tbTransacciones>();
         }
 
         public int IdVehiculo { get; set; }
@@ -35,6 +34,5 @@ namespace PaseoExpressWebApp.Context
         public virtual tbUsuarios IdConductorNavigation { get; set; }
         public virtual ICollection<SaleInformation> SaleInformation { get; set; }
         public virtual ICollection<tbServicios> tbServicios { get; set; }
-        public virtual ICollection<tbTransacciones> tbTransacciones { get; set; }
     }
 }

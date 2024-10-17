@@ -13,10 +13,13 @@ namespace PaseoExpressWebApp.Context
         public int? Anio { get; set; }
         public string Placa { get; set; }
         public string Nombre { get; set; }
+        public string ImagenUsuario { get; set; }
         public int TarifaDiaria { get; set; }
         public int TarifaAhorro { get; set; }
         public DateTime FechaTransaccion { get; set; }
         public string Comentario { get; set; }
         public int IdTipoTransaccion { get; set; }
+        public bool Confirmada { get; set; }
+        public DateTime FechaCreacion { get; set; }
     }
 }

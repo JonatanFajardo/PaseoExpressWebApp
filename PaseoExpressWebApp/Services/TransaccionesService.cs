@@ -22,8 +22,20 @@ namespace PaseoExpressWebApp.Services
         public async Task<List<ObtenerTransaccionesResult>> ObtenerTransaccionesAsync()
         {
 
-                var resul = await _context.Procedures.ObtenerTransaccionesAsync();
+            var resul = await _context.Procedures.ObtenerTransaccionesAsync();
             return resul;
+
+        }
+
+        public async Task<List<ObtenerTransaccionesResult>> ObtenerTransaccionesNoConfirmadasAsync()
+        {
+            var resul = await _context.Procedures.ObtenerTransaccionesAsync();
+            if (resul is not null)
+            {
+                resul.Find(x => x.Confirmada = false);
+                return resul;
+            }
+            return null;
 
         }
 

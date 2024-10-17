@@ -27,11 +27,7 @@ namespace PaseoExpressWebApp.Context
         public int? UltimaSuma { get; set; }
         public string Comentario { get; set; }
         public int IdTipoTransaccion { get; set; }
-        public DateTime? FechaCreacion { get; set; }
-
-        public virtual tbTipoTransaccion IdTipoTransaccionNavigation { get; set; }
-        public virtual tbUsuarios IdUsuarioNavigation { get; set; }
-        public virtual tbVehiculo IdVehiculoNavigation { get; set; }
+        public DateTime FechaCreacion { get; set; }
 
         public virtual ICollection<tbServicios> IdServicios { get; set; }
     }

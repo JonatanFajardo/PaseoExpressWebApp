@@ -7,14 +7,7 @@ namespace PaseoExpressWebApp.Context
 {
     public partial class tbTipoTransaccion
     {
-        public tbTipoTransaccion()
-        {
-            tbTransacciones = new HashSet<tbTransacciones>();
-        }
-
         public int IdTipoTransaccion { get; set; }
         public string Nombre { get; set; }
-
-        public virtual ICollection<tbTransacciones> tbTransacciones { get; set; }
     }
 }

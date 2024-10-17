@@ -44,7 +44,6 @@ namespace PaseoExpressWebApp.Context
             modelBuilder.Entity<ObtenerVehiculosResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ObtenerVehiculosSinExistenciaHoyResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ResumenTotalResult>().HasNoKey().ToView(null);
-            modelBuilder.Entity<roResult>().HasNoKey().ToView(null);
         }
     }
 
@@ -495,26 +494,6 @@ namespace PaseoExpressWebApp.Context
             return _;
         }
 
-        public virtual async Task<List<roResult>> roAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
-        {
-            var parameterreturnValue = new SqlParameter
-            {
-                ParameterName = "returnValue",
-                Direction = System.Data.ParameterDirection.Output,
-                SqlDbType = System.Data.SqlDbType.Int,
-            };
-
-            var sqlParameters = new []
-            {
-                parameterreturnValue,
-            };
-            var _ = await _context.SqlQueryAsync<roResult>("EXEC @returnValue = [dbo].[ro]", sqlParameters, cancellationToken);
-
-            returnValue?.SetValue(parameterreturnValue.Value);
-
-            return _;
-        }
-
         public virtual async Task<int> TransaccionTarifaNoPagadaAsync(int? IdVehiculo, DateTime? FechaTransaccion, DateTime? FechaTransaccionHasta, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
@@ -547,6 +526,44 @@ namespace PaseoExpressWebApp.Context
                 parameterreturnValue,
             };
             var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[TransaccionTarifaNoPagada] @IdVehiculo = @IdVehiculo, @FechaTransaccion = @FechaTransaccion, @FechaTransaccionHasta = @FechaTransaccionHasta", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<int> TransaccionTarifaNoPagadaNoConfirmadaAsync(int? IdVehiculo, DateTime? FechaTransaccion, DateTime? FechaTransaccionHasta, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "IdVehiculo",
+                    Value = IdVehiculo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FechaTransaccion",
+                    Value = FechaTransaccion ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Date,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FechaTransaccionHasta",
+                    Value = FechaTransaccionHasta ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Date,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[TransaccionTarifaNoPagadaNoConfirmada] @IdVehiculo = @IdVehiculo, @FechaTransaccion = @FechaTransaccion, @FechaTransaccionHasta = @FechaTransaccionHasta", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 
