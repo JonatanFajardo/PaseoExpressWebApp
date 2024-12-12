@@ -3,20 +3,13 @@
 @page "/vehiculodetalle/{idVehiculo:int}"
 @using PaseoExpressWebApp.Context;
 @using PaseoExpressWebApp.Services;
+@inject IDialogService Dialog
 
 
 
 <h3>Vehiculos</h3>
 
-
-@*
-@if (cuotaDiaria == null)
-{
-    <p>Cargando...</p>
-}
-else
-{*@
-    <MudCard>
+    <MudCard Class="pb-5">
         <MudCardHeader>
             <H5>Cuotas Diarias</H5>
             <br/>
@@ -25,7 +18,7 @@ else
             </P>
         </MudCardHeader>
         <MudCardContent>
-        <MudTable Items="@cuotaDiaria" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" Loading="true" LoadingProgressColor="Color.Info" Virtualize="true" FixedHeader="true">
+        <MudTable Items="@cuotaDiaria" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info" Virtualize="true" FixedHeader="true">
                 <HeaderContent>
                     <MudTh>Imagen</MudTh>
                     <MudTh>Última Suma</MudTh>
@@ -60,79 +53,39 @@ else
         </MudCardContent>
     </MudCard>
 
-@*}*@
-
-@*
-@if (servicios == null)
-{
-    <p>Cargando...</p>
-}
-else
-{*@
-    <MudCard>
-        <MudCardHeader>
+<MudCard Class="pb-5">
+    <div class="p-3">
             <H5>Servicios</H5>
-            <br />
             <P>
                 Aquí se detallan los servicios ofrecidos, incluyendo información relevante como el tipo de servicio, la fecha, costos y estado de confirmación.
             </P>
-        </MudCardHeader>
+
+    </div>
         <MudCardContent>
-            <MudTable Items="@servicios"  Height="500px" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" Loading="true" LoadingProgressColor="Color.Info" Virtualize="true" FixedHeader="true">
+            <MudTable Items="@servicios"  Height="500px" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info" Virtualize="true" FixedHeader="true">
                 <HeaderContent>
-                    <MudTh>Tipo de Servicio</MudTh>
-                    <MudTh>Imágenes</MudTh>
                     <MudTh>Título</MudTh>
-                    <MudTh>Descripción</MudTh>
                     <MudTh>Fecha de Servicio</MudTh>
-                    <MudTh>Cantidad Comprada</MudTh>
-                    <MudTh>Costo Unitario</MudTh>
-                    <MudTh>Costo Total</MudTh>
                     <MudTh>Marca</MudTh>
-                    <MudTh>Kilometraje</MudTh>
-                    <MudTh>Millaje</MudTh>
-                    <MudTh>Próxima Fecha de Mantenimiento</MudTh>
-                    <MudTh>Marca</MudTh>
-                    <MudTh>Modelo</MudTh>
-                    <MudTh>Año</MudTh>
-                    <MudTh>Es Recurrente</MudTh>
-                    <MudTh>Próximo Kilometraje</MudTh>
                     <MudTh>Próximo Millaje</MudTh>
                     <MudTh>Ubicación en el Automóvil</MudTh>
-                    <MudTh>Precio Mano de Obra</MudTh>
-                    <MudTh>Confirmado</MudTh>
-                    <MudTh>Viáticos</MudTh>
-                    <MudTh>Mano de Obra Personal</MudTh>
+                    <MudTh>Detalle</MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd>@context.TipoServicio</MudTd>
-                    <MudTd>
+                 @*   <MudTd>
                         @if (!string.IsNullOrWhiteSpace(@context.Imagenes))
                         {
                             <img src="@context.Imagenes" alt="Imagen" width="50" height="50" />
                         }
-                    </MudTd>
+                    </MudTd>*@
                     <MudTd>@context.Titulo</MudTd>
-                    <MudTd>@context.Descripcion</MudTd>
                     <MudTd>@context.FechaServicio.ToShortDateString()</MudTd>
-                    <MudTd>@context.CantidadComprada</MudTd>
-                    <MudTd>@context.CostoUnitario.ToString()</MudTd>
-                    <MudTd>@context.CostoTotal.ToString()</MudTd>
                     <MudTd>@context.Marca</MudTd>
-                    <MudTd>@context.KilometrajeVehiculo</MudTd>
-                    <MudTd>@context.MillajeVehiculo</MudTd>
-                    <MudTd>@context.ProximaFechaMantenimiento</MudTd>
-                    <MudTd>@context.VehiculoMarca</MudTd>
-                    <MudTd>@context.VehiculoModelo</MudTd>
-                    <MudTd>@context.VehiculoAnio</MudTd>
-                    <MudTd>@(context.EsRecurrente ? "Sí" : "No")</MudTd>
-                    <MudTd>@context.ProximoKilometraje</MudTd>
                     <MudTd>@context.ProximoMillaje</MudTd>
                     <MudTd>@context.UbicacionEnAutomovil</MudTd>
-                    <MudTd>@context.PrecioManoObra.ToString()</MudTd>
-                    <MudTd>@(context.Confirmado ? "Sí" : "No")</MudTd>
-                    <MudTd>@context.Viaticos?.ToString()</MudTd>
-                    <MudTd>@context.ManoObraPersonal.ToString()</MudTd>
+                    <MudTd>
+                    <MudButton Class="bg-primario-oscuro" OnClick="@(() => OpenDialogAsync(_maxWidth, @context))">Mostrar</MudButton>
+                    </MudTd>
                     </RowTemplate>
                 <PagerContent>
                     <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100, int.MaxValue }"
@@ -150,9 +103,24 @@ else
 
 @*}*@
 
+    <MudDialog>
+        <DialogContent>
+            Dialog Content
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancel</MudButton>
+            <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+        </DialogActions>
+    </MudDialog>
 
 
 @code {
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    private void Cancel() => MudDialog.Cancel();
+    private readonly DialogOptions _maxWidth = new() { MaxWidth = MaxWidth.Medium, FullWidth = true };
+
     private HorizontalAlignment horizontalAlignment = HorizontalAlignment.Right;
     private bool hidePageNumber;
     private bool hidePagination;
@@ -165,6 +133,7 @@ else
 
     private List<ObtenerTransaccionesPorVehiculoResult> cuotaDiaria;
     List<ObtenerServiciosPorVehiculoResult> servicios;
+    
 
     protected override async Task OnInitializedAsync()
     {
@@ -173,5 +142,16 @@ else
 
         cuotaDiaria.OrderBy(x => x.FechaTransaccionHasta).ToList();
     }
+    //Modal
+    private Task OpenDialogAsync(DialogOptions options, ObtenerServiciosPorVehiculoResult servicio)
+    {
+        var parameters = new DialogParameters
+        {
+            { "servicio", servicio}
+        };
 
+        return Dialog.ShowAsync<ServiciosModal>(servicio.Titulo, parameters, options);
+      
+    }
+  
 }

@@ -29,7 +29,7 @@
                 <MudText Typo="Typo.h4">Vehículos</MudText>
             </MudCardHeader>
             <MudCardContent>
-                <MudTable Items="@vehiculos" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" Loading="true" LoadingProgressColor="Color.Info">
+                <MudTable Items="@vehiculos" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
                     <HeaderContent>
                         <MudTh>Acciones</MudTh>
                         <MudTh>IdVehiculo</MudTh>
@@ -48,8 +48,8 @@
                     </HeaderContent>
                     <RowTemplate>
                         <MudTd>
-                            <MudButton  OnClick="() => DetalleVehiculo(context.IdVehiculo)">
-                                Ver detalles
+                            <MudButton  Class="bg-primario-oscuro" OnClick="() => DetalleVehiculo(context.IdVehiculo)">
+                                <span>Detalles</span>
                             </MudButton>
                         </MudTd>
                         <MudTd DataLabel="Id Vehiculo">@context.IdVehiculo</MudTd>

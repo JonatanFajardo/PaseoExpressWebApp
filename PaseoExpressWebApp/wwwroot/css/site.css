@@ -62,3 +62,99 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+/*.mud-table-head {
+    background: var(--color-primario-oscuro);
+}*/
+.mud-table-root .mud-table-head .mud-table-cell {
+    background: var(--color-primario-oscuro) !important;
+    color: white !important;
+}
+
+.sidebar {
+    background: var(--color-primario-oscuro) !important;
+    color: white !important;
+}
+:root {
+    /* Colores primarios */
+    --color-primario: #4CAF50 !important;
+    --color-primario-claro: #eceef1 !important;
+    --color-primario-oscuro: #00010D !important;
+    /* Colores secundarios */
+    --color-secundario: #FFC107 !important;
+    --color-secundario-claro: #FFD54F !important;
+    --color-secundario-oscuro: #FFA000 !important;
+    /* Colores neutros */
+    --color-fondo: #F5F5F5 !important;
+    --color-texto: #212121 !important;
+    --color-texto-secundario: #757575 !important;
+    /* Otros colores */
+    --color-error: #F44336 !important;
+    --color-aviso: #FF9800 !important;
+    --color-exito: #4CAF50 !important;
+    --color-informacion: #2196F3 !important;
+    --color-blanco: #f7f7f7 !important;
+    /*--mud-palette-surface: #F2F2F0 !important;*/
+
+    /*--mud-palette-surface: var(--color-primario-oscuro) !important;*/
+}
+/* Colores de fondo */
+.bg-primario {
+    background-color: #4CAF50 !important;
+}
+
+.bg-primario-claro {
+    background-color: #eceef1 !important;
+}
+
+.bg-primario-oscuro {
+    background: var(--color-primario-oscuro) !important;
+    color: white !important;
+}
+
+.bg-secundario {
+    background-color: #FFC107 !important;
+}
+
+.bg-error {
+    background-color: #F44336 !important;
+}
+
+.bg-exito {
+    background-color: #4CAF50 !important;
+}
+
+/* Colores de texto */
+.text-primario {
+    color: #4CAF50 !important;
+}
+
+.text-secundario {
+    color: #FFC107;
+}
+
+.text-error {
+    color: #F44336;
+}
+
+.text-fondo {
+    color: #F5F5F5;
+}
+
+.text-neutral {
+    color: #212121;
+}
+
+/* Bordes */
+.border-primario {
+    border: 1px solid #4CAF50;
+}
+
+.border-secundario {
+    border: 1px solid #FFC107;
+}
+
+.border-error {
+    border: 1px solid #F44336;
+}

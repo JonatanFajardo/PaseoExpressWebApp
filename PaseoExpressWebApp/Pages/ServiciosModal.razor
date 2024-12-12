@@ -1,0 +1,223 @@
+﻿@using PaseoExpressWebApp.Context;
+@page "/ServiciosModal"
+@using Microsoft.AspNetCore.Components.Forms
+@using System.ComponentModel.DataAnnotations
+
+  <div class="container">
+        <EditForm Model="@servicio" >
+    <ValidationSummary class="alert alert-danger"/>
+             <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                <label class="form-label">Título</label>
+                <InputText @bind-Value="servicio.Titulo" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                <label class="form-label">Descripción</label>
+                        <InputText @bind-Value="servicio.Descripcion" class="form-control" disabled/>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                <label class="form-label">Fecha del Servicio</label>
+                    <InputDate @bind-Value="servicio.FechaServicio" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Cantidad Comprada</label>
+                    <InputNumber @bind-Value="servicio.CantidadComprada" class="form-control" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                <label class="form-label">Costo Unitario</label>
+                    <InputNumber @bind-Value="servicio.CostoUnitario" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Costo Total</label>
+                    <InputNumber @bind-Value="servicio.CostoTotal" class="form-control" disabled/>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                <label class="form-label">Marca</label>
+                        <InputText @bind-Value="servicio.Marca" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                <label class="form-label">Kilometraje del Vehiculo</label>
+                    <InputNumber @bind-Value="servicio.KilometrajeVehiculo" class="form-control" disabled/>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                <label class="form-label">Millaje del Vehiculo</label>
+                    <InputNumber @bind-Value="servicio.MillajeVehiculo" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label class="form-label"></label>
+                        <InputDate @bind-Value="servicio.ProximaFechaMantenimiento" class="form-control" disabled/>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Marca del Vehiculo</label>
+                        <InputText @bind-Value="servicio.VehiculoMarca" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                <label class="form-label">Modelo del Vehiculo</label>
+                        <InputText @bind-Value="servicio.VehiculoModelo" class="form-control" disabled/>
+                    </div>
+                </div>
+            </div>
+       <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                <label class="form-label">año del Vehiculo</label>
+                        <InputNumber @bind-Value="servicio.VehiculoAnio" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Recurrente</label>
+                        <InputCheckbox @bind-Value="servicio.EsRecurrente" class="form-control" disabled/>
+                    </div>
+                </div>
+            </div>
+              <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Proximo Kilometraje</label>
+                        <InputNumber @bind-Value="servicio.ProximoKilometraje" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                <label class="form-label">Proximo Millaje</label>
+                    <InputNumber @bind-Value="servicio.ProximoMillaje" class="form-control" disabled/>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Ubicacion En Automovil</label>
+                        <InputText @bind-Value="servicio.UbicacionEnAutomovil" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Precio en Mano de Obra</label>
+                    <InputNumber @bind-Value="servicio.PrecioManoObra" class="form-control" disabled/>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                <label class="form-label">Confirmado</label>
+                        <InputCheckbox @bind-Value="servicio.Confirmado" class="form-control" disabled/>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                <label class="form-label">Viaticos</label>
+                        <InputText @bind-Value="servicio.Viaticos" class="form-control" disabled/>
+                    </div>
+                </div>
+
+                
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                <label class="form-label">Mano en Obra Personal</label>
+                    <InputNumber @bind-Value="servicio.ManoObraPersonal" class="form-control" disabled/>
+                    </div>
+                </div>
+  
+                
+            </div>
+        </EditForm> 
+    </div>
+
+
+@*<MudDialog>
+    <MudDialogTitle>Servicios por Vehículo</MudDialogTitle>
+    <MudDialogContent>
+    </MudDialogContent>
+
+</MudDialog>
+*@
+       
+@code {
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; }
+
+    //public List<ObtenerServiciosPorVehiculoResult> servicio;
+    [Parameter]
+    public ObtenerServiciosPorVehiculoResult servicio { get; set; }
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    private void Cancel() => MudDialog.Cancel();
+    string ss=null; 
+
+    protected override async Task OnInitializedAsync()
+    {
+        var servicio2 = servicio;
+        setServicio();
+    }
+     private void setServicio()
+     {
+         servicio.IdServicios = 0;
+        servicio.IdTipoServicio = 1;
+        servicio.TipoServicio = "Desconocido";
+        servicio.Imagenes = string.Empty;
+        servicio.Titulo = "Sin título";
+        servicio.Descripcion = "Sin descripción";
+        servicio.FechaServicio = DateTime.Now;
+        servicio.CantidadComprada = 0;
+        servicio.CostoUnitario = 0.00m;
+        servicio.CostoTotal = 0;
+        servicio.Marca = "Genérica";
+        servicio.IdTipoMantenimiento = 0;
+        servicio.TipoMantenimiento = "N/A";
+        servicio.KilometrajeVehiculo = 0;
+        servicio.MillajeVehiculo = 0;
+        servicio.ProximaFechaMantenimiento = DateTime.Now;
+        servicio.IdVehiculo = 0;
+        servicio.VehiculoMarca = "Sin marca";
+        servicio.VehiculoModelo = "Sin modelo";
+        servicio.VehiculoAnio = 1;
+        servicio.EsRecurrente = false;
+        servicio.ProximoKilometraje = 1;
+        servicio.ProximoMillaje = 1;
+        servicio.IdUbicacionEnAutomovil = 1;
+        servicio.UbicacionEnAutomovil = "N/A";
+        servicio.PrecioManoObra = 0;
+        servicio.Confirmado = false;
+        servicio.Viaticos = "N/A";
+        servicio.ManoObraPersonal = 0;
+     }
+
+}
