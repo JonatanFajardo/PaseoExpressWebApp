@@ -4,19 +4,17 @@
 @using PaseoExpressWebApp.Services;
 @inject NavigationManager Navigation
 @inject comprobantediarioservice ComprobanteDiarioService
-
 @inject TransaccionesService transaccionesService
-
-
 @using Microsoft.AspNetCore.SignalR.Client;
 
-<PageTitle>vehiculos</PageTitle>
+<MudBreadcrumbs Items="_items"></MudBreadcrumbs>
+
 <div class="container">
 
-    <h1>Cuota pendiente</h1>
+   @* <h1>Cuota pendiente</h1>
     <button class="btn btn-primary" @onclick="EnviarSolicitudActualizarTransaccion">Actualizar Transacción</button>
 
-    <p role="status">Current count: @currentCount</p>
+    <p role="status">Current count: @currentCount</p>*@
      
     @if (vehiculos == null)
     {
@@ -24,15 +22,19 @@
     }
     else
     {
-        <MudCard>
-            <MudCardHeader>
-                <MudText Typo="Typo.h4">Vehículos</MudText>
-            </MudCardHeader>
+
+            <MudCard Class="pb-5">
+                <div class="p-3">
+                            <H5>Vehículos</H5>
+                    <span>
+                        Aqui puedes mantenerte al tanto sobre la información vehicular.
+                    </span>
+
+            </div>
             <MudCardContent>
-                <MudTable Items="@vehiculos" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+                <MudTable Items="@vehiculos" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info" HorizontalScrollbar="true">
                     <HeaderContent>
                         <MudTh>Acciones</MudTh>
-                        <MudTh>IdVehiculo</MudTh>
                         <MudTh>Marca</MudTh>
                         <MudTh>Modelo</MudTh>
                         <MudTh>Anio</MudTh>
@@ -52,7 +54,6 @@
                                 <span>Detalles</span>
                             </MudButton>
                         </MudTd>
-                        <MudTd DataLabel="Id Vehiculo">@context.IdVehiculo</MudTd>
                         <MudTd DataLabel="Marca">@context.Marca</MudTd>
                         <MudTd DataLabel="Modelo">@context.Modelo</MudTd>
                         <MudTd DataLabel="año">@context.Anio</MudTd>
@@ -196,4 +197,10 @@
         // Notify the UI that data has changed (if using Blazor)
         StateHasChanged();
     }
+
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "/"),
+        new BreadcrumbItem("Vehiculos", href: null, disabled: true),
+    };
 }

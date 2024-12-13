@@ -47,7 +47,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly); // Configuración de Au
 
 builder.Services.AddScoped<comprobantediarioservice>();
 builder.Services.AddScoped<TransaccionesService>();
-builder.Services.AddScoped<VehiculoService>();
+builder.Services.AddTransient<VehiculoService>();
 builder.Services.AddScoped<ServicioServices>();
 builder.Services.AddHttpClient();
 

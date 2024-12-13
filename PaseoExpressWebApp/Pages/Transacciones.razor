@@ -8,15 +8,17 @@
 @using System.Net.Http.Json 
 @inject HttpClient httpClient
 
-<h3>Transacciones</h3>
-<p>Gestione y registre transacciones relacionadas con los servicios, incluyendo detalles de costos, mantenimiento y datos del vehículo.</p>
+<MudBreadcrumbs Items="_items"></MudBreadcrumbs>
 
+<MudCard Class="pb-5">
+    <div class="p-3">
+        <H5>Transacciones</H5>
+        <span>Gestione y registre transacciones relacionadas con los servicios, incluyendo detalles de costos, mantenimiento y datos del vehículo.</span>
 
+    </div>
+    <MudCardContent>
+        <MudTable Items="@transacciones" SortLabel="Sort By" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
 
-<MudTable Items="@transacciones" SortLabel="Sort By" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
-    @*<ToolBarContent>
-        <MudText Typo="Typo.h6">Periodic Elements</MudText>
-    </ToolBarContent>*@
     <HeaderContent>
         <MudTh>Imagen</MudTh>
         <MudTh>Ultima Suma</MudTh>
@@ -53,52 +55,9 @@
     </PagerContent>
 </MudTable>
 
+    </MudCardContent>
+</MudCard>
  
-
-@*
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Imagen</th>
-            <th>Ultima Suma</th>
-            <th>Id Vehículo</th>
-            <th>Año</th>
-            <th>Placa</th>
-            <th>Nombre</th>
-            <th>Tarifa Diaria</th>
-            <th>Tarifa Ahorro</th>
-            <th>Fecha Transacción</th>
-            <th>Comentario</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (transacciones == null)
-        {
-            <tr>
-                <td colspan="10">Cargando...</td>
-            </tr>
-        }
-        else
-        {
-            @foreach (var transaccion in transacciones)
-            {
-                <tr>
-                    <td><img src="@transaccion.Imagen" alt="Imagen" class="img-thumbnail" /></td>
-                    <td>@transaccion.UltimaSuma</td>
-                    <td>@transaccion.IdVehiculo</td>
-                    <td>@transaccion.Anio</td>
-                    <td>@transaccion.Placa</td>
-                    <td>@transaccion.Nombre</td>
-                    <td>@transaccion.TarifaDiaria</td>
-                    <td>@transaccion.TarifaAhorro</td>
-                    <td>@transaccion.FechaTransaccion.ToString("dd/MM/yyyy")</td>
-                    <td>@transaccion.Comentario</td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
-*@
 
 @code {
     //table
@@ -197,5 +156,10 @@
         }
     }
 
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "/"),
+        new BreadcrumbItem("Transacciones", href: null, disabled: true),
+    };
      
 }

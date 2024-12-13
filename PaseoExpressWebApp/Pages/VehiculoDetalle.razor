@@ -5,60 +5,14 @@
 @using PaseoExpressWebApp.Services;
 @inject IDialogService Dialog
 
+<MudBreadcrumbs Items="_items"></MudBreadcrumbs>
 
-
-<h3>Vehiculos</h3>
-
-    <MudCard Class="pb-5">
-        <MudCardHeader>
-            <H5>Cuotas Diarias</H5>
-            <br/>
-            <P>
-                Esta sección muestra la cuota diaria que se han pagado, incluyendo detalles sobre estos.
-            </P>
-        </MudCardHeader>
-        <MudCardContent>
-        <MudTable Items="@cuotaDiaria" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info" Virtualize="true" FixedHeader="true">
-                <HeaderContent>
-                    <MudTh>Imagen</MudTh>
-                    <MudTh>Última Suma</MudTh>
-                    <MudTh>Conductor</MudTh>
-                    <MudTh>Tarifa Diaria</MudTh>
-                    <MudTh>Tarifa Ahorro</MudTh>
-                    <MudTh>Fecha Transacción</MudTh>
-                    <MudTh>Comentario</MudTh>
-                </HeaderContent>
-                <RowTemplate>
-                    <MudTd>
-                        <img src="@context.Imagen" alt="Imagen" width="50" height="50" />
-                    </MudTd>
-                    <MudTd>@context.UltimaSuma</MudTd>
-                    <MudTd>@context.Conductor</MudTd>
-                    <MudTd>@context.TarifaDiaria.ToString()</MudTd>
-                    <MudTd>@context.TarifaAhorro.ToString()</MudTd>
-                    <MudTd>@context.FechaTransaccion.ToString("dd/MM/yyyy")</MudTd>
-                    <MudTd>@context.Comentario</MudTd>
-                </RowTemplate>
-            <PagerContent>
-                <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100, int.MaxValue }"
-                               RowsPerPageString="@rowsPerPageString"
-                               InfoFormat="@infoFormat"
-                               AllItemsText="@allItemsText"
-                               HorizontalAlignment="@horizontalAlignment"
-                               HideRowsPerPage="@hideRowsPerPage"
-                               HidePageNumber="@hidePageNumber"
-                               HidePagination="@hidePagination" />
-            </PagerContent>
-            </MudTable>
-        </MudCardContent>
-    </MudCard>
-
-<MudCard Class="pb-5">
+<MudCard Class="mb-5">
     <div class="p-3">
             <H5>Servicios</H5>
-            <P>
+            <span>
                 Aquí se detallan los servicios ofrecidos, incluyendo información relevante como el tipo de servicio, la fecha, costos y estado de confirmación.
-            </P>
+            </span>
 
     </div>
         <MudCardContent>
@@ -101,17 +55,50 @@
             </MudCardContent>
         </MudCard>
 
-@*}*@
+    <MudCard Class="mb-5">
+            <div class="p-3">
+            <H5>Cuotas Diarias</H5>
+            <P>
+                Esta sección muestra la cuota diaria que se han pagado, incluyendo detalles sobre estos.
+            </P>
 
-    <MudDialog>
-        <DialogContent>
-            Dialog Content
-        </DialogContent>
-        <DialogActions>
-            <MudButton OnClick="Cancel">Cancel</MudButton>
-            <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
-        </DialogActions>
-    </MudDialog>
+            </div>
+        <MudCardContent>
+        <MudTable Items="@cuotaDiaria" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info" Virtualize="true" FixedHeader="true">
+                <HeaderContent>
+                    <MudTh>Imagen</MudTh>
+                    <MudTh>Última Suma</MudTh>
+                    <MudTh>Conductor</MudTh>
+                    <MudTh>Tarifa Diaria</MudTh>
+                    <MudTh>Tarifa Ahorro</MudTh>
+                    <MudTh>Fecha Transacción</MudTh>
+                    <MudTh>Comentario</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd>
+                        <img src="@context.Imagen" alt="Imagen" width="50" height="50" />
+                    </MudTd>
+                    <MudTd>@context.UltimaSuma</MudTd>
+                    <MudTd>@context.Conductor</MudTd>
+                    <MudTd>@context.TarifaDiaria.ToString()</MudTd>
+                    <MudTd>@context.TarifaAhorro.ToString()</MudTd>
+                    <MudTd>@context.FechaTransaccion.ToString("dd/MM/yyyy")</MudTd>
+                    <MudTd>@context.Comentario</MudTd>
+                </RowTemplate>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100, int.MaxValue }"
+                               RowsPerPageString="@rowsPerPageString"
+                               InfoFormat="@infoFormat"
+                               AllItemsText="@allItemsText"
+                               HorizontalAlignment="@horizontalAlignment"
+                               HideRowsPerPage="@hideRowsPerPage"
+                               HidePageNumber="@hidePageNumber"
+                               HidePagination="@hidePagination" />
+            </PagerContent>
+            </MudTable>
+        </MudCardContent>
+    </MudCard>
+
 
 
 @code {
@@ -153,5 +140,12 @@
         return Dialog.ShowAsync<ServiciosModal>(servicio.Titulo, parameters, options);
       
     }
+
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "/"),
+        new BreadcrumbItem("Vehiculos", href: "/vehiculos"),
+        new BreadcrumbItem("Detalle del Vehiculo", href: null, disabled: true),
+    };
   
 }

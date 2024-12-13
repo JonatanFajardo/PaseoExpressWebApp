@@ -90,7 +90,7 @@
                     </div>
                 </div>
             </div>
-       <div class="row">
+            <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                 <label class="form-label">año del Vehiculo</label>
@@ -100,7 +100,7 @@
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label class="form-label">Recurrente</label>
-                        <InputCheckbox @bind-Value="servicio.EsRecurrente" class="form-control" disabled/>
+                        <InputText @bind-Value="EsRecurrente" class="form-control" disabled/>
                     </div>
                 </div>
             </div>
@@ -136,7 +136,7 @@
                 <div class="col-12 col-md-6">
                     <div class="form-group">
                 <label class="form-label">Confirmado</label>
-                        <InputCheckbox @bind-Value="servicio.Confirmado" class="form-control" disabled/>
+                        <InputText @bind-Value="Confirmado" class="form-control" disabled/>
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -162,14 +162,6 @@
         </EditForm> 
     </div>
 
-
-@*<MudDialog>
-    <MudDialogTitle>Servicios por Vehículo</MudDialogTitle>
-    <MudDialogContent>
-    </MudDialogContent>
-
-</MudDialog>
-*@
        
 @code {
     [CascadingParameter]
@@ -180,10 +172,13 @@
     public ObtenerServiciosPorVehiculoResult servicio { get; set; }
     private void Submit() => MudDialog.Close(DialogResult.Ok(true));
     private void Cancel() => MudDialog.Cancel();
-    string ss=null; 
+    string EsRecurrente;
+    string Confirmado;
 
     protected override async Task OnInitializedAsync()
     {
+        EsRecurrente = servicio.EsRecurrente ? "Sí" : "No";
+        Confirmado = servicio.Confirmado ? "Sí" : "No";
         var servicio2 = servicio;
         setServicio();
     }
