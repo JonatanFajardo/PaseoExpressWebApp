@@ -13,5 +13,6 @@ namespace PaseoExpressWebApp.Context
         public string Placa { get; set; }
         public int TarifaDiaria { get; set; }
         public int TarifaAhorro { get; set; }
+        public string Nombre { get; set; }
     }
 }

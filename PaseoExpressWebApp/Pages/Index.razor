@@ -5,37 +5,209 @@
 @inject IJSRuntime JS
 @inject TransaccionesService transaccionesService
 @inject NavigationManager Navigation
+@inject comprobantediarioservice ComprobanteDiarioService
+@inject VehiculoService VehiculoService
 
+@page "/car-dashboard"
 @using Microsoft.AspNetCore.SignalR.Client;
+@using MudBlazor
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
-Welcome to your new app.
+@if(vehiculoInformacionDashboardResults != null){
 
-<MudButton Variant="Variant.Filled" Color="Color.Primary">Hola MudBlazor</MudButton>
+    <MudCarousel Class="mud-width-full" Style="height:485px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+@foreach (var item in vehiculoInformacionDashboardResults)
+{
+
+     <MudCarouselItem Transition="Transition.None" >
+
+   
+<MudCard>
+    <MudCardContent>
+
+<MudContainer  Class="pa-4">
+    <!-- Imagen y Título -->
+    <MudGrid Spacing="3" AlignItems="center">
+        <MudItem xs="12" md="7" Class="text-center">
+            <img src="/img/@item.Imagen" alt="Lamborghini Aventador" height="200" />
+        </MudItem>
+                        <MudItem xs="12" md="5" Class="text-center d-flex justify-center">
+                            <div>
+                                <MudText Typo="Typo.h3">@item.Marca</MudText>
+                                <h3 style="color: #FF4500;">@item.Anio</h3>
+                            </div>
+                        </MudItem>
+
+    </MudGrid>
+
+    <!-- Tarjetas de Información -->
+    <MudGrid Spacing="3" >
+        <!-- Tarjeta de Nivel de Aceite -->
+        <MudItem xs="12" md="3">
+                                    <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
+                 <MudGrid>
+                                    <MudItem md="3">
+                <MudIcon Icon="@Icons.Material.Outlined.WaterDrop"  />
+
+                                    </MudItem>
+                                    <MudItem md="9">
+                                        <h4>Nivel Aceite</h4>
+                                        <p>Motor</p>
+                                    </MudItem>
+                             </MudGrid>
 
 
+                <MudSlider Value="@item.PorcentajeDesgasteAceite" Color="Color.Default" Min="0" Max="100" Disabled="true" />
+                <p><strong>Fecha:</strong> Nov 12-20</p>
+                <p><strong>Marca:</strong> @item.Marca</p>
+            </MudPaper>
+        </MudItem>
 
-<h3>Gráfica de Transacciones Mensuales</h3>
-<canvas id="transaccionesChart" width="400" height="200"></canvas>
+        <!-- Tarjeta de Frenos (Combustible/Calor) -->
+        <MudItem xs="12" md="3">
+            <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
+                             <MudGrid>
+                                    <MudItem md="3">
+                                        <MudIcon Icon="@Icons.Material.Outlined.Circle" />
 
-<h3>Gráfica de Transacciones Mensuales por Vehículo</h3>
+                                    </MudItem>
+                                    <MudItem md="9">
+                                        <h4>Llantas</h4>
+                                        <p>Delanteras</p>
+                                    </MudItem>
+                             </MudGrid>
+                                        <div class="bg-primario-claro">
 
-<div class="mb-3">
-    <label class="form-label">Seleccione el Vehículo</label>
-    <select @bind="selectedVehiculoId" class="form-select">
-        @if (vehiculos != null)
+                                
+                                <MudProgressCircular Color="Color.Default" Size="Size.Large" Value="@((double)@item.PorcentajeDesgasteLlanta1)" Class="mr-2" />
+                                <MudProgressCircular Color="Color.Default" Size="Size.Large" Value="@((double)@item.PorcentajeDesgasteLlanta2)" />
+                        <p>Left @item.PorcentajeDesgasteLlanta1% | Right @item.PorcentajeDesgasteLlanta2%</p>
+                                </div> 
+            </MudPaper>
+        </MudItem>
+
+                <!-- Tarjeta de Frenos (Combustible/Calor) -->
+                      
+                <MudItem xs="12" md="3">
+                    <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
+                         <MudGrid>
+                                    <MudItem md="3">
+                                        <MudIcon Icon="@Icons.Material.Outlined.Circle" />
+                             
+                                    </MudItem>
+                                    <MudItem md="9">
+                                        <h4>Llantas</h4>
+                                        <p>Traseras</p>
+                                    </MudItem>
+                             </MudGrid>
+
+                        <MudProgressCircular Color="Color.Default" Size="Size.Large" Value="@((double)@item.PorcentajeDesgasteLlanta3)" Class="mr-2" />
+
+                        <MudProgressCircular Color="Color.Default" Size="Size.Large" Value="@((double)@item.PorcentajeDesgasteLlanta4)" />
+                                <p>Left @item.PorcentajeDesgasteLlanta3% | Right @item.PorcentajeDesgasteLlanta4%</p>
+                    </MudPaper>
+                </MudItem>
+
+
+                        <!-- Tarjeta de Frenos (Combustible/Calor) -->
+
+                        <MudItem xs="12" md="3">
+                                    <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
+                                 <MudGrid>
+                                    <MudItem md="3">
+                                <MudIcon Icon="@Icons.Material.Filled.Air" />
+                                        
+                                    </MudItem>
+                                    <MudItem md="9">
+                                <h4>Filtros</h4>
+                                <p>Aire</p>
+                                    </MudItem>
+                             </MudGrid>
+
+                                <MudProgressCircular Color="Color.Default" Size="Size.Large" Value="@((double)@item.PorcentajeDesgasteFiltroCabina)" Class="mr-2" />
+
+                                <MudProgressCircular Color="Color.Default" Size="Size.Large" Value="@((double)@item.PorcentajeDesgasteFiltroMotor)" />
+                                <p>Cabina @item.PorcentajeDesgasteFiltroCabina% | Motor @item.PorcentajeDesgasteFiltroMotor%</p>
+                            </MudPaper>
+                        </MudItem>
+    </MudGrid>
+
+</MudContainer>
+
+    </MudCardContent>
+</MudCard>
+            </MudCarouselItem>
+}
+ </MudCarousel>
+
+}
+
+<MudGrid Class="pt-4">
+    <MudItem sm="9">
+        <MudCard>
+            <MudCardHeader>
+                <h4>Ingresos y egresos mensuales</h4>
+
+            </MudCardHeader>
+            <MudCardContent>
+
+                <canvas id="transaccionesChart" width="400" height="200px"></canvas>
+
+               @* <h3>Gráfica de Transacciones Mensuales por Vehículo</h3>
+
+                <div class="mb-3">
+                    <label class="form-label">Seleccione el Vehículo</label>
+                    <select @bind="selectedVehiculoId" class="form-select">
+                        @if (vehiculos != null)
+                        {
+                            @foreach (var vehiculo in vehiculos)
+                            {
+                                <option value="@vehiculo.IdVehiculo">@vehiculo.Placa</option>
+                            }
+                        }
+                    </select>
+                </div>*@
+            </MudCardContent>
+        </MudCard>
+
+    </MudItem>
+    <MudItem sm="3">
+        @if (vehiculosDiario != null)
         {
-            @foreach (var vehiculo in vehiculos)
+            @foreach (var item in vehiculosDiario)
             {
-                <option value="@vehiculo.IdVehiculo">@vehiculo.Placa</option>
+                <article>
+                    <MudGrid>
+                        <MudItem sm="6">
+                            @item.Imagen
+                        </MudItem>
+                        <MudItem sm="6">
+                            <h5>@item.Placa</h5>
+                            <p>@item.Nombre</p>
+                        </MudItem>
+
+                    </MudGrid>
+                </article>
             }
         }
-    </select>
-</div>
 
-<canvas id="transaccionesChartVehiculo" width="400" height="200"></canvas>
+    </MudItem>
+</MudGrid>
+
+@*<MudCard>
+    <MudCardContent>
+    </MudCardContent>
+</MudCard>
+                
+            }
+            <MudItem sm="6"></MudItem>
+
+
+
+            
+
+@*<canvas id="transaccionesChartVehiculo" width="400" height="200"></canvas>*@
 
 @code {
     private List<ObtenerTransaccionesResult> transacciones;
@@ -43,44 +215,48 @@ Welcome to your new app.
     private List<TransaccionesMensuales> transaccionesMensualesVehiculo;
     private List<Vehiculo> vehiculos;
     private int selectedVehiculoId;
+    private List<ObtenerVehiculoInformacionDashboardResult> vehiculoInformacionDashboardResults = new List<ObtenerVehiculoInformacionDashboardResult>();
 
- 
+
+    //Carousel
+    private bool arrows = false;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
 
     protected override async Task OnInitializedAsync()
     {
- 
 
 
+        vehiculoInformacionDashboardResults = await VehiculoService.VehiculoInformacionDashboardAsync();
+        vehiculosDiario = await ComprobanteDiarioService.obtenervehiculossinexistenciahoy();
+
+        //await Obtenervehiculos();
+        
+        //selectedVehiculoId = vehiculos.FirstOrDefault()?.IdVehiculo ?? 0;
+        await UpdateGraficas();
+
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (transaccionesMensuales != null)
+        {
+            await JS.InvokeVoidAsync("crearGraficaTransacciones", transaccionesMensuales);
+            //await JS.InvokeVoidAsync("crearGraficaTransaccionesVehiculo", transaccionesMensualesVehiculo);
+        }
+    }
+    private async Task UpdateGraficas()
+    {
+     
         transacciones = await transaccionesService.ObtenerTransaccionesAsync();
         vehiculos = transacciones.Select(t => new Vehiculo { IdVehiculo = t.IdVehiculo, Placa = t.Placa })
                                  .Distinct()
                                  .ToList();
-        
-        selectedVehiculoId = vehiculos.FirstOrDefault()?.IdVehiculo ?? 0;
-        await UpdateGraficas();
-    }
- 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JS.InvokeVoidAsync("crearGraficaTransacciones", transaccionesMensuales);
-            await JS.InvokeVoidAsync("crearGraficaTransaccionesVehiculo", transaccionesMensualesVehiculo);
-        }
-    }
 
-    private async Task OnVehiculoChanged(ChangeEventArgs e)
-    {
-        if (int.TryParse(e.Value?.ToString(), out int selectedId))
-        {
-            selectedVehiculoId = selectedId;
-            await UpdateGraficas();
-            await JS.InvokeVoidAsync("crearGraficaTransaccionesVehiculo", transaccionesMensualesVehiculo);
-        }
-    }
-
-    private async Task UpdateGraficas()
-    {
+    
         transaccionesMensuales = transacciones
             .GroupBy(t => t.FechaTransaccion.Month)
             .Select(g => new TransaccionesMensuales
@@ -99,6 +275,18 @@ Welcome to your new app.
                     Gastos = g.Where(t => t.IdTipoTransaccion == 2).Sum(t => Math.Abs(t.TarifaDiaria)),
                     Ingresos = g.Where(t => t.IdTipoTransaccion == 1).Sum(t => t.TarifaDiaria)
                 }).ToList();
+        }
+
+
+
+    private async Task OnVehiculoChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int selectedId))
+        {
+            selectedVehiculoId = selectedId;
+            await UpdateGraficas();
+            await JS.InvokeVoidAsync("crearGraficaTransaccionesVehiculo", transaccionesMensualesVehiculo);
+        }
     }
 
 
@@ -114,6 +302,12 @@ Welcome to your new app.
         public int Gastos { get; set; }
         public int Ingresos { get; set; }
     }
-}
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    //fin graficas
+    private List<ObtenerVehiculosSinExistenciaHoyResult> vehiculosDiario;
+
+    //private async Task Obtenervehiculos()
+    //{
+
+    //}
+}

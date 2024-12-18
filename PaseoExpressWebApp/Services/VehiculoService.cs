@@ -34,7 +34,12 @@ namespace PaseoExpressWebApp.Services
             return results;
         }
 
-    
+
+        public async Task<List<ObtenerVehiculoInformacionDashboardResult>> VehiculoInformacionDashboardAsync()
+        {
+            List<ObtenerVehiculoInformacionDashboardResult> lista = await _context.Procedures.ObtenerVehiculoInformacionDashboardAsync();
+            return lista;
+        }
 
     }
 }

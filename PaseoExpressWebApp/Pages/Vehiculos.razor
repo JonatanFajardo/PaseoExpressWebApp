@@ -9,7 +9,6 @@
 
 <MudBreadcrumbs Items="_items"></MudBreadcrumbs>
 
-<div class="container">
 
    @* <h1>Cuota pendiente</h1>
     <button class="btn btn-primary" @onclick="EnviarSolicitudActualizarTransaccion">Actualizar Transacción</button>
@@ -23,7 +22,7 @@
     else
     {
 
-            <MudCard Class="pb-5">
+            <MudCard Class="pb-5" style="max-width:100%; min-width:100%;">
                 <div class="p-3">
                             <H5>Vehículos</H5>
                     <span>
@@ -32,7 +31,7 @@
 
             </div>
             <MudCardContent>
-                <MudTable Items="@vehiculos" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info" HorizontalScrollbar="true">
+                <MudTable Items="@vehiculos" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Md" LoadingProgressColor="Color.Info" HorizontalScrollbar="true">
                     <HeaderContent>
                         <MudTh>Acciones</MudTh>
                         <MudTh>Marca</MudTh>
@@ -40,11 +39,11 @@
                         <MudTh>Anio</MudTh>
                         <MudTh>VIN</MudTh>
                         <MudTh>Placa</MudTh>
-                        <MudTh>Kilometraje</MudTh>
-                        <MudTh>Millaje</MudTh>
+                        @*<MudTh>Kilometraje</MudTh>*@
+                        @*<MudTh>Millaje</MudTh>*@
                         <MudTh>Color</MudTh>
-                        <MudTh>Tarifa Diaria</MudTh>
-                        <MudTh>Tarifa Ahorro</MudTh>
+                        @*<MudTh>Tarifa Diaria</MudTh>*@
+                        @*<MudTh>Tarifa Ahorro</MudTh>*@
                         <MudTh>Propietario</MudTh>
                         <MudTh>Nombre</MudTh>
                     </HeaderContent>
@@ -59,11 +58,11 @@
                         <MudTd DataLabel="año">@context.Anio</MudTd>
                         <MudTd DataLabel="Vin">@context.VIN</MudTd>
                         <MudTd DataLabel="Placa">@context.Placa</MudTd>
-                        <MudTd DataLabel="Kilometraje">@context.Kilometraje</MudTd>
-                        <MudTd DataLabel="Millaje">@context.Millaje</MudTd>
+                        @*<MudTd DataLabel="Kilometraje">@context.Kilometraje</MudTd>*@
+                        @*<MudTd DataLabel="Millaje">@context.Millaje</MudTd>*@
                         <MudTd DataLabel="Color">@context.Color</MudTd>
-                        <MudTd DataLabel="TarifaDiaria">@context.TarifaDiaria</MudTd>
-                        <MudTd DataLabel="TarifaAhorro">@context.TarifaAhorro</MudTd>
+                        @*<MudTd DataLabel="TarifaDiaria">@context.TarifaDiaria</MudTd>*@
+                        @*<MudTd DataLabel="TarifaAhorro">@context.TarifaAhorro</MudTd>*@
                         <MudTd DataLabel="Propietario">@context.Propietario</MudTd>
                         <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
                     </RowTemplate> 
@@ -82,7 +81,6 @@
         </MudCard>
 
     }
-</div>
 
 
 @code {

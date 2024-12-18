@@ -41,6 +41,7 @@ namespace PaseoExpressWebApp.Context
             modelBuilder.Entity<ObtenerServiciosProximoCambioResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ObtenerTransaccionesResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ObtenerTransaccionesPorVehiculoResult>().HasNoKey().ToView(null);
+            modelBuilder.Entity<ObtenerVehiculoInformacionDashboardResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ObtenerVehiculosResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ObtenerVehiculosSinExistenciaHoyResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ResumenTotalResult>().HasNoKey().ToView(null);
@@ -428,6 +429,26 @@ namespace PaseoExpressWebApp.Context
                 parameterreturnValue,
             };
             var _ = await _context.SqlQueryAsync<ObtenerTransaccionesPorVehiculoResult>("EXEC @returnValue = [dbo].[ObtenerTransaccionesPorVehiculo] @IdVehiculo = @IdVehiculo", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<ObtenerVehiculoInformacionDashboardResult>> ObtenerVehiculoInformacionDashboardAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<ObtenerVehiculoInformacionDashboardResult>("EXEC @returnValue = [dbo].[ObtenerVehiculoInformacionDashboard]", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

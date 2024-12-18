@@ -115,6 +115,10 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[ObtenerVehiculoInformacionDashboard]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[ObtenerVehiculos]",
          "ObjectType": 1
       },
