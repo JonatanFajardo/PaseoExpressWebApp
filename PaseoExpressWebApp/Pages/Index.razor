@@ -14,13 +14,15 @@
 
 <PageTitle>Home</PageTitle>
 
+
+
 @if(vehiculoInformacionDashboardResults != null){
 
-    <MudCarousel Class="mud-width-full" Style="height:485px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+    <MudCarousel Class="mud-width-full" @key="vehiculoInformacionDashboardResults.Count" Style="height:485px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
 @foreach (var item in vehiculoInformacionDashboardResults)
 {
 
-     <MudCarouselItem Transition="Transition.None" >
+     <MudCarouselItem Transition="Transition.Slide" >
 
    
 <MudCard>
@@ -139,7 +141,12 @@
 </MudCard>
             </MudCarouselItem>
 }
- </MudCarousel>
+    </MudCarousel>
+
+}
+else
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
 
 }
 
@@ -306,8 +313,4 @@
     //fin graficas
     private List<ObtenerVehiculosSinExistenciaHoyResult> vehiculosDiario;
 
-    //private async Task Obtenervehiculos()
-    //{
-
-    //}
 }
