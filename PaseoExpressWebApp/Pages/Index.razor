@@ -18,27 +18,30 @@
 
 @if(vehiculoInformacionDashboardResults != null){
 
-    <MudCarousel Class="mud-width-full" @key="vehiculoInformacionDashboardResults.Count" Style="height:485px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+    <MudCarousel Class="mud-width-full" @key="vehiculoInformacionDashboardResults.Count" Style="height:380px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
 @foreach (var item in vehiculoInformacionDashboardResults)
 {
 
      <MudCarouselItem Transition="Transition.Slide" >
 
-   
-<MudCard>
-    <MudCardContent>
+
+                <MudCard Class=" p-0">
+                    <MudCardContent Class=" p-0">
 
 <MudContainer  Class="pa-4">
     <!-- Imagen y Título -->
     <MudGrid Spacing="3" AlignItems="center">
-        <MudItem xs="12" md="7" Class="text-center">
+        <MudItem xs="12" md="7" Class="text-center p-0">
             <img src="/img/@item.Imagen" alt="Lamborghini Aventador" height="200" />
         </MudItem>
-                        <MudItem xs="12" md="5" Class="text-center d-flex justify-center">
-                            <div>
-                                <MudText Typo="Typo.h3">@item.Marca</MudText>
-                                <h3 style="color: #FF4500;">@item.Anio</h3>
-                            </div>
+                        <MudItem xs="12" md="5" Class="text-center d-flex justify-center ">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <div>
+                                            <span class="fs-4">@item.Marca</span>
+                                            <h3 style="color: #FF4500;">@item.Anio</h3>
+                                        </div>
+                                    </div>
+
                         </MudItem>
 
     </MudGrid>
@@ -54,15 +57,15 @@
 
                                     </MudItem>
                                     <MudItem md="9">
-                                        <h4>Nivel Aceite</h4>
-                                        <p>Motor</p>
+                                        <h4 class="m-0 h5  fw-bolder">Nivel Aceite</h4>
+                                                <p class="fw-light">Motor</p>
                                     </MudItem>
                              </MudGrid>
 
-
+                  
                 <MudSlider Value="@item.PorcentajeDesgasteAceite" Color="Color.Default" Min="0" Max="100" Disabled="true" />
-                <p><strong>Fecha:</strong> Nov 12-20</p>
-                <p><strong>Marca:</strong> @item.Marca</p>
+                <p class="m-0"><strong>Fecha:</strong> Nov 12-20</p>
+                <p class="m-0"><strong>Marca:</strong> @item.Marca</p>
             </MudPaper>
         </MudItem>
 
@@ -75,16 +78,18 @@
 
                                     </MudItem>
                                     <MudItem md="9">
-                                        <h4>Llantas</h4>
-                                        <p>Delanteras</p>
+                                                <h4 class="m-0 h5  fw-bolder">Llantas</h4>
+                                                <p class="fw-light">Delanteras</p>
                                     </MudItem>
                              </MudGrid>
                                         <div class="bg-primario-claro">
 
-                                
-                                <MudProgressCircular Color="Color.Default" Size="Size.Large" Value="@((double)@item.PorcentajeDesgasteLlanta1)" Class="mr-2" />
-                                <MudProgressCircular Color="Color.Default" Size="Size.Large" Value="@((double)@item.PorcentajeDesgasteLlanta2)" />
-                        <p>Left @item.PorcentajeDesgasteLlanta1% | Right @item.PorcentajeDesgasteLlanta2%</p>
+                                           <div class="text-center">
+
+                                <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteLlanta1)" Class="mr-2" />
+                                <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteLlanta2)" />
+                                            <p class="m-0">Left @item.PorcentajeDesgasteLlanta1% | Right @item.PorcentajeDesgasteLlanta2%</p>
+                             </div>
                                 </div> 
             </MudPaper>
         </MudItem>
@@ -99,15 +104,17 @@
                              
                                     </MudItem>
                                     <MudItem md="9">
-                                        <h4>Llantas</h4>
-                                        <p>Traseras</p>
+                                                <h4 class="m-0 h5  fw-bolder">Llantas</h4>
+                                                <p class="fw-light">Traseras</p>
                                     </MudItem>
                              </MudGrid>
+           <div class="text-center">
 
-                        <MudProgressCircular Color="Color.Default" Size="Size.Large" Value="@((double)@item.PorcentajeDesgasteLlanta3)" Class="mr-2" />
+                        <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteLlanta3)" Class="mr-2" />
 
-                        <MudProgressCircular Color="Color.Default" Size="Size.Large" Value="@((double)@item.PorcentajeDesgasteLlanta4)" />
-                                <p>Left @item.PorcentajeDesgasteLlanta3% | Right @item.PorcentajeDesgasteLlanta4%</p>
+                        <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteLlanta4)" />
+                                        <p class="m-0">Left @item.PorcentajeDesgasteLlanta3% | Right @item.PorcentajeDesgasteLlanta4%</p>
+                             </div>
                     </MudPaper>
                 </MudItem>
 
@@ -122,15 +129,17 @@
                                         
                                     </MudItem>
                                     <MudItem md="9">
-                                <h4>Filtros</h4>
-                                <p>Aire</p>
+                                                <h4 class="m-0 h5  fw-bolder">Filtros</h4>
+                                                <p class="fw-light">Aire</p>
                                     </MudItem>
                              </MudGrid>
+           <div class="text-center">
 
-                                <MudProgressCircular Color="Color.Default" Size="Size.Large" Value="@((double)@item.PorcentajeDesgasteFiltroCabina)" Class="mr-2" />
+                                <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteFiltroCabina)" Class="mr-2" />
 
-                                <MudProgressCircular Color="Color.Default" Size="Size.Large" Value="@((double)@item.PorcentajeDesgasteFiltroMotor)" />
-                                <p>Cabina @item.PorcentajeDesgasteFiltroCabina% | Motor @item.PorcentajeDesgasteFiltroMotor%</p>
+                                <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteFiltroMotor)" />
+                                        <p class=" m-0">Cabina @item.PorcentajeDesgasteFiltroCabina% | Motor @item.PorcentajeDesgasteFiltroMotor%</p>
+                             </div>
                             </MudPaper>
                         </MudItem>
     </MudGrid>
@@ -226,10 +235,10 @@ else
 
 
     //Carousel
-    private bool arrows = false;
-    private bool bullets = true;
+    private bool arrows = true;
+    private bool bullets = false;
     private bool enableSwipeGesture = true;
-    private bool autocycle = true;
+    private bool autocycle = false;
     private Transition transition = Transition.Slide;
 
     protected override async Task OnInitializedAsync()
