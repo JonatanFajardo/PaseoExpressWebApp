@@ -15,10 +15,13 @@
 <PageTitle>Home</PageTitle>
 
 
+<div class="row">
+
+    <div class="col-6">
 
 @if(vehiculoInformacionDashboardResults != null){
 
-    <MudCarousel Class="mud-width-full" @key="vehiculoInformacionDashboardResults.Count" Style="height:380px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+            <MudCarousel Class="mud-width-full" @key="vehiculoInformacionDashboardResults.Count" Style="height:600px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
 @foreach (var item in vehiculoInformacionDashboardResults)
 {
 
@@ -30,11 +33,11 @@
 
 <MudContainer  Class="pa-4">
     <!-- Imagen y Título -->
-    <MudGrid Spacing="3" AlignItems="center">
-        <MudItem xs="12" md="7" Class="text-center p-0">
+@*    <MudGrid Spacing="3" AlignItems="center">
+        <MudItem xs="12" md="12" Class="text-center p-0">*@
             <img src="/img/@item.Imagen" alt="Lamborghini Aventador" height="200" />
-        </MudItem>
-                        <MudItem xs="12" md="5" Class="text-center d-flex justify-center ">
+        @*</MudItem>*@
+                    @*    <MudItem xs="12" md="5" Class="text-center d-flex justify-center ">
                                     <div class="d-flex justify-content-center align-items-center">
                                         <div>
                                             <span class="fs-4">@item.Marca</span>
@@ -42,14 +45,14 @@
                                         </div>
                                     </div>
 
-                        </MudItem>
+                        </MudItem>*@
 
-    </MudGrid>
+    @*</MudGrid>*@
 
     <!-- Tarjetas de Información -->
     <MudGrid Spacing="3" >
         <!-- Tarjeta de Nivel de Aceite -->
-        <MudItem xs="12" md="3">
+        <MudItem xs="12" md="6">
                                     <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
                  <MudGrid>
                                     <MudItem md="3">
@@ -70,7 +73,7 @@
         </MudItem>
 
         <!-- Tarjeta de Frenos (Combustible/Calor) -->
-        <MudItem xs="12" md="3">
+        <MudItem xs="12" md="6">
             <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
                              <MudGrid>
                                     <MudItem md="3">
@@ -96,7 +99,7 @@
 
                 <!-- Tarjeta de Frenos (Combustible/Calor) -->
                       
-                <MudItem xs="12" md="3">
+                <MudItem xs="12" md="6">
                     <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
                          <MudGrid>
                                     <MudItem md="3">
@@ -121,7 +124,7 @@
 
                         <!-- Tarjeta de Frenos (Combustible/Calor) -->
 
-                        <MudItem xs="12" md="3">
+                        <MudItem xs="12" md="6">
                                     <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
                                  <MudGrid>
                                     <MudItem md="3">
@@ -159,36 +162,47 @@ else
 
 }
 
-<MudGrid Class="pt-4">
-    <MudItem sm="9">
-        <MudCard>
-            <MudCardHeader>
-                <h4>Ingresos y egresos mensuales</h4>
+</div>
 
-            </MudCardHeader>
-            <MudCardContent>
+    <div class="col-6">
+@*<MudGrid Class="pt-4">*@
+    @*<MudItem sm="9">*@
+        <div class="row mb-3">
 
-                <canvas id="transaccionesChart" width="400" height="200px"></canvas>
+            <MudCard>
+                <MudCardHeader Class="pb-0">
+                    <h4 class="m-0 h5  fw-bolder">Ingresos y egresos mensuales</h4>
 
-               @* <h3>Gráfica de Transacciones Mensuales por Vehículo</h3>
+                </MudCardHeader>
+                <MudCardContent Class="p-0">
 
-                <div class="mb-3">
-                    <label class="form-label">Seleccione el Vehículo</label>
-                    <select @bind="selectedVehiculoId" class="form-select">
-                        @if (vehiculos != null)
-                        {
-                            @foreach (var vehiculo in vehiculos)
+                    <canvas id="transaccionesChart" width="400" height="200px"></canvas>
+
+                   @* <h3>Gráfica de Transacciones Mensuales por Vehículo</h3>
+
+                    <div class="mb-3">
+                        <label class="form-label">Seleccione el Vehículo</label>
+                        <select @bind="selectedVehiculoId" class="form-select">
+                            @if (vehiculos != null)
                             {
-                                <option value="@vehiculo.IdVehiculo">@vehiculo.Placa</option>
+                                @foreach (var vehiculo in vehiculos)
+                                {
+                                    <option value="@vehiculo.IdVehiculo">@vehiculo.Placa</option>
+                                }
                             }
-                        }
-                    </select>
-                </div>*@
-            </MudCardContent>
-        </MudCard>
+                        </select>
+                    </div>*@
+                </MudCardContent>
+            </MudCard>
+        </div>
+            <div class="row">
 
-    </MudItem>
-    <MudItem sm="3">
+    @*</MudItem>*@
+    @*<MudItem sm="3">*@
+        <div class="card">
+            <div class="card-body">
+
+
         @if (vehiculosDiario != null)
         {
             @foreach (var item in vehiculosDiario)
@@ -207,9 +221,14 @@ else
                 </article>
             }
         }
+            </div>
+        </div>
+            </div>
 
-    </MudItem>
-</MudGrid>
+    @*</MudItem>*@
+@*</MudGrid>*@
+    </div>
+</div>
 
 @*<MudCard>
     <MudCardContent>
