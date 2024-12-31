@@ -1,20 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PaseoExpressWebApp.Context;
-using PaseoExpressWebApp.Data;
+﻿using PaseoExpressWebApp.Context;
 
 namespace PaseoExpressWebApp.Services
 {
     public class VehiculoService
     {
-
         private readonly DB_UberContext _context;
-
 
         public VehiculoService(DB_UberContext context)
         {
             _context = context;
         }
-
 
         public async Task<List<ObtenerVehiculosResult>> Obtenervehiculos()
         {
@@ -34,12 +29,10 @@ namespace PaseoExpressWebApp.Services
             return results;
         }
 
-
         public async Task<List<ObtenerVehiculoInformacionDashboardResult>> VehiculoInformacionDashboardAsync()
         {
             List<ObtenerVehiculoInformacionDashboardResult> lista = await _context.Procedures.ObtenerVehiculoInformacionDashboardAsync();
             return lista;
         }
-
     }
 }

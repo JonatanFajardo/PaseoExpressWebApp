@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\DB_UberContext_My.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="efpt.config.json.user" />
     <None Include="wwwroot\jscript\OwlCarousel2\.gitattributes" />
     <None Include="wwwroot\jscript\OwlCarousel2\.gitignore" />

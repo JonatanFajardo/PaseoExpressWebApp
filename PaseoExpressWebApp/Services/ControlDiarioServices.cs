@@ -1,6 +1,4 @@
-﻿using PaseoExpressWebApp.Context;
-
-namespace PaseoExpressWebApp.Services
+﻿namespace PaseoExpressWebApp.Services
 {
     public class ControlDiarioServices
     {

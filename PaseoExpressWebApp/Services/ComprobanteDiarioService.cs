@@ -1,12 +1,10 @@
 ﻿using PaseoExpressWebApp.Context;
-using PaseoExpressWebApp.Data;
 
 namespace PaseoExpressWebApp.Services
 {
     public class comprobantediarioservice
     {
         private readonly DB_UberContext _context;
-
 
         public comprobantediarioservice(DB_UberContext context)
         {
@@ -20,15 +18,13 @@ namespace PaseoExpressWebApp.Services
         }
 
         public async Task TransaccionTarifaNoPagada(int idVehiculo, DateTime FechaTransaccion, DateTime? FechaTransaccionHasta)
-        { 
-            _context.Procedures.TransaccionTarifaNoPagadaAsync(idVehiculo, FechaTransaccion, FechaTransaccionHasta); 
+        {
+            _context.Procedures.TransaccionTarifaNoPagadaAsync(idVehiculo, FechaTransaccion, FechaTransaccionHasta);
         }
 
         public async Task CierreDiarioAsync()
         {
-
             _context.Procedures.CierreDiarioAsync();
-
         }
 
         public async Task<List<ObtenerVehiculosResult>> Obtenervehiculos()

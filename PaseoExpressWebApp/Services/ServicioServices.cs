@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PaseoExpressWebApp.Context;
-using PaseoExpressWebApp.Data;
 using PaseoExpressWebApp.Models;
 using System.Data;
 
@@ -11,13 +10,11 @@ namespace PaseoExpressWebApp.Services
     {
         private readonly DB_UberContext _context;
 
-
         public ServicioServices(DB_UberContext context)
         {
             _context = context;
         }
 
-    
         private SqlParameter CreateSqlParameter(string name, object value, SqlDbType type, int? size = null, byte? precision = null, byte? scale = null)
         {
             return new SqlParameter
@@ -79,7 +76,6 @@ namespace PaseoExpressWebApp.Services
 
                 //return _;
                 return true;
-
             }
             catch (Exception e)
             {
@@ -87,35 +83,25 @@ namespace PaseoExpressWebApp.Services
             }
         }
 
-
-
         public List<tbTipoServicios> TipoServicios()
-        
-        
-        {
 
+        {
             var dd = _context.tbTipoServicios.ToList();
             return dd;
         }
 
-
         public List<tbTipoMantenimientos> TipoMantenimientos()
         {
-
             return _context.tbTipoMantenimientos.ToList();
         }
 
-
         public List<tbVehiculo> Vehiculos()
         {
-
             return _context.tbVehiculo.ToList();
         }
 
-
         public List<tbUbicacionEnAutomovil> UbicacionesEnAutomovil()
         {
-
             return _context.tbUbicacionEnAutomovil.ToList();
         }
 

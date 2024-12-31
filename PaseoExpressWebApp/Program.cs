@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 using PaseoExpressWebApp.Context;
-using PaseoExpressWebApp.Data;
 using PaseoExpressWebApp.Hubs;
 using PaseoExpressWebApp.Services;
 
@@ -10,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 
 
