@@ -8,6 +8,7 @@ namespace PaseoExpressWebApp.Context
     public partial class ObtenerVehiculosResult
     {
         public int IdVehiculo { get; set; }
+        public string Imagen { get; set; }
         public string Marca { get; set; }
         public string Modelo { get; set; }
         public int? Anio { get; set; }

@@ -36,7 +36,7 @@
                             <div>
                                  <AvatarContent>
                                     <MudAvatar>
-                                    <MudImage Image="seleccion.ImagenUsuario" />
+                                    <MudImage Src="@seleccion.Imagen" />
                                     </MudAvatar>
                                 </AvatarContent>
                                 <h3>@seleccion.Placa</h3>
@@ -62,7 +62,7 @@
                        
 
                     <!-- Tercera columna: Listado -->
-                    <div class="col-md-4">
+                <div class="col-md-4 overflow-auto" style="max-height: 472px;">
                         <ul class="list-group">
                         @foreach (var item in _transacciones)
                             {
@@ -89,7 +89,6 @@
             </div>
 
 
-        <MudText>Content One</MudText>
     </MudTabPanel>
     <MudTabPanel Text="Generar pago">
     
@@ -100,7 +99,7 @@
         else
         {
             <div class="d-flex flex-row-reverse">
-                <button class="btn bg-primario-oscuro oi-align-right m-3" @onclick="CierreDiarioAsync">Cierre Diario</button>
+                <button class="btn bg-primario-oscuro m-3" @onclick="CierreDiarioAsync" data-toggle="tooltip" data-placement="bottom" title="Con esto indicas que los pagos en todos los vehiculos se han realizado.">Cierre Diario</button>
             </div>
 
             <MudContainer>
@@ -109,7 +108,7 @@
                     {
                         <MudItem xs="12" sm="6" md="4">
                             <MudCard>
-                                <MudCardMedia Image="@vehiculo.Imagen" />
+                                <img src="/img/@vehiculo.Imagen"  class="img-fluid"/>
 
                                 <MudCardContent>
                                     <MudText Typo="Typo.h5">Vehículo @vehiculo.IdVehiculo</MudText>
@@ -120,7 +119,7 @@
                                         Tarifa Ahorro: @vehiculo.TarifaAhorro<br />
                                     </MudText>
 
-                                    <MudCheckBox @bind-Checked="mostrarFechaTransaccionHasta" Label="Mostrar Fecha de Transacción Hasta" />
+                                    <MudCheckBox @bind-Checked="mostrarFechaTransaccionHasta" Label="Mostrar Fecha de Transacción Hasta" data-toggle="tooltip" data-placement="bottom" title="Esto es útil cuando un conductor no ha echo un pago en varios dias." />
 
                                     @if (mostrarFechaTransaccionHasta)
                                     {
@@ -129,11 +128,11 @@
                                     }
                                 </MudCardContent>
 
-                                <MudCardActions>
+                                <div class="p-2 text-center">
                                     <MudPaper Class="pa-4 bg-primario-oscuro" OnClick="() => EnviarIdVehiculo(vehiculo.IdVehiculo, FechaTransaccion, FechaTransaccionHasta)">
-                                        Pago realizado
+                                        Efectuar pago
                                     </MudPaper>
-                                </MudCardActions>
+                                </div>
 
                                 @*<MudCardContent>
                                     <MudLink Href="#">Card link</MudLink>

@@ -29,10 +29,11 @@
                 <MudTable Items="@vehiculos" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Md" LoadingProgressColor="Color.Info" HorizontalScrollbar="true">
                     <HeaderContent>
                         <MudTh>Acciones</MudTh>
+                        <MudTh>Imagen</MudTh>
                         <MudTh>Marca</MudTh>
                         <MudTh>Modelo</MudTh>
                         <MudTh>Anio</MudTh>
-                        <MudTh>VIN</MudTh>
+                        @*<MudTh>VIN</MudTh>*@
                         <MudTh>Placa</MudTh>
                         @*<MudTh>Kilometraje</MudTh>*@
                         @*<MudTh>Millaje</MudTh>*@
@@ -40,7 +41,7 @@
                         @*<MudTh>Tarifa Diaria</MudTh>*@
                         @*<MudTh>Tarifa Ahorro</MudTh>*@
                         <MudTh>Propietario</MudTh>
-                        <MudTh>Nombre</MudTh>
+                        <MudTh>Conductor</MudTh>
                     </HeaderContent>
                     <RowTemplate>
                         <MudTd>
@@ -48,10 +49,14 @@
                                 <span>Detalles</span>
                             </MudButton>
                         </MudTd>
-                        <MudTd DataLabel="Marca">@context.Marca</MudTd>
+
+                    <MudTd>
+                        <img src="/img/@context.Imagen" class="img-fluid " alt="Imagen" width="50" height="50" />
+                    </MudTd>
+                    <MudTd DataLabel="Marca">@context.Marca</MudTd>
                         <MudTd DataLabel="Modelo">@context.Modelo</MudTd>
                         <MudTd DataLabel="año">@context.Anio</MudTd>
-                        <MudTd DataLabel="Vin">@context.VIN</MudTd>
+                        @*<MudTd DataLabel="Vin">@context.VIN</MudTd>*@
                         <MudTd DataLabel="Placa">@context.Placa</MudTd>
                         @*<MudTd DataLabel="Kilometraje">@context.Kilometraje</MudTd>*@
                         @*<MudTd DataLabel="Millaje">@context.Millaje</MudTd>*@

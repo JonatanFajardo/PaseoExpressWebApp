@@ -13,7 +13,7 @@
     <div class="p-3">
             <H5>Servicios</H5>
             <span>
-                Aquí se detallan los servicios ofrecidos, incluyendo información relevante como el tipo de servicio, la fecha, costos y estado de confirmación.
+                Aquí se detallan los mantenimientos dados al vehiculo.
             </span>
 
     </div>
@@ -68,7 +68,6 @@
         <MudCardContent>
         <MudTable Items="@cuotaDiaria" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info" Virtualize="true" FixedHeader="true">
                 <HeaderContent>
-                    <MudTh>Imagen</MudTh>
                     <MudTh>Última Suma</MudTh>
                     <MudTh>Conductor</MudTh>
                     <MudTh>Tarifa Diaria</MudTh>
@@ -77,9 +76,9 @@
                     <MudTh>Comentario</MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd>
+                   @* <MudTd>
                         <img src="@context.Imagen" alt="Imagen" width="50" height="50" />
-                    </MudTd>
+                    </MudTd>*@
                     <MudTd>@context.UltimaSuma</MudTd>
                     <MudTd>@context.Conductor</MudTd>
                     <MudTd>@context.TarifaDiaria.ToString()</MudTd>

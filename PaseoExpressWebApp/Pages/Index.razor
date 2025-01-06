@@ -32,23 +32,8 @@
                     <MudCardContent Class=" p-0">
 
 <MudContainer  Class="pa-4">
-    <!-- Imagen y Título -->
-@*    <MudGrid Spacing="3" AlignItems="center">
-        <MudItem xs="12" md="12" Class="text-center p-0">*@
+
             <img src="/img/@item.Imagen" alt="Lamborghini Aventador" height="200" />
-        @*</MudItem>*@
-                    @*    <MudItem xs="12" md="5" Class="text-center d-flex justify-center ">
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <div>
-                                            <span class="fs-4">@item.Marca</span>
-                                            <h3 style="color: #FF4500;">@item.Anio</h3>
-                                        </div>
-                                    </div>
-
-                        </MudItem>*@
-
-    @*</MudGrid>*@
-
     <!-- Tarjetas de Información -->
     <MudGrid Spacing="3" >
         <!-- Tarjeta de Nivel de Aceite -->
@@ -176,7 +161,7 @@ else
                 </MudCardHeader>
                 <MudCardContent Class="p-0">
 
-                    <canvas id="transaccionesChart" width="400" height="200px"></canvas>
+                    <canvas id="transaccionesChart" width="400"></canvas>
 
                    @* <h3>Gráfica de Transacciones Mensuales por Vehículo</h3>
 
