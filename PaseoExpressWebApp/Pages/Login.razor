@@ -1,0 +1,112 @@
+﻿@page "/"
+@layout LoginLayout
+
+
+@inject HttpClient httpClient
+@using PaseoExpressWebApp.Extensiones
+@using PaseoExpressWebApp.Models
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider autenticacionProvider
+@inject NavigationManager navManager
+
+
+@*
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4 login-container">
+            <div class="brand-name">Finnnger</div>
+            <div class="welcome-message">
+                <h4>Holla, Welcome Back</h4>
+                <p>Hey, welcome back to your special place</p>
+            </div>
+            <form>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input @bind="login.Correo" class="form-control" id="email" placeholder="stanley@gmail.com">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input @bind="login.Clave"  class="form-control" id="password">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                    <a href="#" class="float-end">Forgot Password?</a>
+                </div>
+                <button @onclick="IniciarSesion" class="btn btn-primary">Sign In</button>
+            </form>
+            <div class="signup-link">
+                Don't have an account? <a href="#">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+<div class="row mt-5">
+
+    <div class="col-lg-4 offset-lg-4 border">
+
+        <div class="mb-3 text-center">
+            <h3>LOGIN</h3>
+        </div>
+
+        <div class="mb-3">
+            <label>Correo</label>
+            <input @bind="login.Correo" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Contraseña</label>
+            <input @bind="login.Clave" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <button @onclick="IniciarSesion" class="btn btn-primary">Login</button>
+        </div>
+
+    </div>
+
+</div>
+
+
+@code {
+    private ObtenerServiciosResult sa = new ObtenerServiciosResult();
+
+    private LoginDto login = new LoginDto();
+
+    private async Task IniciarSesion()
+    {
+        try
+        {
+            var loginResponse = await httpClient.PostAsJsonAsync<LoginDto>("https://localhost:44384/api/Usuario/Login", login);
+            if (loginResponse.IsSuccessStatusCode)
+            {
+                var sesionUsuario = await loginResponse.Content.ReadFromJsonAsync<SesionDto>();
+
+
+                // Verificar si los datos del usuario son válidos
+                if (sesionUsuario != null && !string.IsNullOrEmpty(sesionUsuario.Correo) && !string.IsNullOrEmpty(sesionUsuario.Nombre))
+                {
+                    // Si los datos son válidos, actualizar el estado de autenticación
+                    var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
+                    await autenticacionExt.ActualizarEstadoAutenticacion(sesionUsuario);
+
+                    // Redirigir al inicio después de un login exitoso
+                    navManager.NavigateTo("/Inicio");
+                }
+                else
+                {
+                    // Si no se encuentra un usuario válido, muestra un mensaje
+                    Console.WriteLine("Datos de usuario inválidos.");
+                }
+            }
+        }
+        catch (HttpRequestException e)
+        {
+            Console.WriteLine($"Error de red o servidor: {e.Message}");
+
+        }
+    }
+
+}

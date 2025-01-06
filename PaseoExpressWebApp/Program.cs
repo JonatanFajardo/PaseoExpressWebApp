@@ -1,10 +1,21 @@
+using Blazored.SessionStorage;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 using PaseoExpressWebApp.Context;
+using PaseoExpressWebApp.Extensiones;
 using PaseoExpressWebApp.Hubs;
 using PaseoExpressWebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+//NUGETS
+
+//blazored.session.Storage
+//microsoft.aspnetcore.components.authorization
+
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -18,6 +29,17 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddSignalR();
+
+builder.Services.AddHttpClient();
+
+
+//Proteger Páginas en Blazor:
+
+builder.Services.AddAuthorizationCore();
+builder.Services.AddBlazoredSessionStorage();
+builder.Services.AddScoped<AuthenticationStateProvider, AutenticacionExtension>();
+
+
 
 //builder.Services.AddHttpClient<ComprobanteDiarioService>(client =>
 //{
@@ -66,6 +88,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 
+app.MapControllers();
 
 
 app.UseHttpsRedirection();

@@ -1,16 +1,18 @@
-﻿@page "/"
+﻿@page "/Inicio"
+@attribute [Authorize]
+
 @using PaseoExpressWebApp.Context;
 @using PaseoExpressWebApp.Models;
 @using PaseoExpressWebApp.Services;
+@using Microsoft.AspNetCore.SignalR.Client;
+@using MudBlazor
+
 @inject IJSRuntime JS
 @inject TransaccionesService transaccionesService
 @inject NavigationManager Navigation
 @inject comprobantediarioservice ComprobanteDiarioService
 @inject VehiculoService VehiculoService
 
-@page "/car-dashboard"
-@using Microsoft.AspNetCore.SignalR.Client;
-@using MudBlazor
 
 <PageTitle>Home</PageTitle>
 
