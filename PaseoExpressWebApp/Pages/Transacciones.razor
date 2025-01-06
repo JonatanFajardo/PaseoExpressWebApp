@@ -23,27 +23,33 @@
 
     <HeaderContent>
         @*<MudTh>Imagen</MudTh>*@
-        <MudTh>Ultima Suma</MudTh>
         @*<MudTh>Id Vehículo	</MudTh>*@
         <MudTh>Año</MudTh>
         <MudTh>Placa</MudTh>
+        <MudTh>Imagen</MudTh>
         <MudTh>Nombre</MudTh>
+        <MudTh>Ultima Suma</MudTh>
         <MudTh>Tarifa Diaria</MudTh>
         <MudTh>Tarifa Ahorro</MudTh>
         <MudTh>Fecha Transacción</MudTh>
-        <MudTh>Comentario</MudTh> 
+        @*<MudTh>Tipo de Transacción</MudTh>*@
+        @*<MudTh>Comentario</MudTh> *@
     </HeaderContent>
     <RowTemplate>
         @*<MudTd DataLabel="Imagen">@context.Imagen</MudTd>*@
-        <MudTd DataLabel="Ultima Suma">@context.UltimaSuma</MudTd>
         @*<MudTd DataLabel="Id Vehículo">@context.IdVehiculo</MudTd>*@
         <MudTd DataLabel="Año">@context.Anio</MudTd>
         <MudTd DataLabel="Placa">@context.Placa</MudTd>
+                <MudTd DataLabel="ImagenUsuario">
+                    <MudImage Src="@context.ImagenUsuario" Class="rounded-lg" Width="50" Height="50" ObjectFit="ObjectFit.Cover" />
+                </MudTd>
         <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
-        <MudTd DataLabel="Tarifa Diaria">@context.TarifaDiaria</MudTd>
-        <MudTd DataLabel="Tarifa Ahorro">@context.TarifaAhorro</MudTd>
-        <MudTd DataLabel="Fecha Transacción">@context.FechaTransaccion</MudTd>
-        <MudTd DataLabel="Comentario">@context.Comentario</MudTd>
+        <MudTd DataLabel="Ultima Suma">L @string.Format("{0:N2}", context.UltimaSuma)</MudTd>
+        <MudTd DataLabel="Tarifa Diaria">L @string.Format("{0:N2}", context.TarifaDiaria)</MudTd>
+        <MudTd DataLabel="Tarifa Ahorro">L @string.Format("{0:N2}", @context.TarifaAhorro)</MudTd>
+                <MudTd DataLabel="Tipo de Transacció">@context.FechaTransaccion</MudTd>
+                @*<MudTd DataLabel="Fecha Transacción">@context.NombreTipoTransaccion</MudTd>*@
+        @*<MudTd DataLabel="Comentario">@context.Comentario</MudTd>*@
     </RowTemplate>
     <PagerContent>
             <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100, int.MaxValue }"
@@ -68,8 +74,7 @@
     private bool hover = true;
     private bool striped = false;
     private bool bordered = false;
-    private string searchString1 = "";
-    //private Element selectedItem1 = null;
+    private string searchString1 = ""; 
 
     private HorizontalAlignment horizontalAlignment = HorizontalAlignment.Right;
     private bool hidePageNumber;

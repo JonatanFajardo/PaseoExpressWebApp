@@ -19,6 +19,7 @@ namespace PaseoExpressWebApp.Context
         public DateTime FechaTransaccion { get; set; }
         public string Comentario { get; set; }
         public int IdTipoTransaccion { get; set; }
+        public string NombreTipoTransaccion { get; set; }
         public bool Confirmada { get; set; }
         public DateTime FechaCreacion { get; set; }
     }

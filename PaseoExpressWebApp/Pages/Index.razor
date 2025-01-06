@@ -150,8 +150,6 @@ else
 </div>
 
     <div class="col-6">
-@*<MudGrid Class="pt-4">*@
-    @*<MudItem sm="9">*@
         <div class="row mb-3">
 
             <MudCard>
@@ -181,49 +179,46 @@ else
             </MudCard>
         </div>
             <div class="row">
+                <div class="col-md-8  p-0">
 
-    @*</MudItem>*@
-    @*<MudItem sm="3">*@
-        <div class="card">
-            <div class="card-body">
+                <MudCard Style="height:280px;" Class="overflow-auto">
+                <MudCardHeader Class="pb-0">
+                    <h4 class="m-0 h5  fw-bolder">Conductores en mora</h4>
+                </MudCardHeader>
+                <MudCardContent >
 
 
         @if (vehiculosDiario != null)
         {
             @foreach (var item in vehiculosDiario)
-            {
-                <article>
+            { 
                     <MudGrid>
-                        <MudItem sm="6">
-                            @item.Imagen
-                        </MudItem>
-                        <MudItem sm="6">
+                        <MudItem sm="3">
+                            @*<img src="@item.Imagen" class="img-fluid "/>*@
+                                        <MudImage Src="@item.Imagen" Class="rounded-lg" Width="50" Height="50" ObjectFit="ObjectFit.Cover" />
+
+                                    </MudItem>
+                        <MudItem sm="9">
                             <h5>@item.Placa</h5>
                             <p>@item.Nombre</p>
                         </MudItem>
 
                     </MudGrid>
-                </article>
             }
         }
-            </div>
-        </div>
-            </div>
+            </MudCardContent>
+        </MudCard>
+                </div>
+                <div class="col-md-4">
+                <div class="card" style="height:280px; background-image: url('/img/elegant-uber-driver-giving-taxi-ride.jpg'); background-size: cover;">
 
-    @*</MudItem>*@
-@*</MudGrid>*@
+                    </div>
+                </div>
+            </div>
+             
     </div>
 </div>
-
-@*<MudCard>
-    <MudCardContent>
-    </MudCardContent>
-</MudCard>
-                
-            }
-            <MudItem sm="6"></MudItem>
-
-
+ 
 
             
 
