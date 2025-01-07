@@ -9,40 +9,54 @@
 @inject AuthenticationStateProvider autenticacionProvider
 @inject NavigationManager navManager
 
-
-@*
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-4 login-container">
-            <div class="brand-name">Finnnger</div>
-            <div class="welcome-message">
-                <h4>Holla, Welcome Back</h4>
-                <p>Hey, welcome back to your special place</p>
+<EditForm Model="login" OnValidSubmit="IniciarSesion">
+    <div class="container-fluid vh-100">
+        <div class="row h-100">
+            <div class="col-md-8 p-0 " style="height: 100vh;">
+                <div class="rounded-right p-5" style="background-image: url('/img/login/schoolgirl-desk-with-laptop-memphis-style (1).jpg');
+                        background-size: cover;
+                        background-position: center;
+                        height: 100vh;">
+                </div>
             </div>
-            <form>
+            
+            <div class="col-md-4 p-4 login-container d-flex flex-column justify-content-center">
+                <div class="brand-name">GestionColegial</div>
+                <div class="welcome-message">
+                    <h4>Hola, Bienvenido nuevamente</h4>
+                    <p>Oye, bienvenido de nuevo a tu lugar especial.</p>
+                </div>
+
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input @bind="login.Correo" class="form-control" id="email" placeholder="stanley@gmail.com">
+                    <InputText @bind-Value="login.Correo" class="form-control" id="email" placeholder="stanley@gmail.com" />
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input @bind="login.Clave"  class="form-control" id="password">
+                    <InputText @bind-Value="login.Clave" class="form-control" id="password" type="password" />
                 </div>
-                <div class="mb-3 form-check">
+                @*<div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="rememberMe">
                     <label class="form-check-label" for="rememberMe">Remember me</label>
                     <a href="#" class="float-end">Forgot Password?</a>
+                </div>*@
+
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+
+                <div class="signup-link">
+                    <p>De ser necesario cambiar la contraseña o crear un usuario puedes ponerte en contacto con el administrador.</p>
+                    @*Don't have an account? <a href="#">Sign Up</a>*@
+                    @*Don't have an account? <a href="#">Sign Up</a>*@
                 </div>
-                <button @onclick="IniciarSesion" class="btn btn-primary">Sign In</button>
-            </form>
-            <div class="signup-link">
-                Don't have an account? <a href="#">Sign Up</a>
             </div>
+
+            <!-- Div con imagen a pantalla completa -->
         </div>
     </div>
-</div>*@
 
+</EditForm>
 
+@*
 <div class="row mt-5">
 
     <div class="col-lg-4 offset-lg-4 border">
@@ -68,7 +82,7 @@
     </div>
 
 </div>
-
+*@
 
 @code {
     private ObtenerServiciosResult sa = new ObtenerServiciosResult();
