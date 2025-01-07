@@ -1,4 +1,7 @@
 ﻿@page "/vehiculos"
+
+@attribute [Authorize(Roles = "Administrador")]
+
 @using PaseoExpressWebApp.Context;
 @using PaseoExpressWebApp.Services;
 @inject NavigationManager Navigation

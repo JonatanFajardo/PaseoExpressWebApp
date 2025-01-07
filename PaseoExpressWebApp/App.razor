@@ -1,18 +1,51 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
+﻿@*Login*@
+@using Microsoft.AspNetCore.Authorization;
+@inject NavigationManager navManager
+@*Login*@
+
+<CascadingAuthenticationState>
+
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            @*Login*@
+
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                @*Verificacion de si el usuario quiere acceder a las pantallas sin loguearse previamente*@
+                @*Autorizacion a entrar al inicio*@
+                <NotAuthorized>
+                    @{
+                        if (context.User.Identity?.IsAuthenticated != true)
+                        {
+                            navManager.NavigateTo("/");
+                        }
+                        else
+                        {
+                            navManager.NavigateTo("/vehiculos");
+                            //<p>No esta autorizado para ver esta pagina.</p>
+
+                        }
+                    }
+                </NotAuthorized>
+
+            </AuthorizeRouteView>
+
+            @*<RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />*@
+            @*Login*@
+
+            @*Eliminamos este focus*@
+            @*<FocusOnNavigate RouteData="@routeData" Selector="h1" />*@
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
 
 
 
 
 
- 
-</Router> 
+
+    </Router>
+</CascadingAuthenticationState>
