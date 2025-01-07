@@ -20,12 +20,12 @@ namespace PaseoExpressWebApp.Context
 
         public virtual DbSet<InformacionCompra> InformacionCompra { get; set; }
         public virtual DbSet<SaleInformation> SaleInformation { get; set; }
-        public virtual DbSet<tbConductoresEli> tbConductoresEli { get; set; }
+        public virtual DbSet<tbDetail> tbDetail { get; set; }
+        public virtual DbSet<tbGroups> tbGroups { get; set; }
         public virtual DbSet<tbHistorialMantenimiento> tbHistorialMantenimiento { get; set; }
-        public virtual DbSet<tbPropietariosELI> tbPropietariosELI { get; set; }
+        public virtual DbSet<tbMessage> tbMessage { get; set; }
         public virtual DbSet<tbRol> tbRol { get; set; }
         public virtual DbSet<tbServicios> tbServicios { get; set; }
-        public virtual DbSet<tbServiciosRecurrentesELI> tbServiciosRecurrentesELI { get; set; }
         public virtual DbSet<tbTipoMantenimientos> tbTipoMantenimientos { get; set; }
         public virtual DbSet<tbTipoServicios> tbTipoServicios { get; set; }
         public virtual DbSet<tbTipoTransaccion> tbTipoTransaccion { get; set; }
@@ -78,16 +78,46 @@ namespace PaseoExpressWebApp.Context
                     .HasConstraintName("FK__SaleInfor__Vehic__3C69FB99");
             });
 
-            modelBuilder.Entity<tbConductoresEli>(entity =>
+            modelBuilder.Entity<tbDetail>(entity =>
             {
-                entity.HasKey(e => e.IdConductor)
-                    .HasName("PK_tbConductor");
+                entity.HasKey(e => e.IdDetail);
 
-                entity.Property(e => e.Cuenta)
-                    .HasMaxLength(350)
-                    .IsUnicode(false);
+                entity.ToTable("tbDetail", "chat");
 
-                entity.Property(e => e.Nombre).HasMaxLength(350);
+                entity.Property(e => e.IdDetail).ValueGeneratedNever();
+
+                entity.Property(e => e.IsRead).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Timestamp)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.IdMessageNavigation)
+                    .WithMany(p => p.tbDetail)
+                    .HasForeignKey(d => d.IdMessage)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tbDetail_tbMessage");
+
+                entity.HasOne(d => d.Receiver)
+                    .WithMany(p => p.tbDetailReceiver)
+                    .HasForeignKey(d => d.ReceiverId)
+                    .HasConstraintName("FK_tbDetail_tbUsuarios1");
+
+                entity.HasOne(d => d.Sender)
+                    .WithMany(p => p.tbDetailSender)
+                    .HasForeignKey(d => d.SenderId)
+                    .HasConstraintName("FK_tbDetail_tbUsuarios");
+            });
+
+            modelBuilder.Entity<tbGroups>(entity =>
+            {
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.GroupName)
+                    .IsRequired()
+                    .HasMaxLength(100);
             });
 
             modelBuilder.Entity<tbHistorialMantenimiento>(entity =>
@@ -116,27 +146,24 @@ namespace PaseoExpressWebApp.Context
                 entity.Property(e => e.ProximaFechaMantenimiento).HasColumnType("date");
             });
 
-            modelBuilder.Entity<tbPropietariosELI>(entity =>
+            modelBuilder.Entity<tbMessage>(entity =>
             {
-                entity.HasKey(e => e.IdPropietario)
-                    .HasName("PK_tbDueno");
+                entity.HasKey(e => e.IdMessage);
 
-                entity.Property(e => e.Cuenta)
-                    .HasMaxLength(350)
-                    .IsUnicode(false);
+                entity.ToTable("tbMessage", "chat");
 
-                entity.Property(e => e.Identidad)
-                    .HasMaxLength(13)
-                    .IsUnicode(false);
+                entity.Property(e => e.Description).HasMaxLength(650);
 
-                entity.Property(e => e.Nombre)
-                    .HasMaxLength(350)
-                    .IsUnicode(false);
+                entity.Property(e => e.IsRead).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Time).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<tbRol>(entity =>
             {
                 entity.HasKey(e => e.IdRol);
+
+                entity.ToTable("tbRol", "seguridad");
 
                 entity.Property(e => e.Nombre).HasMaxLength(530);
             });
@@ -206,20 +233,6 @@ namespace PaseoExpressWebApp.Context
                         });
             });
 
-            modelBuilder.Entity<tbServiciosRecurrentesELI>(entity =>
-            {
-                entity.HasKey(e => e.IdServiciosRecurrentes)
-                    .HasName("PK_tbServiciosRecurrentes");
-
-                entity.Property(e => e.Descripcion).HasMaxLength(550);
-
-                entity.Property(e => e.FechaActual).HasColumnType("date");
-
-                entity.Property(e => e.FechaProxima).HasColumnType("date");
-
-                entity.Property(e => e.Titulo).HasMaxLength(250);
-            });
-
             modelBuilder.Entity<tbTipoMantenimientos>(entity =>
             {
                 entity.HasKey(e => e.IdTipoMantenimiento)
@@ -275,6 +288,8 @@ namespace PaseoExpressWebApp.Context
                 entity.Property(e => e.Imagen)
                     .HasMaxLength(800)
                     .IsUnicode(false);
+
+                entity.Property(e => e.UltimaSuma).HasDefaultValueSql("((0))");
             });
 
             modelBuilder.Entity<tbUbicacionEnAutomovil>(entity =>
@@ -287,6 +302,8 @@ namespace PaseoExpressWebApp.Context
             modelBuilder.Entity<tbUsuarios>(entity =>
             {
                 entity.HasKey(e => e.IdUsuario);
+
+                entity.ToTable("tbUsuarios", "seguridad");
 
                 entity.Property(e => e.Cuenta)
                     .HasMaxLength(350)
@@ -303,6 +320,10 @@ namespace PaseoExpressWebApp.Context
                     .IsUnicode(false);
 
                 entity.Property(e => e.Nombre).HasMaxLength(350);
+
+                entity.Property(e => e.Password).HasMaxLength(350);
+
+                entity.Property(e => e.Usuario).HasMaxLength(350);
 
                 entity.HasOne(d => d.IdRolNavigation)
                     .WithMany(p => p.tbUsuarios)

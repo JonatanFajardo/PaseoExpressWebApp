@@ -15,7 +15,7 @@ namespace PaseoExpressWebApp.Extensiones
             _sessionStorage = sessionStorage;
         }
 
-        public async Task ActualizarEstadoAutenticacion(SesionDto? sesionUsuario)
+        public async Task ActualizarEstadoAutenticacion(LoginDto? sesionUsuario)
         {
             ClaimsPrincipal claimsPrincipal;
 
@@ -23,8 +23,8 @@ namespace PaseoExpressWebApp.Extensiones
             {
                 claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name,sesionUsuario.Nombre),
-                    new Claim(ClaimTypes.Email,sesionUsuario.Correo),
+                    new Claim(ClaimTypes.Name,sesionUsuario.Correo),
+                    //new Claim(ClaimTypes.Email,sesionUsuario.Clave),
                     new Claim(ClaimTypes.Role,sesionUsuario.Rol)
                 }, "JwtAuth"));
 

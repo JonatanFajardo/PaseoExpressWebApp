@@ -96,11 +96,11 @@
             var loginResponse = await httpClient.PostAsJsonAsync<LoginDto>("https://localhost:44384/api/Usuario/Login", login);
             if (loginResponse.IsSuccessStatusCode)
             {
-                var sesionUsuario = await loginResponse.Content.ReadFromJsonAsync<SesionDto>();
+                var sesionUsuario = await loginResponse.Content.ReadFromJsonAsync<LoginDto>();
 
 
                 // Verificar si los datos del usuario son válidos
-                if (sesionUsuario != null && !string.IsNullOrEmpty(sesionUsuario.Correo) && !string.IsNullOrEmpty(sesionUsuario.Nombre))
+                if (sesionUsuario != null)
                 {
                     // Si los datos son válidos, actualizar el estado de autenticación
                     var autenticacionExt = (AutenticacionExtension)autenticacionProvider;

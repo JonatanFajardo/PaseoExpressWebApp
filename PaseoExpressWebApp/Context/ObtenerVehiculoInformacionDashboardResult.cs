@@ -12,6 +12,7 @@ namespace PaseoExpressWebApp.Context
         public string Placa { get; set; }
         public string Marca { get; set; }
         public int? Anio { get; set; }
+        public string MarcaAceite { get; set; }
         public long? PorcentajeDesgasteAceite { get; set; }
         public long? PorcentajeDesgasteLlanta1 { get; set; }
         public long? PorcentajeDesgasteLlanta2 { get; set; }

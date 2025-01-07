@@ -14,7 +14,7 @@ namespace PaseoExpressWebApp.Context
     public partial interface IDB_UberContextProcedures
     {
         Task<int> CierreDiarioAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
-        Task<List<ConfirmarTransaccionResult>> ConfirmarTransaccionAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<int> ConfirmarTransaccionAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> InsertarDatosTransaccionAsync(string Imagen, int? TarifaDiaria, int? TarifaAhorro, int? IdVehiculo, int? IdUsuario, int? UltimaSuma, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> InsertarUnServiciosAsync(int? IdTipoServicio, string Imagenes, string Titulo, string Descripcion, DateTime? FechaServicio, int? CantidadComprada, decimal? CostoUnitario, decimal? CostoTotal, string Marca, int? IdTipoMantenimiento, int? KilometrajeVehiculo, int? MillajeVehiculo, DateTime? ProximaFechaMantenimiento, int? IdVehiculo, int? IdUsuario, bool? EsRecurrente, long? ProximoKilometraje, long? ProximoMillaje, int? IdUbicacionEnAutomovil, decimal? PrecioManoObra, bool? Confirmado, string Viaticos, int? ManoObraPersonal, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<ObtenerServiciosResult>> ObtenerServiciosAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
@@ -25,8 +25,10 @@ namespace PaseoExpressWebApp.Context
         Task<List<ObtenerVehiculoInformacionDashboardResult>> ObtenerVehiculoInformacionDashboardAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<ObtenerVehiculosResult>> ObtenerVehiculosAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<ObtenerVehiculosSinExistenciaHoyResult>> ObtenerVehiculosSinExistenciaHoyAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<List<PR_VerificandoUsuarioResult>> PR_VerificandoUsuarioAsync(string usuario, string password, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<ResumenTotalResult>> ResumenTotalAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> TransaccionTarifaNoPagadaAsync(int? IdVehiculo, DateTime? FechaTransaccion, DateTime? FechaTransaccionHasta, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<int> TransaccionTarifaNoPagadaDosAsync(int? IdVehiculo, DateTime? FechaTransaccion, DateTime? FechaTransaccionHasta, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> TransaccionTarifaNoPagadaNoConfirmadaAsync(int? IdVehiculo, DateTime? FechaTransaccion, DateTime? FechaTransaccionHasta, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
     }
 }

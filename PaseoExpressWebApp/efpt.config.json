@@ -15,6 +15,14 @@
    "T4TemplatePath": null,
    "Tables": [
       {
+         "Name": "[chat].[tbDetail]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[chat].[tbMessage]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[InformacionCompra]",
          "ObjectType": 0
       },
@@ -23,19 +31,11 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[tbConductoresEli]",
+         "Name": "[dbo].[tbGroups]",
          "ObjectType": 0
       },
       {
          "Name": "[dbo].[tbHistorialMantenimiento]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[tbPropietariosELI]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[tbRol]",
          "ObjectType": 0
       },
       {
@@ -44,10 +44,6 @@
       },
       {
          "Name": "[dbo].[tbServicios_tbTransacciones]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[tbServiciosRecurrentesELI]",
          "ObjectType": 0
       },
       {
@@ -71,11 +67,15 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[tbUsuarios]",
+         "Name": "[dbo].[tbVehiculo]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[tbVehiculo]",
+         "Name": "[seguridad].[tbRol]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[seguridad].[tbUsuarios]",
          "ObjectType": 0
       },
       {
@@ -127,11 +127,19 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[PR_VerificandoUsuario]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[ResumenTotal]",
          "ObjectType": 1
       },
       {
          "Name": "[dbo].[TransaccionTarifaNoPagada]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[TransaccionTarifaNoPagadaDos]",
          "ObjectType": 1
       },
       {

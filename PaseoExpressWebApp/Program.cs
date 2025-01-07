@@ -69,6 +69,7 @@ builder.Services.AddScoped<comprobantediarioservice>();
 builder.Services.AddScoped<TransaccionesService>();
 builder.Services.AddTransient<VehiculoService>();
 builder.Services.AddScoped<ServicioServices>();
+builder.Services.AddScoped<LoginService>();
 builder.Services.AddHttpClient();
 
 builder.Services.AddMudServices();

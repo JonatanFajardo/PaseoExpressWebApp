@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace PaseoExpressWebApp.Context
 {
-    public partial class tbConductoresEli
+    public partial class tbGroups
     {
-        public int IdConductor { get; set; }
-        public string Nombre { get; set; }
-        public int? Identidad { get; set; }
-        public string Cuenta { get; set; }
+        public int Id { get; set; }
+        public string GroupName { get; set; }
+        public int? CreatedBy { get; set; }
+        public DateTime? CreatedAt { get; set; }
     }
 }
