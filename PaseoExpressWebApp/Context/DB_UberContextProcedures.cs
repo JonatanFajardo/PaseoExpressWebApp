@@ -43,6 +43,7 @@ namespace PaseoExpressWebApp.Context
             modelBuilder.Entity<ObtenerVehiculoInformacionDashboardResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ObtenerVehiculosResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ObtenerVehiculosSinExistenciaHoyResult>().HasNoKey().ToView(null);
+            modelBuilder.Entity<PR_InsertMessageWithDetailResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<PR_VerificandoUsuarioResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ResumenTotalResult>().HasNoKey().ToView(null);
         }
@@ -489,6 +490,63 @@ namespace PaseoExpressWebApp.Context
                 parameterreturnValue,
             };
             var _ = await _context.SqlQueryAsync<ObtenerVehiculosSinExistenciaHoyResult>("EXEC @returnValue = [dbo].[ObtenerVehiculosSinExistenciaHoy]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<PR_InsertMessageWithDetailResult>> PR_InsertMessageWithDetailAsync(string Description, bool? IsRead, int? SenderId, int? ReceiverId, int? GroupId, DateTime? Time, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "Description",
+                    Size = 1300,
+                    Value = Description ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "IsRead",
+                    Value = IsRead ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Bit,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SenderId",
+                    Value = SenderId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ReceiverId",
+                    Value = ReceiverId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "GroupId",
+                    Value = GroupId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Time",
+                    Value = Time ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<PR_InsertMessageWithDetailResult>("EXEC @returnValue = [dbo].[PR_InsertMessageWithDetail] @Description = @Description, @IsRead = @IsRead, @SenderId = @SenderId, @ReceiverId = @ReceiverId, @GroupId = @GroupId, @Time = @Time", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

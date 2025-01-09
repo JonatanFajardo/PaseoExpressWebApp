@@ -25,6 +25,7 @@ namespace PaseoExpressWebApp.Context
         Task<List<ObtenerVehiculoInformacionDashboardResult>> ObtenerVehiculoInformacionDashboardAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<ObtenerVehiculosResult>> ObtenerVehiculosAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<ObtenerVehiculosSinExistenciaHoyResult>> ObtenerVehiculosSinExistenciaHoyAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
+        Task<List<PR_InsertMessageWithDetailResult>> PR_InsertMessageWithDetailAsync(string Description, bool? IsRead, int? SenderId, int? ReceiverId, int? GroupId, DateTime? Time, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<PR_VerificandoUsuarioResult>> PR_VerificandoUsuarioAsync(string usuario, string password, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<List<ResumenTotalResult>> ResumenTotalAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);
         Task<int> TransaccionTarifaNoPagadaAsync(int? IdVehiculo, DateTime? FechaTransaccion, DateTime? FechaTransaccionHasta, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default);

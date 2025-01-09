@@ -127,6 +127,10 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[PR_InsertMessageWithDetail]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[PR_VerificandoUsuario]",
          "ObjectType": 1
       },

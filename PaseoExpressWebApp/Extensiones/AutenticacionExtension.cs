@@ -43,22 +43,27 @@ namespace PaseoExpressWebApp.Extensiones
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-
-            var sesionUsuario = await _sessionStorage.ObtenerStorage<SesionDto>("sesionUsuario");
+            var sesionUsuario = await _sessionStorage.ObtenerStorage<LoginDto>("sesionUsuario");
 
             if (sesionUsuario == null)
                 return await Task.FromResult(new AuthenticationState(_sinInformacion));
 
             var claimPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name,sesionUsuario.Nombre),
-                    new Claim(ClaimTypes.Email,sesionUsuario.Correo),
+                    new Claim(ClaimTypes.Name,sesionUsuario.Correo),
+                    //new Claim(ClaimTypes.Email,sesionUsuario.Correo),
                     new Claim(ClaimTypes.Role,sesionUsuario.Rol)
                 }, "JwtAuth"));
 
 
             return await Task.FromResult(new AuthenticationState(claimPrincipal));
 
+        }
+
+        public async Task<LoginDto> GetSessionUser()
+        {
+            LoginDto sesionUsuario = await _sessionStorage.ObtenerStorage<LoginDto>("sesionUsuario");
+            return sesionUsuario;
         }
     }
 }

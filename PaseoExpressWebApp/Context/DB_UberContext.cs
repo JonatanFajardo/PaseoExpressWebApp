@@ -39,7 +39,7 @@ namespace PaseoExpressWebApp.Context
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-I0I12OB;Initial Catalog=DB_Uber;Persist Security Info=True;User ID=jonna;Password=admin1");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-I0I12OB;Initial Catalog=DB_Uber;Integrated Security=True");
             }
         }
 
@@ -83,8 +83,6 @@ namespace PaseoExpressWebApp.Context
                 entity.HasKey(e => e.IdDetail);
 
                 entity.ToTable("tbDetail", "chat");
-
-                entity.Property(e => e.IdDetail).ValueGeneratedNever();
 
                 entity.Property(e => e.IsRead).HasDefaultValueSql("((0))");
 
@@ -152,7 +150,9 @@ namespace PaseoExpressWebApp.Context
 
                 entity.ToTable("tbMessage", "chat");
 
-                entity.Property(e => e.Description).HasMaxLength(650);
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(650);
 
                 entity.Property(e => e.IsRead).HasDefaultValueSql("((0))");
 

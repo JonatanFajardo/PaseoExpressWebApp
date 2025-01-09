@@ -1,5 +1,133 @@
-﻿<h3>Chat</h3>
+﻿@page "/chat"
+@attribute [Authorize]
+
+@using Microsoft.AspNetCore.SignalR.Client;
+@using PaseoExpressWebApp.Models;
+@using PaseoExpressWebApp.Services;
+@using PaseoExpressWebApp.Extensiones;
+@inject NavigationManager Navigation
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+@inject LoginService loginService
+
+
+
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider autenticacionProvider
+
+<h3>Chat en Vivo</h3>
+<div class="chat-window">
+    <div class="row">
+        <div class="col-md-6">
+            @if (usuarios != null)
+            {
+                <ul class="list-group">
+                    @foreach (var usuario in usuarios)
+                    {
+                        <li class="list-group-item list-group-item-action" @onclick="@(() => OnUserClick(usuario.IdUsuario))" style="cursor: pointer;">
+                            @usuario.Nombre
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No hay usuarios disponibles.</p> @* Mensaje si la lista está vacía *@
+            }
+        </div>
+        <div class="col-md-6">
+            <div class="messages">
+              @*  @if (messages != null)
+ {*@
+                @foreach (var message in messages)
+                {
+                    <div class="message">
+                        <strong>@message.SenderId:</strong> @message.Description
+                    </div>
+                }
+                @*}*@
+            </div>
+        </div>
+    </div>
+
+    <input @bind="newMessage" placeholder="Escribe un mensaje..." />
+    <button @onclick="SendMessage">Enviar</button>
+</div>
 
 @code {
+    private HubConnection? hubConnection;
+    private List<MessageDto> messages = new();
+    private string newMessage = string.Empty;
+    private int selectedUserId; // Stores the ID of the selected user
 
+    private List<tbUsuarios> usuarios;
+
+    protected override async Task OnInitializedAsync()
+    {
+        usuarios = await loginService.Usuarios();
+
+        hubConnection = new HubConnectionBuilder()
+          .WithUrl(Navigation.ToAbsoluteUri("/YourHub"))
+          .Build();
+
+          hubConnection.On<MessageDto>("ReceiveMessage", (message) =>
+            {
+                messages.Add(message); // Agregar el mensaje directamente a la lista
+                StateHasChanged(); // Actualizar la interfaz de usuario
+            });
+
+        //hubConnection.On<string, int>("ReceiveMessage", (message, senderId) =>
+        //{
+        //    messages.Add(new MessageDto
+        //        {
+        //            Description = message,
+        //            SenderId = senderId
+        //        });
+        //    StateHasChanged();
+        //});
+
+        await hubConnection.StartAsync();
+    }
+
+    private async Task SendMessage()
+    {
+        var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
+        LoginDto SessionUser = await autenticacionExt.GetSessionUser();
+
+        if (!string.IsNullOrEmpty(newMessage))
+        {
+            var messageDto = new MessageDto
+                {
+                    Description = newMessage,
+                    IsRead = false,
+                    SenderId = SessionUser.IdUser,
+                    ReceiverId = selectedUserId,
+                    GroupId = 0,
+                    Time = DateTime.Now
+                };
+
+            try
+            {
+                Console.WriteLine("Enviando mensaje...");
+
+                // Envía el mensaje y espera una respuesta desde el servidor
+                var returnedMessage = await hubConnection.InvokeAsync<MessageDto>("SendMessage", messageDto);
+
+                // Agrega el mensaje confirmado a la lista local
+                messages.Add(returnedMessage);
+                StateHasChanged();
+
+                newMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al enviar mensaje: {ex.Message}");
+            }
+        }
+    }
+
+    private void OnUserClick(int userId)
+    {
+        selectedUserId = userId; // Update the selectedUserId
+    }
 }

@@ -50,5 +50,30 @@ namespace PaseoExpressWebApp.Services
                 // return new ErrorResponse { Message = "Error inesperado al verificar usuario." };
             }
         }
+
+
+        public async Task<List<tbUsuarios>> Usuarios()
+        {
+            try
+            {
+                var resul = await _context.tbUsuarios.ToListAsync();
+                return resul;
+            }
+            catch (Exception ex) // Captura otras excepciones generales
+            {
+                // Manejo para otras excepciones no relacionadas con la base de datos
+                throw new Exception("Error inesperado durante la verificación del usuario: " + ex.Message, ex);
+
+                //_logger.LogError(ex, "Error inesperado al verificar usuario.");
+
+                // Opciones de manejo (similares a DbUpdateException):
+                // throw;
+                //return new List<PR_VerificandoUsuarioResult>();
+                // return new ErrorResponse { Message = "Error inesperado al verificar usuario." };
+            }
+        }
+
+
+
     }
 }

@@ -48,12 +48,22 @@ namespace PaseoExpressWebApp.Controllers
 
             LoginDto resultLogin = new LoginDto
             {
+                IdUser = result.IdUsuario,
                 Correo = result.Usuario,
                 Clave = result.Password,
                 Rol = result.NombreRol
             };
 
             return Ok(resultLogin);
+        }
+
+
+        [HttpPost]
+        [Route("Usuarios")]
+        public async Task<IActionResult> Usuarios(LoginDto login)
+        {
+            var result = _loginService.Usuarios();
+            return Ok(result);
         }
 
     }
