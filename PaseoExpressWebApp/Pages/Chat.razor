@@ -16,6 +16,10 @@
 @inject AuthenticationStateProvider autenticacionProvider
 
 <h3>Chat en Vivo</h3>
+@if(SessionUser != null){
+
+<p>@SessionUser.Correo</p>
+}
 <div class="chat-window">
     <div class="row">
         <div class="col-md-6">
@@ -62,6 +66,10 @@
 
     private List<tbUsuarios> usuarios;
 
+
+    LoginDto SessionUser;
+
+
     protected override async Task OnInitializedAsync()
     {
         usuarios = await loginService.Usuarios();
@@ -70,11 +78,15 @@
           .WithUrl(Navigation.ToAbsoluteUri("/YourHub"))
           .Build();
 
-          hubConnection.On<MessageDto>("ReceiveMessage", (message) =>
-            {
-                messages.Add(message); // Agregar el mensaje directamente a la lista
-                StateHasChanged(); // Actualizar la interfaz de usuario
-            });
+        hubConnection.On<MessageDto>("ReceiveMessage", (message) =>
+          {
+              messages.Add(message); // Agregar el mensaje directamente a la lista
+              InvokeAsync(StateHasChanged);  //Actualizar la interfaz de usuario
+          });
+        
+          var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
+        SessionUser = await autenticacionExt.GetSessionUser();
+
 
         //hubConnection.On<string, int>("ReceiveMessage", (message, senderId) =>
         //{
@@ -88,11 +100,8 @@
 
         await hubConnection.StartAsync();
     }
-
     private async Task SendMessage()
     {
-        var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
-        LoginDto SessionUser = await autenticacionExt.GetSessionUser();
 
         if (!string.IsNullOrEmpty(newMessage))
         {
@@ -111,13 +120,13 @@
                 Console.WriteLine("Enviando mensaje...");
 
                 // Envía el mensaje y espera una respuesta desde el servidor
-                var returnedMessage = await hubConnection.InvokeAsync<MessageDto>("SendMessage", messageDto);
+                 await hubConnection.InvokeAsync("SendMessage", messageDto);
 
                 // Agrega el mensaje confirmado a la lista local
-                messages.Add(returnedMessage);
+                //messages.Add(returnedMessage);
                 StateHasChanged();
 
-                newMessage = string.Empty;
+                //newMessage = string.Empty;
             }
             catch (Exception ex)
             {

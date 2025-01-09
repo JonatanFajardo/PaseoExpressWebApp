@@ -41,7 +41,7 @@ namespace PaseoExpressWebApp.Hubs
 
 
 
-        public async Task<MessageDto> SendMessage(MessageDto message)
+        public async Task SendMessage(MessageDto message)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace PaseoExpressWebApp.Hubs
 
                 // Enviar mensaje a través de SignalR
                 await Clients.All.SendAsync("ReceiveMessage", message);
-                return message;
+                //return message;
             }
             catch (Exception ex)
             {
