@@ -165,6 +165,8 @@ namespace PaseoExpressWebApp.Context
 
                 entity.ToTable("tbRol", "seguridad");
 
+                entity.HasComment("Idica si se el mensaje sera con codigo o simple.");
+
                 entity.Property(e => e.Nombre).HasMaxLength(530);
             });
 

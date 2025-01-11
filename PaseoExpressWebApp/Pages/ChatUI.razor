@@ -1,0 +1,116 @@
+﻿@page "/chatui"
+@attribute [Authorize]
+
+@using Microsoft.AspNetCore.SignalR.Client;
+@using PaseoExpressWebApp.Models;
+@using PaseoExpressWebApp.Services;
+@using PaseoExpressWebApp.Extensiones;
+@inject NavigationManager Navigation
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+@inject ChatSignalService chatSignalService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+  <div class="container-fluid">
+    <div class="row p-0">
+      <!-- Sidebar -->
+      <div class="col-4 ">
+          <div class="card">
+
+        <h6 class="p-3">Ballistic HQ</h6>
+        <ul class="list-group">
+
+           @if (usuarios != null)
+            {
+                @foreach (var usuario in usuarios)
+                {
+<li class="list-group-item d-flex align-items-start mb-2">
+            <img src="@usuario.Imagen" height="50" alt="Imagen de usuario" class="me-2 rounded-circle" />
+
+
+            <div class="d-flex flex-column flex-grow-1">
+                <!-- Contenedor para los dos spans con espacio entre ellos -->
+                <div class="d-flex justify-content-between">
+                    <span>@usuario.Usuario</span>
+                    <span>@usuario.Time.ToString("dd/MM/yy")</span>
+                </div>
+
+                        <div class="d-flex justify-content-between">
+
+                            <span>@usuario.Description</span>
+                                        @if (@usuario.IsRead == false)
+                                        {
+
+                              <span class="badge bg-warning text-black">Inatendido</span>
+                                        }
+        </div>
+            </div>
+        </li>
+
+                            
+                }
+            }
+          
+        </ul>
+      </div>
+          </div>
+
+      <!-- Chat Window -->
+        <div class="col-6 ">
+            <div class="card rounded rounded-3">
+
+        <div class="chat-header">
+          <strong>tony</strong> <span class="text-muted">Away</span>
+        </div>
+        <div class="chat-body">
+          <div class="d-flex flex-column mb-3">
+            <div class="mb-2">
+              <span class="badge bg-secondary">tony</span>
+              <p class="m-0">Hi, my name is Tony</p>
+              <small class="text-muted">1:45 PM</small>
+            </div>
+            <div>
+              <span class="badge bg-primary">You</span>
+              <p class="m-0">Hi Tony</p>
+              <small class="text-muted">1:47 PM</small>
+            </div>
+          </div>
+        </div>
+        <div class="chat-footer">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Type here...">
+            <button class="btn btn-primary">Send</button>
+          </div>
+        </div>
+        </div>
+
+      </div>
+
+      <!-- Profile Panel -->
+      <div class="col-2 profile-panel">
+        <h6>Visitor Details</h6>
+        <p><strong>tony</strong></p>
+        <p><i class="bi bi-envelope"></i> tony@gmail.com</p>
+        <p><i class="bi bi-geo-alt"></i> San Jose, United States</p>
+        <p><i class="bi bi-clock"></i> 41 visits</p>
+      </div>
+    </div>
+  </div>
+
+
+@code{
+    List<PR_Chat_ObtenerUltimoMensajePorUsuarioResult> usuarios;
+    private string userId;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        usuarios = await chatSignalService.ObtenerUltimoMensajePorUsuario(1);
+
+    }
+}

@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace PaseoExpressWebApp.Context
 {
+    /// <summary>
+    /// Idica si se el mensaje sera con codigo o simple.
+    /// </summary>
     public partial class tbRol
     {
         public tbRol()
@@ -14,6 +17,7 @@ namespace PaseoExpressWebApp.Context
 
         public int IdRol { get; set; }
         public string Nombre { get; set; }
+        public bool? UsarCodigoMensaje { get; set; }
 
         public virtual ICollection<tbUsuarios> tbUsuarios { get; set; }
     }

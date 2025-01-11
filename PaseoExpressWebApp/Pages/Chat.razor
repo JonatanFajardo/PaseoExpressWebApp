@@ -13,7 +13,7 @@
 
 
 @using Microsoft.AspNetCore.Components.Authorization
-@inject AuthenticationStateProvider autenticacionProvider
+
 
 <h3>Chat en Vivo</h3>
 @if(SessionUser != null){
@@ -69,7 +69,6 @@
 
     LoginDto SessionUser;
 
-
     protected override async Task OnInitializedAsync()
     {
         usuarios = await loginService.Usuarios();
@@ -83,9 +82,6 @@
               messages.Add(message); // Agregar el mensaje directamente a la lista
               InvokeAsync(StateHasChanged);  //Actualizar la interfaz de usuario
           });
-        
-          var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
-        SessionUser = await autenticacionExt.GetSessionUser();
 
 
         //hubConnection.On<string, int>("ReceiveMessage", (message, senderId) =>
