@@ -6,13 +6,13 @@
     word-wrap: break-word; /* Evita que el texto desborde */
 }
 
-    .message.bot {
-        background-color: #e0f7fa; /* Color para mensajes enviados */
+    .message.user-receiver {
+        background-color: #ebebf5; /* Color para mensajes enviados */
         align-self: flex-start; /* Alinear hacia la izquierda */
     }
 
     .message.user {
-        background-color: #c8e6c9; /* Color para mensajes recibidos */
+        background-color: #d5d6e3; /* Color para mensajes recibidos */
         align-self: flex-end; /* Alinear hacia la derecha */
     }
 
@@ -52,7 +52,10 @@
 
 
 
-
+.card-header-chat {
+    border-bottom: 1px solid #dee2e6;
+    padding:1rem 2rem;
+}
 
 
 

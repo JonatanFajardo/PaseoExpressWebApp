@@ -305,6 +305,12 @@ namespace PaseoExpressWebApp.Context
 
                 entity.ToTable("tbUsuarios", "seguridad");
 
+                entity.Property(e => e.Ciudad).HasMaxLength(50);
+
+                entity.Property(e => e.Correo)
+                    .HasMaxLength(450)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Cuenta)
                     .HasMaxLength(350)
                     .IsUnicode(false);
@@ -325,6 +331,10 @@ namespace PaseoExpressWebApp.Context
 
                 entity.Property(e => e.TagMensajeria)
                     .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Telefono)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Usuario).HasMaxLength(350);

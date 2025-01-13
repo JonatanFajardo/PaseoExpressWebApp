@@ -23,6 +23,9 @@ namespace PaseoExpressWebApp.Context
         public string Identidad { get; set; }
         public string Cuenta { get; set; }
         public string TagMensajeria { get; set; }
+        public string Correo { get; set; }
+        public string Telefono { get; set; }
+        public string Ciudad { get; set; }
         public bool? EstaActivo { get; set; }
 
         public virtual tbRol IdRolNavigation { get; set; }

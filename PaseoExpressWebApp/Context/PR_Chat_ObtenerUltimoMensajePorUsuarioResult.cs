@@ -12,6 +12,9 @@ namespace PaseoExpressWebApp.Context
         public string Usuario { get; set; }
         public string Nombre { get; set; }
         public string TagMensajeria { get; set; }
+        public string Correo { get; set; }
+        public string Telefono { get; set; }
+        public string Ciudad { get; set; }
         public int IdDetail { get; set; }
         public int SenderId { get; set; }
         public int ReceiverId { get; set; }

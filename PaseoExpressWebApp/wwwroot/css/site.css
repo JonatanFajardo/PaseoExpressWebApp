@@ -113,6 +113,11 @@ a, .btn-link {
     color: white !important;
 }
 
+.bg-primario-oscuro-hover:hover {
+    background: var(--color-primario-oscuro) !important;
+    color: white !important;
+}
+
 .bg-secundario {
     background-color: #FFC107 !important;
 }
