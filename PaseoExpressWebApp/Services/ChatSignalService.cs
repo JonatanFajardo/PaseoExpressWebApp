@@ -16,5 +16,11 @@ namespace PaseoExpressWebApp.Services
             List<PR_Chat_ObtenerUltimoMensajePorUsuarioResult> lista = await _context.Procedures.PR_Chat_ObtenerUltimoMensajePorUsuarioAsync(IdUsuario);
             return lista;
         }
+
+        public async Task<List<PR_Chat_ObtenerMensajesUsuarioResult>> ObtenerMensajesPorUsuario(int IdUsuarioOne, int IdUsuarioTwo)
+        {
+            List<PR_Chat_ObtenerMensajesUsuarioResult> lista = await _context.Procedures.PR_Chat_ObtenerMensajesUsuarioAsync(IdUsuarioOne, IdUsuarioTwo);
+            return lista;
+        }
     }
 }

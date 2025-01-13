@@ -127,6 +127,10 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[PR_Chat_ObtenerMensajesUsuario]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[PR_Chat_ObtenerUltimoMensajePorUsuario]",
          "ObjectType": 1
       },

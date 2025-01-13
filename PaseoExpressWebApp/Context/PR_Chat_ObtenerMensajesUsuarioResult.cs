@@ -5,13 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PaseoExpressWebApp.Context
 {
-    public partial class PR_Chat_ObtenerUltimoMensajePorUsuarioResult
+    public partial class PR_Chat_ObtenerMensajesUsuarioResult
     {
-        public int IdUsuario { get; set; }
-        public string Imagen { get; set; }
-        public string Usuario { get; set; }
-        public string Nombre { get; set; }
-        public string TagMensajeria { get; set; }
         public int IdDetail { get; set; }
         public int SenderId { get; set; }
         public int ReceiverId { get; set; }

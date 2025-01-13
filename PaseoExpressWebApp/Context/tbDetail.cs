@@ -8,12 +8,12 @@ namespace PaseoExpressWebApp.Context
     public partial class tbDetail
     {
         public int IdDetail { get; set; }
-        public int? SenderId { get; set; }
-        public int? ReceiverId { get; set; }
+        public int SenderId { get; set; }
+        public int ReceiverId { get; set; }
         public int? GroupId { get; set; }
         public DateTime? Timestamp { get; set; }
         public int IdMessage { get; set; }
-        public bool? IsRead { get; set; }
+        public bool IsRead { get; set; }
 
         public virtual tbMessage IdMessageNavigation { get; set; }
         public virtual tbUsuarios Receiver { get; set; }

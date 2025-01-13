@@ -43,6 +43,7 @@ namespace PaseoExpressWebApp.Context
             modelBuilder.Entity<ObtenerVehiculoInformacionDashboardResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ObtenerVehiculosResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<ObtenerVehiculosSinExistenciaHoyResult>().HasNoKey().ToView(null);
+            modelBuilder.Entity<PR_Chat_ObtenerMensajesUsuarioResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<PR_Chat_ObtenerUltimoMensajePorUsuarioResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<PR_InsertMessageWithDetailResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<PR_VerificandoUsuarioResult>().HasNoKey().ToView(null);
@@ -491,6 +492,38 @@ namespace PaseoExpressWebApp.Context
                 parameterreturnValue,
             };
             var _ = await _context.SqlQueryAsync<ObtenerVehiculosSinExistenciaHoyResult>("EXEC @returnValue = [dbo].[ObtenerVehiculosSinExistenciaHoy]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<PR_Chat_ObtenerMensajesUsuarioResult>> PR_Chat_ObtenerMensajesUsuarioAsync(int? IdUsuarioOne, int? IdUsuariotwo, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "IdUsuarioOne",
+                    Value = IdUsuarioOne ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "IdUsuariotwo",
+                    Value = IdUsuariotwo ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<PR_Chat_ObtenerMensajesUsuarioResult>("EXEC @returnValue = [dbo].[PR_Chat_ObtenerMensajesUsuario] @IdUsuarioOne = @IdUsuarioOne, @IdUsuariotwo = @IdUsuariotwo", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

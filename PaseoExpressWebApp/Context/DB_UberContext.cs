@@ -84,8 +84,6 @@ namespace PaseoExpressWebApp.Context
 
                 entity.ToTable("tbDetail", "chat");
 
-                entity.Property(e => e.IsRead).HasDefaultValueSql("((0))");
-
                 entity.Property(e => e.Timestamp)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
@@ -99,11 +97,13 @@ namespace PaseoExpressWebApp.Context
                 entity.HasOne(d => d.Receiver)
                     .WithMany(p => p.tbDetailReceiver)
                     .HasForeignKey(d => d.ReceiverId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tbDetail_tbUsuarios1");
 
                 entity.HasOne(d => d.Sender)
                     .WithMany(p => p.tbDetailSender)
                     .HasForeignKey(d => d.SenderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tbDetail_tbUsuarios");
             });
 
@@ -153,8 +153,6 @@ namespace PaseoExpressWebApp.Context
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasMaxLength(650);
-
-                entity.Property(e => e.IsRead).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Time).HasColumnType("datetime");
             });
@@ -324,6 +322,10 @@ namespace PaseoExpressWebApp.Context
                 entity.Property(e => e.Nombre).HasMaxLength(350);
 
                 entity.Property(e => e.Password).HasMaxLength(350);
+
+                entity.Property(e => e.TagMensajeria)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Usuario).HasMaxLength(350);
 

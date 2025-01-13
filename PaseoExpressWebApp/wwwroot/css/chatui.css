@@ -1,71 +1,75 @@
-﻿
-<style >
-body {
-    background-color: #f8f9fa;
-}
-
-.sidebar {
-    background-color: #f1f3f4;
-    border-right: 1px solid #ddd;
-    height: 100vh;
-    overflow-y: auto;
-}
-
-.chat-window {
+﻿.chat-container {
+    max-width: 500px; /* Ancho máximo del contenedor del chat */
+    margin: 20px auto; /* Centrar el contenedor */
+    padding: 20px;
     background-color: #fff;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.chat-header {
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
+.message {
+    margin-bottom: 10px;
     padding: 10px 15px;
+    border-radius: 20px;
+    clear: both; /* Evitar que los elementos flotantes afecten el diseño */
 }
 
-.chat-body {
-    flex-grow: 1;
-    padding: 15px;
-    overflow-y: auto;
+    .message.user {
+        background-color: #e0f2f7; /* Color de mensaje del usuario */
+        float: left; /* Alinear a la izquierda */
+    }
+
+    .message.bot {
+        background-color: #f0f0f0; /* Color de mensaje del bot */
+        float: right; /* Alinear a la derecha */
+    }
+
+.message-time {
+    font-size: small;
+    color: #999;
+    margin-top: 5px;
+    text-align: right;
 }
 
-.chat-footer {
-    border-top: 1px solid #ddd;
-    padding: 10px 15px;
-}
-
-.profile-panel {
+.refund-info {
     background-color: #fff;
-    height: 100vh;
-    padding: 15px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
 }
 
-.visitor-badge {
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 3px;
+.input-area {
+    margin-top: 20px;
 }
 
-.vip {
-    background-color: #ffc107;
-    color: #fff;
-}
 
-.existing-customer {
-    background-color: #198754;
-    color: #fff;
-}
 
-.potential {
-    background-color: #0d6efd;
-    color: #fff;
-}
 
-.spam {
-    background-color: #dc3545;
-    color: #fff;
-}
 
-</style >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.punto-amarillo {
+    display: inline-block; /* Para que se comporte como un elemento en línea pero con propiedades de bloque */
+    width: 10px; /* Ancho del círculo */
+    height: 10px; /* Alto del círculo */
+    border-radius: 50%; /* Para hacerlo circular */
+    background-color: yellow; /* Color amarillo */
+    margin-left: 8px; /* Espacio a la izquierda, similar a la imagen */
+}

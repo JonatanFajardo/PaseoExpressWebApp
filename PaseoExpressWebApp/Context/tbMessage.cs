@@ -14,7 +14,7 @@ namespace PaseoExpressWebApp.Context
 
         public int IdMessage { get; set; }
         public string Description { get; set; }
-        public bool? IsRead { get; set; }
+        public bool IsRead { get; set; }
         public DateTime Time { get; set; }
 
         public virtual ICollection<tbDetail> tbDetail { get; set; }
