@@ -10,150 +10,135 @@
 @inject IJSRuntime JSRuntime
 @inject ChatSignalService chatSignalService
 @inject AuthenticationStateProvider AuthenticationStateProvider
+<div class="">
+	<div class="row p-0 " style="">
+		<!-- Sidebar -->
+		<div class="col-4 ">
+			<div class="card overflow-y-auto ajuste-altura" style="">
+
+				@*
+				<h6 class="p-3">Ballistic HQ</h6>*@
+				<div class="d-grid gap-2 d-md-block  card-header-chat">
+					<button class="btn btn-dark btn-sm w-auto" @onclick="MostrarTodos">Mostrar Todo</button>
+					<button class="btn btn-light btn-sm" @onclick="MostrarNoLeidos">No Leídos</button>
+					<button class="btn btn-light btn-sm" @onclick="MostrarLeidos">Leídos</button>
+				</div>
+				<ul class="list-group">
 
 
-  <div class="">
-    <div class="row p-0 " style="">
-      <!-- Sidebar -->
-      <div class="col-4 ">
-            <div class="card overflow-y-auto ajuste-altura" style="">
-
-        @*<h6 class="p-3">Ballistic HQ</h6>*@
-                <div class="d-grid gap-2 d-md-block  card-header-chat">
-    <button class="btn btn-dark btn-sm w-auto"  @onclick="MostrarTodos">Mostrar Todo</button>
-    <button class="btn btn-light btn-sm" @onclick="MostrarNoLeidos">No Leídos</button>
-    <button class="btn btn-light btn-sm" @onclick="MostrarLeidos">Leídos</button>
-</div>
-        <ul class="list-group">
 
 
+					@if (usuariosFiltrados != null) { @foreach (var usuario in usuariosFiltrados) {
+					<a class="list-group-item border-bottom d-flex align-items-start mb-2 bg-primario-oscuro-hover" @onclick="() => ClickEnUsuario(IdUsuario, usuario.IdUsuario)" style="cursor: pointer;">
+						<img src="@usuario.Imagen" height="50" alt="Imagen de usuario" class="me-2 rounded-circle" />
 
-
-@if (usuariosFiltrados != null)
-                    {
-                        @foreach (var usuario in usuariosFiltrados)
-                        {
-                            <a class="list-group-item border-bottom d-flex align-items-start mb-2 bg-primario-oscuro-hover" @onclick="() => ClickEnUsuario(IdUsuario, usuario.IdUsuario)" style="cursor: pointer;">
-                                <img src="@usuario.Imagen" height="50" alt="Imagen de usuario" class="me-2 rounded-circle" />
-
-                                <div class="d-flex flex-column flex-grow-1">
-                                    <div class="d-flex justify-content-between">
-                                        <span class="h5 m-0">
+						<div class="d-flex flex-column flex-grow-1">
+							<div class="d-flex justify-content-between">
+								<span class="h5 m-0">
                                             @usuario.Usuario
                                             @if (!usuario.IsRead)
                                             {
-                                                <span class="punto-amarillo bg-warning"></span>
-                                            }
-                                        </span>
-                                        <span>@usuario.Time.ToString("dd/MM/yy")</span>
-                                    </div>
+                                                <span class="punto-amarillo bg-warning"></span> }
+								</span>
+								<span>@usuario.Time.ToString("dd/MM/yy")</span>
+							</div>
 
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <span class="badge bg-dark fw-light text-white mr-2">@usuario.TagMensajeria</span><br />
-                                            <span>@usuario.Description</span>
-                                        </div>
-                                        <div>
-                                            @if (usuario.SenderId == IdUsuario)
-                                            {
-                                                <span class="badge bg-warning fw-light text-black">Inatendido</span>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        }
-                         
-                    }
-        </ul>
-      </div>
-          </div>
+							<div class="d-flex justify-content-between">
+								<div>
+									<span class="badge bg-dark fw-light text-white mr-2">@usuario.TagMensajeria</span><br />
+									<span>@usuario.Description</span>
+								</div>
+								<div>
+									@if (usuario.SenderId == IdUsuario) {
+									<span class="badge bg-warning fw-light text-black">Inatendido</span> }
+								</div>
+							</div>
+						</div>
+					</a>
+					} }
+				</ul>
+			</div>
+		</div>
 
-      <!-- Chat Window -->
-           @if (usuarioSeleccionado != null)
-                {
-        <div class="col-5 " >
+		<!-- Chat Window -->
+		@if (usuarioSeleccionado != null) {
+		<div class="col-5 ">
 
-            <div class="card overflow-y-auto ajuste-altura" style="">
-                    <div class="d-flex align-items-center mb-3 ">
-                    <div class="flex-grow-1 ">
-                            <div class="card-header-chat">
-                            <h5 class=" ">tony</h5>
-        </div>
-            <small class="text-muted">Away</small>
-        </div>
+			<div class="card overflow-y-auto ajuste-altura" style="">
+				<div class="d-flex align-items-center mb-3 ">
+					<div class="flex-grow-1 ">
+						<div class="card-header-chat">
+							<h5 class=" ">tony</h5>
+						</div>
+					</div>
 
-    </div>
+				</div>
 
-    <div class="card-body d-flex flex-column-reverse" style="height: 100vh;">
+				<div class="card-body d-flex flex-column-reverse" style="height: 100vh;">
 
-               
-                    
-                    @foreach (var mensaje in mensajes)
-                    {
-                            <div class="@(mensaje.SenderId == IdUsuario ? "message user-receiver" : "message user")">
-                            @mensaje.Description
-                    <div class="message-time">@mensaje.Time.ToString("h:mm tt")</div>
-                            </div>
-                        }
-               
-                </div>
 
+
+					@foreach (var mensaje in mensajes) {
+					<div class="@(mensaje.SenderId == IdUsuario ? " message user-receiver " : "message user ")">
+						@mensaje.Description
+						<div class="message-time">@mensaje.Time.ToString("h:mm tt")</div>
+					</div>
+					}
+
+				</div>
+
+			</div>
+
+			<!-- Input flotante -->
+			<div class="input-area d-flex align-items-center">
+				<input type="text" class="form-control" placeholder="Mensaje"> @*
+				<i class="fa-solid fa-paperclip"></i>*@
+				<button class="btn bg-primario-oscuro ml-3" type="button">Enviar</button>
+			</div>
+		</div>
+		} else {
+		<div class="col-8">
+			<div class="card d-flex align-items-center justify-content-center h-100">
+				<img src="img/7506749.jpg" class="img-fluid" alt="Imagen" style="max-height: 100%; max-width: 100%;" />
+			</div>
+		</div>
+		}
+		<!-- Profile Panel -->
+		@if (usuarioSeleccionado != null) {
+		<div class="col-3 ajuste-altura">
+			<div class="card">
+				<div class="card-header-chat">
+					<h6 class="">Detalles</h6>
+				</div>
+				<div class="card-body">
+
+
+					<div class="d-flex justify-content-center">
+						<div class="text-center">
+
+							<img src="@usuarioSeleccionado.Imagen" height="100" alt="Imagen de usuario" class="me-2 rounded-circle" />
+							<p><strong class="h5">@usuarioSeleccionado.Usuario</strong></p>
+						</div>
+
+					</div>
+					<p>
+						<i class="@(!string.IsNullOrEmpty(usuarioSeleccionado.Correo) ? " fas fa-envelope " : " ")"></i> @usuarioSeleccionado.Correo
+					</p>
+					<p>
+						<i class="@(!string.IsNullOrEmpty(usuarioSeleccionado.Telefono) ? " fas fa-phone " : " ")"></i> @usuarioSeleccionado.Telefono
+					</p>
+					<p>
+					</p>
+					<div class="badge bg-dark fw-light text-white mb-3">@usuarioSeleccionado.TagMensajeria</div>
+					<div class="border-bottom border-top">
+						<i class="@(!string.IsNullOrEmpty(usuarioSeleccionado.Ciudad) ? " fas fa-city " : " ") my-3"></i> @usuarioSeleccionado.Ciudad
+					</div>
+				</div>
+			</div>
+		</div>
+		}
+	</div>
 </div>
-
-                <!-- Input flotante -->
-                <div class="input-area d-flex align-items-center">
-                        <input type="text" class="form-control" placeholder="Mensaje">
-                    @*<i class="fa-solid fa-paperclip"></i>*@
-                        <button class="btn bg-primario-oscuro ml-3" type="button">Enviar</button>
-                </div>
-      </div>
-        }
-        else
-        {
-            <div class="col-8">
-                <div class="card d-flex align-items-center justify-content-center h-100">
-                    <img src="img/7506749.jpg" class="img-fluid" alt="Imagen" style="max-height: 100%; max-width: 100%;" />
-                </div>
-            </div>
-        }
-      <!-- Profile Panel -->
-                @if (usuarioSeleccionado != null)
-                {
-        <div class="col-3 ajuste-altura">
-            <div class="card">
-                        <div class="card-header-chat">
-        <h6 class="">Detalles</h6>
-            </div>
-            <div class="card-body">
-
-
-            <div class="d-flex justify-content-center">
-                <div class="text-center">
-
-                        <img src="@usuarioSeleccionado.Imagen" height="100" alt="Imagen de usuario" class="me-2 rounded-circle" />
-                <p><strong class="h5">@usuarioSeleccionado.Usuario</strong></p>
-                </div>
-
-            </div>
-                    <p>
-                            <i class="@(!string.IsNullOrEmpty(usuarioSeleccionado.Correo) ? "fas fa-envelope" : "")"></i> @usuarioSeleccionado.Correo
-                    </p>
-                    <p>
-                            <i class="@(!string.IsNullOrEmpty(usuarioSeleccionado.Telefono) ? "fas fa-phone" : "")"></i> @usuarioSeleccionado.Telefono
-                    </p>
-                    <p>
-                    </p>
-                        <div class="badge bg-dark fw-light text-white mb-3">@usuarioSeleccionado.TagMensajeria</div>
-                        <div class="border-bottom border-top">
-                        <i class="@(!string.IsNullOrEmpty(usuarioSeleccionado.Ciudad) ? "fas fa-city" : "") my-3"></i> @usuarioSeleccionado.Ciudad
-                        </div>
-            </div>
-            </div>
-      </div>
-                }
-    </div>
-  </div>
 
 
 @code{
