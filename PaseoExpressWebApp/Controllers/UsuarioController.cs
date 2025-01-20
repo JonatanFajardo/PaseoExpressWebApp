@@ -33,9 +33,9 @@ namespace PaseoExpressWebApp.Controllers
         //    }
 
 
-        private LoginService _loginService;
+        private AuthService _loginService;
 
-        public UsuarioController(LoginService loginService)
+        public UsuarioController(AuthService loginService)
         {
             _loginService = loginService;
         }
