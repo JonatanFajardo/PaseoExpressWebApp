@@ -95,7 +95,7 @@
     {
 
         hubConnection = new HubConnectionBuilder()
-          .WithUrl(Navigation.ToAbsoluteUri("/YourHub")) // URL de tu hub
+          .WithUrl(Navigation.ToAbsoluteUri("/YourHub")) 
           .Build();
 
         //hubConnection.On<string, string>("ReceiveMessage", (user, message) =>

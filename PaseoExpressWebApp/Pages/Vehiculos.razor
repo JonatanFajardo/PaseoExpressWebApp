@@ -109,13 +109,6 @@
        .WithUrl(Navigation.ToAbsoluteUri("/YourHub"))
        .Build();
 
-        //// Manejar errores de conexión
-        //hubConnection.Closed += async(error) =>
-        //{
-        //    Console.WriteLine("Conexión cerrada. Intentando reconectar...");
-        //    await Task.Delay(2000); // Esperar 2 segundos antes de intentar reconectar
-        //await StartConnection();
-        //};
         await StartConnection();
 
         vehiculosSinExistencia = await ComprobanteDiarioService.obtenervehiculossinexistenciahoy();
@@ -148,18 +141,6 @@
     }
     
 
-    //public async ValueTask DisposeAsync()
-    //{
-    //    if (hubConnection is not null)
-    //    {
-    //        await hubConnection.DisposeAsync();
-    //    }
-    //}
-
-
-
-
-
     private List<ObtenerVehiculosSinExistenciaHoyResult> vehiculosSinExistencia;
     private List<ObtenerVehiculosResult> vehiculos;
      
@@ -183,7 +164,6 @@
 
     }
 
-
     private async Task DetalleVehiculo(int idVehiculo)
     {
         Navigation.NavigateTo($"/vehiculodetalle/{idVehiculo}");
@@ -191,8 +171,6 @@
         //ObtenerVehiculosSinExistenciaHoy();
 
     }
-
-
 
     private void UpdateTable()
     {

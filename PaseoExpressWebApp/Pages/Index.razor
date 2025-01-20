@@ -22,74 +22,69 @@
 
     <div class="col-6">
 
-@if(vehiculoInformacionDashboardResults != null){
+        @if(vehiculoInformacionDashboardResults != null){
 
-            <MudCarousel Class="mud-width-full" @key="vehiculoInformacionDashboardResults.Count" Style="height:600px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
-@foreach (var item in vehiculoInformacionDashboardResults)
-{
+                    <MudCarousel Class="mud-width-full" @key="vehiculoInformacionDashboardResults.Count" Style="height:600px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+            @foreach (var item in vehiculoInformacionDashboardResults)
+            {
+                <MudCarouselItem Transition="Transition.Slide" >
 
-     <MudCarouselItem Transition="Transition.Slide" >
 
+                    <MudCard Class=" p-0">
+                        <MudCardContent Class=" p-0">
 
-                <MudCard Class=" p-0">
-                    <MudCardContent Class=" p-0">
+                            <MudContainer  Class="pa-4">
 
-<MudContainer  Class="pa-4">
+                                <img src="/img/@item.Imagen" alt="Lamborghini Aventador" height="200" />
+                                <!-- Tarjetas de Información -->
+                                <MudGrid Spacing="3" >
+                                    <MudItem xs="12" md="6">
+                                                                <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
+                                             <MudGrid>
+                                                                <MudItem md="3">
+                                            <MudIcon Icon="@Icons.Material.Outlined.WaterDrop"  />
 
-            <img src="/img/@item.Imagen" alt="Lamborghini Aventador" height="200" />
-    <!-- Tarjetas de Información -->
-    <MudGrid Spacing="3" >
-        <!-- Tarjeta de Nivel de Aceite -->
-        <MudItem xs="12" md="6">
-                                    <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
-                 <MudGrid>
-                                    <MudItem md="3">
-                <MudIcon Icon="@Icons.Material.Outlined.WaterDrop"  />
-
-                                    </MudItem>
-                                    <MudItem md="9">
-                                        <h4 class="m-0 h5  fw-bolder">Nivel Aceite</h4>
-                                                <p class="fw-light">Motor</p>
-                                    </MudItem>
-                             </MudGrid>
+                                                                </MudItem>
+                                                                <MudItem md="9">
+                                                                    <h4 class="m-0 h5  fw-bolder">Nivel Aceite</h4>
+                                                                            <p class="fw-light">Motor</p>
+                                                                </MudItem>
+                                                         </MudGrid>
 
                   
-                <MudSlider Value="@item.PorcentajeDesgasteAceite" Color="Color.Default" Min="0" Max="100" Disabled="true" />
-                <p class="m-0"><strong>Fecha:</strong> Nov 12-20</p>
-                <p class="m-0"><strong>Marca:</strong> @item.Marca</p>
-            </MudPaper>
-        </MudItem>
-
-        <!-- Tarjeta de Frenos (Combustible/Calor) -->
-        <MudItem xs="12" md="6">
-            <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
-                             <MudGrid>
-                                    <MudItem md="3">
-                                        <MudIcon Icon="@Icons.Material.Outlined.Circle" />
-
+                                            <MudSlider Value="@item.PorcentajeDesgasteAceite" Color="Color.Default" Min="0" Max="100" Disabled="true" />
+                                            <p class="m-0"><strong>Fecha:</strong> Nov 12-20</p>
+                                            <p class="m-0"><strong>Marca:</strong> @item.Marca</p>
+                                        </MudPaper>
                                     </MudItem>
-                                    <MudItem md="9">
-                                                <h4 class="m-0 h5  fw-bolder">Llantas</h4>
-                                                <p class="fw-light">Delanteras</p>
-                                    </MudItem>
-                             </MudGrid>
-                                        <div class="bg-primario-claro">
 
-                                           <div class="text-center">
+                        <!-- Tarjeta de Frenos (Combustible/Calor) -->
+                        <MudItem xs="12" md="6">
+                            <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
+                                    <MudGrid>
+                                        <MudItem md="3">
+                                            <MudIcon Icon="@Icons.Material.Outlined.Circle" />
 
-                                <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteLlanta1)" Class="mr-2" />
-                                <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteLlanta2)" />
+                                        </MudItem>
+                                        <MudItem md="9">
+                                                    <h4 class="m-0 h5  fw-bolder">Llantas</h4>
+                                                    <p class="fw-light">Delanteras</p>
+                                        </MudItem>
+                                    </MudGrid>
+                                   <div class="bg-primario-claro">
+
+                                        <div class="text-center">
+                                            <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteLlanta1)" Class="mr-2" />
+                                            <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteLlanta2)" />
                                             <p class="m-0">Left @item.PorcentajeDesgasteLlanta1% | Right @item.PorcentajeDesgasteLlanta2%</p>
-                             </div>
-                                </div> 
-            </MudPaper>
-        </MudItem>
+                                         </div>
+                                   </div> 
+                            </MudPaper>
+                        </MudItem>
 
-                <!-- Tarjeta de Frenos (Combustible/Calor) -->
-                      
-                <MudItem xs="12" md="6">
-                    <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
-                         <MudGrid>
+                        <MudItem xs="12" md="6">
+                            <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
+                                    <MudGrid>
                                     <MudItem md="3">
                                         <MudIcon Icon="@Icons.Material.Outlined.Circle" />
                              
@@ -98,57 +93,60 @@
                                                 <h4 class="m-0 h5  fw-bolder">Llantas</h4>
                                                 <p class="fw-light">Traseras</p>
                                     </MudItem>
-                             </MudGrid>
-           <div class="text-center">
+                                </MudGrid>
+                                <div class="text-center">
 
-                        <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteLlanta3)" Class="mr-2" />
+                                    <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteLlanta3)" Class="mr-2" />
 
-                        <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteLlanta4)" />
-                                        <p class="m-0">Left @item.PorcentajeDesgasteLlanta3% | Right @item.PorcentajeDesgasteLlanta4%</p>
-                             </div>
-                    </MudPaper>
-                </MudItem>
+                                    <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteLlanta4)" />
+                                            <p class="m-0">Left @item.PorcentajeDesgasteLlanta3% | Right @item.PorcentajeDesgasteLlanta4%</p>
+                                </div>
+                            </MudPaper>
+                        </MudItem>
 
 
-                        <!-- Tarjeta de Frenos (Combustible/Calor) -->
+                                        <!-- Tarjeta de Frenos (Combustible/Calor) -->
 
                         <MudItem xs="12" md="6">
-                                    <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
-                                 <MudGrid>
+                            <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
+                                <MudGrid>
                                     <MudItem md="3">
-                                <MudIcon Icon="@Icons.Material.Filled.Air" />
-                                        
+                                        <MudIcon Icon="@Icons.Material.Filled.Air" />
                                     </MudItem>
+                        
                                     <MudItem md="9">
-                                                <h4 class="m-0 h5  fw-bolder">Filtros</h4>
-                                                <p class="fw-light">Aire</p>
+                                        <h4 class="m-0 h5  fw-bolder">Filtros</h4>
+                                        <p class="fw-light">Aire</p>
                                     </MudItem>
-                             </MudGrid>
-           <div class="text-center">
-
+                                </MudGrid>
+                        
+                                <div class="text-center">
                                 <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteFiltroCabina)" Class="mr-2" />
 
                                 <MudProgressCircular Color="Color.Default" Size="Size.Medium" Value="@((double)@item.PorcentajeDesgasteFiltroMotor)" />
-                                        <p class=" m-0">Cabina @item.PorcentajeDesgasteFiltroCabina% | Motor @item.PorcentajeDesgasteFiltroMotor%</p>
-                             </div>
+                                    <p class=" m-0">Cabina @item.PorcentajeDesgasteFiltroCabina% | Motor @item.PorcentajeDesgasteFiltroMotor%</p>
+                                </div>
                             </MudPaper>
                         </MudItem>
-    </MudGrid>
+                    </MudGrid>
 
-</MudContainer>
+                            </MudContainer>
 
-    </MudCardContent>
-</MudCard>
-            </MudCarouselItem>
-}
-    </MudCarousel>
+                        </MudCardContent>
+                    </MudCard>
+        
+        
+                </MudCarouselItem>
 
-}
-else
-{
-    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+            }
+            </MudCarousel>
 
-}
+        }
+        else
+        {
+            <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+
+        }
 
 </div>
 
