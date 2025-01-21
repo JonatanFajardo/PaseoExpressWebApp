@@ -14,15 +14,11 @@ namespace PaseoExpressWebApp.Context
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
         public DateTime FechaServicio { get; set; }
-        public int? CantidadComprada { get; set; }
-        [Column("CostoUnitario", TypeName = "decimal(10,2)")]
-        public decimal CostoUnitario { get; set; }
         [Column("CostoTotal", TypeName = "decimal(10,2)")]
         public decimal? CostoTotal { get; set; }
         public string Marca { get; set; }
         public int IdTipoMantenimiento { get; set; }
         public string TipoMantenimiento { get; set; }
-        public int? KilometrajeVehiculo { get; set; }
         public int? MillajeVehiculo { get; set; }
         public DateTime? ProximaFechaMantenimiento { get; set; }
         public int IdVehiculo { get; set; }
@@ -30,7 +26,6 @@ namespace PaseoExpressWebApp.Context
         public string VehiculoModelo { get; set; }
         public int? VehiculoAnio { get; set; }
         public bool EsRecurrente { get; set; }
-        public long? ProximoKilometraje { get; set; }
         public long? ProximoMillaje { get; set; }
         public int? IdUbicacionEnAutomovil { get; set; }
         public string UbicacionEnAutomovil { get; set; }

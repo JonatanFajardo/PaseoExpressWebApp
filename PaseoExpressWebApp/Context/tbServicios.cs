@@ -18,16 +18,12 @@ namespace PaseoExpressWebApp.Context
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
         public DateTime FechaServicio { get; set; }
-        public int? CantidadComprada { get; set; }
         public int IdVehiculo { get; set; }
         public int? MillajeVehiculo { get; set; }
         public long? ProximoMillaje { get; set; }
-        public long? ProximoKilometraje { get; set; }
-        public decimal CostoUnitario { get; set; }
         public decimal? CostoTotal { get; set; }
         public string Marca { get; set; }
         public int IdTipoMantenimiento { get; set; }
-        public int? KilometrajeVehiculo { get; set; }
         public DateTime? ProximaFechaMantenimiento { get; set; }
         public bool EsRecurrente { get; set; }
         public int? IdUbicacionEnAutomovil { get; set; }

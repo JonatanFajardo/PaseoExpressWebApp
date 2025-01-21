@@ -177,8 +177,6 @@ namespace PaseoExpressWebApp.Context
                     .HasColumnType("decimal(10, 2)")
                     .HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.CostoUnitario).HasColumnType("decimal(10, 2)");
-
                 entity.Property(e => e.Descripcion).HasMaxLength(550);
 
                 entity.Property(e => e.FechaServicio).HasColumnType("date");
@@ -322,12 +320,15 @@ namespace PaseoExpressWebApp.Context
                     .IsUnicode(false);
 
                 entity.Property(e => e.Imagen)
+                    .IsRequired()
                     .HasMaxLength(650)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Nombre).HasMaxLength(350);
 
-                entity.Property(e => e.Password).HasMaxLength(350);
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(350);
 
                 entity.Property(e => e.TagMensajeria)
                     .HasMaxLength(150)
@@ -337,7 +338,9 @@ namespace PaseoExpressWebApp.Context
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Usuario).HasMaxLength(350);
+                entity.Property(e => e.Usuario)
+                    .IsRequired()
+                    .HasMaxLength(350);
 
                 entity.HasOne(d => d.IdRolNavigation)
                     .WithMany(p => p.tbUsuarios)

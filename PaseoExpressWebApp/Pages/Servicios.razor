@@ -19,7 +19,8 @@
 
 <MudCard>
     <MudCardContent>
-    <EditForm Model="@servicio" OnValidSubmit="HandleValidSubmit">
+    <EditForm Model="@servicio" >
+        @*OnValidSubmit="HandleValidSubmit"*@
     <DataAnnotationsValidator />
     <ValidationSummary class="alert alert-danger" />
 
@@ -63,7 +64,7 @@
         </div>
     </div>
 
-    <div class="row">
+    @*<div class="row">
         <div class="col-12 col-md-6">
             <div class="form-group">
                 <label class="form-label">Cantidad Comprada</label>
@@ -77,8 +78,8 @@
             </div>
         </div>
     </div>
-
-    <div class="row">
+*@
+  @*  <div class="row">
         <div class="col-12 col-md-6">
             <div class="form-group">
                 <label class="form-label">Cantidad Comprada</label>
@@ -92,7 +93,7 @@
             </div>
         </div>
     </div>
-
+*@
     <div class="row">
         <div class="col-12 col-md-6">
             <div class="form-group">
@@ -225,12 +226,12 @@
     </div>
 
     <div class="row">
-        <div class="col-12 col-md-6">
+       @* <div class="col-12 col-md-6">
             <div class="form-group">
                 <label class="form-label">Kilometraje Vehículo</label>
                 <InputNumber @bind-Value="servicio.KilometrajeVehiculo" class="form-control" />
             </div>
-        </div>
+        </div>*@
         <div class="col-12 col-md-6">
             <div class="form-group">
                 <label class="form-label">Millaje Vehículo</label>
@@ -305,7 +306,9 @@
         selectedImage = e.File;
     }
 
-    private async void HandleValidSubmit()
+    //private async void HandleValidSubmit()
+
+    private async Task EnviarSolicitudActualizarTransaccion()
     {
          
         //isDropdownVisible = isCheckboxChecked;
@@ -343,6 +346,15 @@
         {
             return;
         }
+
+        if (hubConnection is not null && hubConnection.State == HubConnectionState.Connected)
+        {
+            await hubConnection.SendAsync("ActualizarTransaccion");
+        }
+        else
+        {
+            Console.WriteLine($"La conexión no está establecida. Estado actual: {hubConnection?.State}");
+        }
         // Lógica para manejar el formulario válido
 
         // Limpia el modelo asignando una nueva instancia
@@ -371,17 +383,17 @@
     }
 
 
-    private async Task EnviarSolicitudActualizarTransaccion()
-    {
-        if (hubConnection is not null && hubConnection.State == HubConnectionState.Connected)
-        {
-            await hubConnection.SendAsync("ActualizarTransaccion");
-        }
-        else
-        {
-            Console.WriteLine($"La conexión no está establecida. Estado actual: {hubConnection?.State}");
-        }
-    }
+    //private async Task EnviarSolicitudActualizarTransaccion()
+    //{
+    //    if (hubConnection is not null && hubConnection.State == HubConnectionState.Connected)
+    //    {
+    //        await hubConnection.SendAsync("ActualizarTransaccion");
+    //    }
+    //    else
+    //    {
+    //        Console.WriteLine($"La conexión no está establecida. Estado actual: {hubConnection?.State}");
+    //    }
+    //}
 
      
     private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
