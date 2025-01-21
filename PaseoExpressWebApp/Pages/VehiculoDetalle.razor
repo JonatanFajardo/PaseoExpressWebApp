@@ -1,6 +1,6 @@
 ﻿@page "/vehiculodetalle/{idVehiculo:int}"
 @attribute [Authorize(Roles = "propietario")]
-@inject NavigationManager Navigation
+
 @inject VehiculoService VehiculoService
 @using PaseoExpressWebApp.Context;
 @using PaseoExpressWebApp.Services;

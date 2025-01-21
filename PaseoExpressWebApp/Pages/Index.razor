@@ -10,7 +10,7 @@
 
 @inject IJSRuntime JS
 @inject TransaccionesService transaccionesService
-@inject NavigationManager Navigation
+
 @inject comprobantediarioservice ComprobanteDiarioService
 @inject VehiculoService VehiculoService
 
@@ -39,17 +39,17 @@
                                 <!-- Tarjetas de Información -->
                                 <MudGrid Spacing="3" >
                                     <MudItem xs="12" md="6">
-                                                                <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
-                                             <MudGrid>
-                                                                <MudItem md="3">
-                                            <MudIcon Icon="@Icons.Material.Outlined.WaterDrop"  />
-
-                                                                </MudItem>
-                                                                <MudItem md="9">
-                                                                    <h4 class="m-0 h5  fw-bolder">Nivel Aceite</h4>
-                                                                            <p class="fw-light">Motor</p>
-                                                                </MudItem>
-                                                         </MudGrid>
+                                            <MudPaper Elevation="4" Class="pa-4 bg-primario-claro">
+                                                <MudGrid>
+                                                    <MudItem md="3">
+                                                        <MudIcon Icon="@Icons.Material.Outlined.WaterDrop"  />
+                                                    </MudItem>
+                                                        
+                                                    <MudItem md="9">
+                                                        <h4 class="m-0 h5 fw-bolder">Nivel Aceite</h4>
+                                                        <p class="fw-light">Motor</p>
+                                                    </MudItem>
+                                                </MudGrid>
 
                   
                                             <MudSlider Value="@item.PorcentajeDesgasteAceite" Color="Color.Default" Min="0" Max="100" Disabled="true" />
