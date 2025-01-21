@@ -23,7 +23,7 @@ namespace PaseoExpressWebApp.Extensiones
             {
                 claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name,sesionUsuario.Correo),
+                    new Claim(ClaimTypes.Name,sesionUsuario.Usuario),
                     new Claim("IdUser", sesionUsuario.IdUser.ToString()), // Claim para el ID
                     //new Claim("Imagen", sesionUsuario.Imagen),
                     //new Claim(ClaimTypes.Email,sesionUsuario.Clave),
@@ -52,7 +52,7 @@ namespace PaseoExpressWebApp.Extensiones
 
             var claimPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name,sesionUsuario.Correo),
+                    new Claim(ClaimTypes.Name,sesionUsuario.Usuario),
                     new Claim("IdUser", sesionUsuario.IdUser.ToString()), // Claim para el ID
                     new Claim("Imagen", sesionUsuario.Imagen),
                     new Claim(ClaimTypes.Role,sesionUsuario.Rol)

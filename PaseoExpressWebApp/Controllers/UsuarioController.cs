@@ -50,7 +50,7 @@ namespace PaseoExpressWebApp.Controllers
             {
                 IdUser = result.IdUsuario,
                 Imagen = result.Imagen,
-                Correo = result.Usuario,
+                Usuario = result.Usuario,
                 Clave = result.Password,
                 Rol = result.NombreRol
             };
