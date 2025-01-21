@@ -8,6 +8,7 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider autenticacionProvider
 @inject NavigationManager navManager
+@inject IJSRuntime JSRuntime
 
 <EditForm Model="login" OnValidSubmit="IniciarSesion">
     <div class="container-fluid vh-100">
@@ -21,7 +22,7 @@
             </div>
             
             <div class="col-md-4 p-5 login-container d-flex flex-column justify-content-center">
-                <div class="brand-name">PaseoExpress</div>
+                <div class="brand-name">Paseo Express</div>
                 <div class="welcome-message">
                     <h4>Hola, Bienvenido nuevamente</h4>
                     <p>Oye, bienvenido de nuevo a tu lugar especial.</p>
@@ -105,4 +106,11 @@
         }
     }
 
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+    //        await JSRuntime.InvokeVoidAsync("blazorFocus.focusElement", "email"); // Assuming the input has id="email"
+    //    }
+    //}
 }
