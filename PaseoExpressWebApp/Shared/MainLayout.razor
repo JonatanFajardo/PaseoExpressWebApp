@@ -16,7 +16,7 @@
 @* Needed for snackbars *@
 <MudSnackbarProvider />
 <div class="page">
-    <div class="sidebar mud-theme-primary">
+    <div class="sidebar">
         <NavMenu />
     </div>
 
@@ -25,7 +25,10 @@
             <div class="d-flex align-items-center">
                 <p class="mb-0 me-2">@userName</p>
                 <img src="@imagen" class="img-fluid rounded-lg" alt="Imagen" width="40" height="40" />
-                <a class="mb-0 me-2 text-danger" @onclick="CerrarSesion" href="javascript:void(0)">Cerrar Sesión</a>
+                <a class="mb-0 text-danger" @onclick="CerrarSesion" href="javascript:void(0)">
+                    Cerrar Sesión
+                </a>
+                    @*<i class="fas-solid fas-right-from-bracket"></i>*@
 
             </div>
             @*<a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>*@
