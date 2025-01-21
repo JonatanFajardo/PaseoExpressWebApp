@@ -48,7 +48,7 @@
         <MudTd DataLabel="Ultima Suma">L @string.Format("{0:N2}", context.UltimaSuma)</MudTd>
         <MudTd DataLabel="Tarifa Diaria">L @string.Format("{0:N2}", context.TarifaDiaria)</MudTd>
         <MudTd DataLabel="Tarifa Ahorro">L @string.Format("{0:N2}", @context.TarifaAhorro)</MudTd>
-                <MudTd DataLabel="Tipo de Transacció">@context.FechaTransaccion</MudTd>
+                <MudTd DataLabel="Tipo de Transacció">@context.FechaTransaccion.ToString("dd/MM/yyyy")</MudTd>
                 @*<MudTd DataLabel="Fecha Transacción">@context.NombreTipoTransaccion</MudTd>*@
         @*<MudTd DataLabel="Comentario">@context.Comentario</MudTd>*@
     </RowTemplate>

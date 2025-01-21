@@ -1,4 +1,6 @@
-﻿@inherits LayoutComponentBase
+﻿@using System.Security.Claims;
+@inherits LayoutComponentBase
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>PaseoExpressWebApp</PageTitle>
 
@@ -19,6 +21,10 @@
 
     <main class="bg-primario-claro">
         <div class="top-row px-4">
+            <div class="d-flex align-items-center">
+                <p class="mb-0 me-2">@userName</p>
+                <img src="@imagen" class="img-fluid rounded-lg" alt="Imagen" width="40" height="40" />
+            </div>
             @*<a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>*@
         </div>
 
@@ -28,3 +34,20 @@
         </article>
     </main>
 </div>
+
+@code {
+    private string? userName;
+    private string? imagen;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Obtener el estado de autenticación
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        userName = authState.User.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+        imagen = authState.User.FindFirst(c => c.Type == "Imagen")?.Value;
+        var user = authState.User;
+
+
+
+    }
+    }

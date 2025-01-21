@@ -49,6 +49,7 @@ namespace PaseoExpressWebApp.Controllers
             LoginDto resultLogin = new LoginDto
             {
                 IdUser = result.IdUsuario,
+                Imagen = result.Imagen,
                 Correo = result.Usuario,
                 Clave = result.Password,
                 Rol = result.NombreRol

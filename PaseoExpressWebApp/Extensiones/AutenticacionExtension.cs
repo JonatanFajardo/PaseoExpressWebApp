@@ -24,6 +24,8 @@ namespace PaseoExpressWebApp.Extensiones
                 claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
                     new Claim(ClaimTypes.Name,sesionUsuario.Correo),
+                    new Claim("IdUser", sesionUsuario.IdUser.ToString()), // Claim para el ID
+                    //new Claim("Imagen", sesionUsuario.Imagen),
                     //new Claim(ClaimTypes.Email,sesionUsuario.Clave),
                     new Claim(ClaimTypes.Role,sesionUsuario.Rol)
                 }, "JwtAuth"));
@@ -51,7 +53,8 @@ namespace PaseoExpressWebApp.Extensiones
             var claimPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
                     new Claim(ClaimTypes.Name,sesionUsuario.Correo),
-                    //new Claim(ClaimTypes.Email,sesionUsuario.Correo),
+                    new Claim("IdUser", sesionUsuario.IdUser.ToString()), // Claim para el ID
+                    new Claim("Imagen", sesionUsuario.Imagen),
                     new Claim(ClaimTypes.Role,sesionUsuario.Rol)
                 }, "JwtAuth"));
 
