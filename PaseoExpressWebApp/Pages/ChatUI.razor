@@ -1,5 +1,5 @@
 ﻿@page "/chatui"
-@attribute [Authorize]
+@attribute [Authorize(Roles = "propietario")]
 
 @using Microsoft.AspNetCore.SignalR.Client;
 @using PaseoExpressWebApp.Models;

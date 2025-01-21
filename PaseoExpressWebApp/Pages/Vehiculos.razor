@@ -1,6 +1,5 @@
 ﻿@page "/vehiculos"
-
-@attribute [Authorize(Roles = "Administrador")]
+@attribute [Authorize(Roles = "propietario")]
 
 @using MudBlazor;
 @using PaseoExpressWebApp.Context;
@@ -21,14 +20,13 @@
     else
     {
 
-            <MudCard Class="pb-5" style="max-width:100%; min-width:100%;">
+        <MudCard Class="pb-5" style="max-width:100%; min-width:100%;">
                 <div class="p-3">
                             <H5>Vehículos</H5>
                     <span>
                         Aqui puedes mantenerte al tanto sobre la información vehicular.
                     </span>
-
-            </div>
+                </div>
             <MudCardContent>
                 <MudTable Items="@vehiculos" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Md" LoadingProgressColor="Color.Info" HorizontalScrollbar="true">
                     <HeaderContent>

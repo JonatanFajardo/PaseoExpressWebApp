@@ -1,4 +1,5 @@
 ﻿@page "/transacciones"
+@attribute [Authorize(Roles = "propietario")]
 @using PaseoExpressWebApp.Context;
 @using PaseoExpressWebApp.Services;
 @inject TransaccionesService transaccionesService

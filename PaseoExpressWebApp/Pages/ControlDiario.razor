@@ -1,4 +1,5 @@
 ﻿@page "/control-diario" 
+@attribute [Authorize(Roles = "propietario")]
 @using PaseoExpressWebApp.Context;
 @using PaseoExpressWebApp.Services;
 @inject TransaccionesService transaccionesService
