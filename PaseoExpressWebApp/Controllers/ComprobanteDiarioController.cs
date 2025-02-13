@@ -20,9 +20,9 @@ namespace PaseoExpressWebApp.Controllers
         }
 
         [HttpGet("ObtenerVehiculosSinExistenciaHoy")]
-        public async Task<ActionResult<List<ObtenerVehiculosSinExistenciaHoyResult>>> ObtenerVehiculosSinExistenciaHoy()
+        public async Task<ActionResult<List<PR_ObtenerVehiculosSinExistenciaHoyResult>>> ObtenerVehiculosSinExistenciaHoy()
         {
-            List<ObtenerVehiculosSinExistenciaHoyResult> lista = await _context.Procedures.ObtenerVehiculosSinExistenciaHoyAsync();
+            List<PR_ObtenerVehiculosSinExistenciaHoyResult> lista = await _context.Procedures.PR_ObtenerVehiculosSinExistenciaHoyAsync();
             return Ok(lista);
         }
     }

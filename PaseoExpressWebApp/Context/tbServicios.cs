@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace PaseoExpressWebApp.Context
 {
+    /// <summary>
+    /// Registra los servicios realizados a los vehículos.
+    /// </summary>
     public partial class tbServicios
     {
         public tbServicios()
@@ -12,24 +15,98 @@ namespace PaseoExpressWebApp.Context
             IdTransaccion = new HashSet<tbTransacciones>();
         }
 
+        /// <summary>
+        /// Identificador único del servicio.
+        /// 
+        /// </summary>
         public int IdServicios { get; set; }
+        /// <summary>
+        /// Identificador del tipo de servicio.
+        /// 
+        /// </summary>
         public int IdTipoServicio { get; set; }
+        /// <summary>
+        /// Rutas de las imágenes relacionadas con el servicio.
+        /// 
+        /// </summary>
         public string Imagenes { get; set; }
+        /// <summary>
+        /// Título o encabezado del servicio.
+        /// 
+        /// </summary>
         public string Titulo { get; set; }
+        /// <summary>
+        /// Descripción detallada del servicio.
+        /// 
+        /// </summary>
         public string Descripcion { get; set; }
+        /// <summary>
+        /// Fecha en que se realizó el servicio.
+        /// 
+        /// </summary>
         public DateTime FechaServicio { get; set; }
+        /// <summary>
+        /// Identificador del vehículo al que se le realizó el servicio.
+        /// 
+        /// </summary>
         public int IdVehiculo { get; set; }
+        /// <summary>
+        /// Millaje del vehículo al momento del servicio.
+        /// 
+        /// </summary>
         public int? MillajeVehiculo { get; set; }
+        /// <summary>
+        /// Millaje recomendado para el próximo servicio.
+        /// 
+        /// </summary>
         public long? ProximoMillaje { get; set; }
+        /// <summary>
+        /// Costo total del servicio.
+        /// 
+        /// </summary>
         public decimal? CostoTotal { get; set; }
+        /// <summary>
+        /// Marca del vehículo al que se le realizó el servicio.
+        /// 
+        /// </summary>
         public string Marca { get; set; }
+        /// <summary>
+        /// Identificador del tipo de mantenimiento.
+        /// 
+        /// </summary>
         public int IdTipoMantenimiento { get; set; }
+        /// <summary>
+        /// Fecha recomendada para el próximo mantenimiento.
+        /// 
+        /// </summary>
         public DateTime? ProximaFechaMantenimiento { get; set; }
+        /// <summary>
+        /// Indica si el servicio es recurrente (1) o no (0).
+        /// 
+        /// </summary>
         public bool EsRecurrente { get; set; }
+        /// <summary>
+        /// Identificador de la ubicación en el automóvil.
+        /// </summary>
         public int? IdUbicacionEnAutomovil { get; set; }
+        /// <summary>
+        /// Precio de la mano de obra para el servicio.
+        /// 
+        /// </summary>
         public decimal? PrecioManoObra { get; set; }
+        /// <summary>
+        /// Indica si el servicio ha sido confirmado (1) o no (0).
+        /// 
+        /// </summary>
         public bool Confirmado { get; set; }
+        /// <summary>
+        /// Viáticos relacionados con el servicio.
+        /// 
+        /// </summary>
         public string Viaticos { get; set; }
+        /// <summary>
+        /// Cantidad monetaria involucrada en la mano de obra.
+        /// </summary>
         public int? ManoObraPersonal { get; set; }
 
         public virtual tbTipoMantenimientos IdTipoMantenimientoNavigation { get; set; }

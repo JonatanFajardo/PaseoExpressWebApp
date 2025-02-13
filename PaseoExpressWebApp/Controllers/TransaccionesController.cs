@@ -15,7 +15,7 @@ namespace PaseoExpressWebApp.Controllers
             _transaccionesService = transaccionesService;
         }
 
-        public ActionResult<List<ObtenerTransaccionesResult>> ObtenerTransaccion()
+        public ActionResult<List<PR_ObtenerTransaccionesResult>> ObtenerTransaccion()
         {
             var result = _transaccionesService.ObtenerTransaccionesAsync();
             return Ok(result);

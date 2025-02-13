@@ -109,7 +109,7 @@
                     {
                         <MudItem xs="12" sm="6" md="4">
                             <MudCard>
-                                <img src="/img/@vehiculo.Imagen"  class="img-fluid"/>
+                                <img src="/img/@vehiculo.ImagenVehiculo" class="img-fluid" />
 
                                 <MudCardContent>
                                     <MudText Typo="Typo.h5">Vehículo @vehiculo.IdVehiculo</MudText>
@@ -149,8 +149,8 @@
 
 
 @code{
-    List<ObtenerTransaccionesResult> _transacciones = new List<ObtenerTransaccionesResult>();
-    private ObtenerTransaccionesResult seleccion = new ObtenerTransaccionesResult();
+    List<PR_ObtenerTransaccionesResult> _transacciones = new List<PR_ObtenerTransaccionesResult>();
+    private PR_ObtenerTransaccionesResult seleccion = new PR_ObtenerTransaccionesResult();
     private bool mostrarDetalles = false;
 
     DateTime FechaActual = DateTime.Now;
@@ -159,8 +159,8 @@
     bool mostrarFechaTransaccionHasta = false;
 
 
-    private List<ObtenerVehiculosSinExistenciaHoyResult> vehiculosSinExistencia;
-    private List<ObtenerVehiculosResult> vehiculos;
+    private List<PR_ObtenerVehiculosSinExistenciaHoyResult> vehiculosSinExistencia;
+    private List<PR_ObtenerVehiculosResult> vehiculos;
 
 
     private HubConnection? hubConnection;
@@ -187,7 +187,7 @@
 
 
     // Método para seleccionar la información
-    private void SeleccionarInformacion(ObtenerTransaccionesResult info)
+    private void SeleccionarInformacion(PR_ObtenerTransaccionesResult info)
     {
         mostrarDetalles = true;
         seleccion = info;

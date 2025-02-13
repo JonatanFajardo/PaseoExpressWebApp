@@ -18,10 +18,7 @@ namespace PaseoExpressWebApp.Context
         {
         }
 
-        public virtual DbSet<InformacionCompra> InformacionCompra { get; set; }
-        public virtual DbSet<SaleInformation> SaleInformation { get; set; }
         public virtual DbSet<tbDetail> tbDetail { get; set; }
-        public virtual DbSet<tbGroups> tbGroups { get; set; }
         public virtual DbSet<tbHistorialMantenimiento> tbHistorialMantenimiento { get; set; }
         public virtual DbSet<tbMessage> tbMessage { get; set; }
         public virtual DbSet<tbRol> tbRol { get; set; }
@@ -45,48 +42,30 @@ namespace PaseoExpressWebApp.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<InformacionCompra>(entity =>
-            {
-                entity.HasKey(e => e.IdPurchase)
-                    .HasName("PK__Informac__D99D14A5DF8BF3B3");
-
-                entity.Property(e => e.PurchaseDate).HasColumnType("date");
-
-                entity.Property(e => e.PurchasePrice).HasColumnType("decimal(10, 2)");
-
-                entity.Property(e => e.SellerDetails)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<SaleInformation>(entity =>
-            {
-                entity.HasKey(e => e.IdSale)
-                    .HasName("PK__SaleInfo__A04F9B3738ADD604");
-
-                entity.Property(e => e.BuyerDetails)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.SaleDate).HasColumnType("date");
-
-                entity.Property(e => e.SalePrice).HasColumnType("decimal(10, 2)");
-
-                entity.HasOne(d => d.Vehicle)
-                    .WithMany(p => p.SaleInformation)
-                    .HasForeignKey(d => d.VehicleId)
-                    .HasConstraintName("FK__SaleInfor__Vehic__3C69FB99");
-            });
-
             modelBuilder.Entity<tbDetail>(entity =>
             {
                 entity.HasKey(e => e.IdDetail);
 
                 entity.ToTable("tbDetail", "chat");
 
+                entity.HasComment("Almacena los detalles de los mensajes entre usuarios o grupos, incluyendo remitente, destinatario, fecha, mensaje y estado de lectura.\n\n");
+
+                entity.Property(e => e.IdDetail).HasComment("Identificador único del detalle del mensaje.\n");
+
+                entity.Property(e => e.GroupId).HasComment("Identificador del grupo (si aplica) al que pertenece el mensaje.\n");
+
+                entity.Property(e => e.IdMessage).HasComment("Identificador del mensaje al que pertenece este detalle.\n");
+
+                entity.Property(e => e.IsRead).HasComment("Indica si el mensaje ha sido leído (1) o no (0).");
+
+                entity.Property(e => e.ReceiverId).HasComment("Identificador del destinatario del mensaje.\n");
+
+                entity.Property(e => e.SenderId).HasComment("Identificador del remitente del mensaje.\n");
+
                 entity.Property(e => e.Timestamp)
                     .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasDefaultValueSql("(getdate())")
+                    .HasComment("Fecha y hora del mensaje.\n");
 
                 entity.HasOne(d => d.IdMessageNavigation)
                     .WithMany(p => p.tbDetail)
@@ -107,21 +86,12 @@ namespace PaseoExpressWebApp.Context
                     .HasConstraintName("FK_tbDetail_tbUsuarios");
             });
 
-            modelBuilder.Entity<tbGroups>(entity =>
-            {
-                entity.Property(e => e.CreatedAt)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.GroupName)
-                    .IsRequired()
-                    .HasMaxLength(100);
-            });
-
             modelBuilder.Entity<tbHistorialMantenimiento>(entity =>
             {
                 entity.HasKey(e => e.IdMantenimiento)
                     .HasName("PK__Historia__DD1C4417FAD86A75");
+
+                entity.HasComment("Registra el historial de mantenimiento de los vehículos, incluyendo fecha, tipo de mantenimiento, vehículo, kilometraje y costo.\n\n");
 
                 entity.Property(e => e.CostoManoObra)
                     .HasColumnType("decimal(10, 2)")
@@ -150,11 +120,20 @@ namespace PaseoExpressWebApp.Context
 
                 entity.ToTable("tbMessage", "chat");
 
+                entity.HasComment("almacena los mensajes enviados en el sistema.");
+
+                entity.Property(e => e.IdMessage).HasComment("Identificador único del mensaje.\n");
+
                 entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasMaxLength(650);
+                    .HasMaxLength(650)
+                    .HasComment("Descripción o contenido del mensaje.\n");
 
-                entity.Property(e => e.Time).HasColumnType("datetime");
+                entity.Property(e => e.IsRead).HasComment("Indica si el mensaje ha sido leído (1) o no (0).\n");
+
+                entity.Property(e => e.Time)
+                    .HasColumnType("datetime")
+                    .HasComment("Fecha y hora del mensaje.");
             });
 
             modelBuilder.Entity<tbRol>(entity =>
@@ -163,7 +142,7 @@ namespace PaseoExpressWebApp.Context
 
                 entity.ToTable("tbRol", "seguridad");
 
-                entity.HasComment("Idica si se el mensaje sera con codigo o simple.");
+                entity.HasComment("Define los roles de usuario en el sistema (ej: \"Administrador\", \"Usuario\"), cada uno con un identificador y nombre.\n\n");
 
                 entity.Property(e => e.Nombre).HasMaxLength(530);
             });
@@ -173,31 +152,69 @@ namespace PaseoExpressWebApp.Context
                 entity.HasKey(e => e.IdServicios)
                     .HasName("PK_tbServicio");
 
+                entity.HasComment("Registra los servicios realizados a los vehículos.");
+
+                entity.Property(e => e.IdServicios).HasComment("Identificador único del servicio.\n");
+
+                entity.Property(e => e.Confirmado).HasComment("Indica si el servicio ha sido confirmado (1) o no (0).\n");
+
                 entity.Property(e => e.CostoTotal)
                     .HasColumnType("decimal(10, 2)")
-                    .HasDefaultValueSql("((0))");
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Costo total del servicio.\n");
 
-                entity.Property(e => e.Descripcion).HasMaxLength(550);
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(550)
+                    .HasComment("Descripción detallada del servicio.\n");
 
-                entity.Property(e => e.FechaServicio).HasColumnType("date");
+                entity.Property(e => e.EsRecurrente).HasComment("Indica si el servicio es recurrente (1) o no (0).\n");
 
-                entity.Property(e => e.IdUbicacionEnAutomovil).HasDefaultValueSql("((1))");
+                entity.Property(e => e.FechaServicio)
+                    .HasColumnType("date")
+                    .HasComment("Fecha en que se realizó el servicio.\n");
 
-                entity.Property(e => e.Imagenes).HasMaxLength(4000);
+                entity.Property(e => e.IdTipoMantenimiento).HasComment("Identificador del tipo de mantenimiento.\n");
 
-                entity.Property(e => e.ManoObraPersonal).HasDefaultValueSql("((0))");
+                entity.Property(e => e.IdTipoServicio).HasComment("Identificador del tipo de servicio.\n");
 
-                entity.Property(e => e.Marca).HasMaxLength(250);
+                entity.Property(e => e.IdUbicacionEnAutomovil)
+                    .HasDefaultValueSql("((1))")
+                    .HasComment("Identificador de la ubicación en el automóvil.");
 
-                entity.Property(e => e.PrecioManoObra).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.IdVehiculo).HasComment("Identificador del vehículo al que se le realizó el servicio.\n");
 
-                entity.Property(e => e.ProximaFechaMantenimiento).HasColumnType("date");
+                entity.Property(e => e.Imagenes)
+                    .HasMaxLength(4000)
+                    .HasComment("Rutas de las imágenes relacionadas con el servicio.\n");
+
+                entity.Property(e => e.ManoObraPersonal)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Cantidad monetaria involucrada en la mano de obra.");
+
+                entity.Property(e => e.Marca)
+                    .HasMaxLength(250)
+                    .HasComment("Marca del vehículo al que se le realizó el servicio.\n");
+
+                entity.Property(e => e.MillajeVehiculo).HasComment("Millaje del vehículo al momento del servicio.\n");
+
+                entity.Property(e => e.PrecioManoObra)
+                    .HasColumnType("decimal(10, 2)")
+                    .HasComment("Precio de la mano de obra para el servicio.\n");
+
+                entity.Property(e => e.ProximaFechaMantenimiento)
+                    .HasColumnType("date")
+                    .HasComment("Fecha recomendada para el próximo mantenimiento.\n");
+
+                entity.Property(e => e.ProximoMillaje).HasComment("Millaje recomendado para el próximo servicio.\n");
 
                 entity.Property(e => e.Titulo)
                     .IsRequired()
-                    .HasMaxLength(250);
+                    .HasMaxLength(250)
+                    .HasComment("Título o encabezado del servicio.\n");
 
-                entity.Property(e => e.Viaticos).HasMaxLength(250);
+                entity.Property(e => e.Viaticos)
+                    .HasMaxLength(250)
+                    .HasComment("Viáticos relacionados con el servicio.\n");
 
                 entity.HasOne(d => d.IdTipoMantenimientoNavigation)
                     .WithMany(p => p.tbServicios)
@@ -227,7 +244,11 @@ namespace PaseoExpressWebApp.Context
                         {
                             j.HasKey("IdServicios", "IdTransaccion").HasName("PK__tbTipoSe__6227C36EF04CEBE3");
 
-                            j.ToTable("tbServicios_tbTransacciones");
+                            j.ToTable("tbServicios_tbTransacciones").HasComment("Relaciona los servicios realizados con las transacciones en las que se incluyeron.\n\n");
+
+                            j.IndexerProperty<int>("IdServicios").HasComment("Identificador único del servicio.\n");
+
+                            j.IndexerProperty<int>("IdTransaccion").HasComment("Identificador de la transacción relacionada con el servicio.");
                         });
             });
 
@@ -236,7 +257,13 @@ namespace PaseoExpressWebApp.Context
                 entity.HasKey(e => e.IdTipoMantenimiento)
                     .HasName("PK_tbTipoMantenimiento");
 
-                entity.Property(e => e.Nombre).HasMaxLength(350);
+                entity.HasComment("Contiene los diferentes tipos de mantenimiento vehicular.");
+
+                entity.Property(e => e.IdTipoMantenimiento).HasComment("Identificador único del tipo de mantenimiento.\n");
+
+                entity.Property(e => e.Nombre)
+                    .HasMaxLength(350)
+                    .HasComment("Nombre o descripción del tipo de mantenimiento.");
             });
 
             modelBuilder.Entity<tbTipoServicios>(entity =>
@@ -244,26 +271,41 @@ namespace PaseoExpressWebApp.Context
                 entity.HasKey(e => e.IdTipoServicio)
                     .HasName("PK_tbTipoServicio");
 
+                entity.HasComment("Contiene los diferentes tipos de servicios vehiculares.");
+
+                entity.Property(e => e.IdTipoServicio).HasComment("Identificador único del tipo de servicio.\n");
+
                 entity.Property(e => e.KilometrajeCambioRecomendado)
                     .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasComment("Kilometraje recomendado para realizar el servicio.\n");
 
-                entity.Property(e => e.Meses).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.Meses)
+                    .HasColumnType("decimal(10, 2)")
+                    .HasComment("Intervalo en meses recomendado para realizar el servicio.");
 
                 entity.Property(e => e.MillajeCambioRecomendado)
                     .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasComment("Millaje recomendado para realizar el servicio.\n");
 
-                entity.Property(e => e.Nombre).HasMaxLength(350);
+                entity.Property(e => e.Nombre)
+                    .HasMaxLength(350)
+                    .HasComment("Nombre o descripción del tipo de servicio.\n");
             });
 
             modelBuilder.Entity<tbTipoTransaccion>(entity =>
             {
                 entity.HasKey(e => e.IdTipoTransaccion);
 
+                entity.HasComment("Contiene los diferentes tipos de transacciones registradas en el sistema.");
+
+                entity.Property(e => e.IdTipoTransaccion).HasComment("Identificador único del tipo de transacción.\n");
+
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(250)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasComment("Nombre o descripción del tipo de transacción.");
             });
 
             modelBuilder.Entity<tbTransacciones>(entity =>
@@ -271,30 +313,60 @@ namespace PaseoExpressWebApp.Context
                 entity.HasKey(e => e.IdTransaccion)
                     .HasName("PK_tbTransaccion");
 
-                entity.HasComment("Fecha de hasta el dia que pago");
+                entity.HasComment("Registra las transacciones realizadas en cuotas diarias y servicios.");
+
+                entity.Property(e => e.IdTransaccion).HasComment("Identificador único de la transacción.\n");
 
                 entity.Property(e => e.Comentario)
                     .HasMaxLength(4000)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasComment("Comentario o notas sobre la transacción.\n");
 
-                entity.Property(e => e.FechaCreacion).HasColumnType("date");
+                entity.Property(e => e.Confirmada).HasComment("Indica si la transacción ha sido confirmada (1) o no (0).\n");
 
-                entity.Property(e => e.FechaTransaccion).HasColumnType("date");
+                entity.Property(e => e.FechaCreacion)
+                    .HasColumnType("date")
+                    .HasComment("Fecha de creación del registro de la transacción.");
 
-                entity.Property(e => e.FechaTransaccionHasta).HasColumnType("date");
+                entity.Property(e => e.FechaTransaccion)
+                    .HasColumnType("date")
+                    .HasComment("Fecha de inicio de la transacción.\n");
+
+                entity.Property(e => e.FechaTransaccionHasta)
+                    .HasColumnType("date")
+                    .HasComment("Fecha de fin de la transacción.\n");
+
+                entity.Property(e => e.IdTipoTransaccion).HasComment("Identificador del tipo de transacción.\n");
+
+                entity.Property(e => e.IdUsuario).HasComment("Identificador del usuario que realizó la transacción.\n");
+
+                entity.Property(e => e.IdVehiculo).HasComment("Identificador del vehículo relacionado con la transacción.\n");
 
                 entity.Property(e => e.Imagen)
                     .HasMaxLength(800)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasComment("Ruta de la imagen relacionada con la transacción.\n");
 
-                entity.Property(e => e.UltimaSuma).HasDefaultValueSql("((0))");
+                entity.Property(e => e.TarifaAhorro).HasComment("Tarifa con descuento aplicada en la transacción.\n");
+
+                entity.Property(e => e.TarifaDiaria).HasComment("Tarifa diaria aplicada en la transacción.\n");
+
+                entity.Property(e => e.UltimaSuma)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Última suma o total relacionado con la transacción.\n");
             });
 
             modelBuilder.Entity<tbUbicacionEnAutomovil>(entity =>
             {
                 entity.HasKey(e => e.IdUbicacionEnAutomovil);
 
-                entity.Property(e => e.Ubicacion).HasMaxLength(250);
+                entity.HasComment("Contiene las diferentes ubicaciones dentro de un automóvil para identificar donde se encuentran las piezas.");
+
+                entity.Property(e => e.IdUbicacionEnAutomovil).HasComment("Identificador único de la ubicación en el automóvil.\n");
+
+                entity.Property(e => e.Ubicacion)
+                    .HasMaxLength(250)
+                    .HasComment("Descripción de la ubicación en el automóvil.");
             });
 
             modelBuilder.Entity<tbUsuarios>(entity =>
@@ -302,6 +374,8 @@ namespace PaseoExpressWebApp.Context
                 entity.HasKey(e => e.IdUsuario);
 
                 entity.ToTable("tbUsuarios", "seguridad");
+
+                entity.HasComment("Almacena la información de los usuarios del sistema, incluyendo datos personales y de acceso.");
 
                 entity.Property(e => e.Ciudad).HasMaxLength(50);
 
@@ -354,35 +428,64 @@ namespace PaseoExpressWebApp.Context
                 entity.HasKey(e => e.IdVehiculo)
                     .HasName("PK__VehicleI__64D74CC8A61356E4");
 
+                entity.HasComment("Almacena la información de los vehículos.");
+
+                entity.Property(e => e.IdVehiculo).HasComment("Identificador único del vehículo.\n");
+
+                entity.Property(e => e.Anio).HasComment("Año de fabricación del vehículo.\n");
+
                 entity.Property(e => e.Color)
                     .HasMaxLength(100)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasComment("Color del vehículo.\n");
+
+                entity.Property(e => e.IdConductor).HasComment("Identificador del conductor del vehículo.\n");
+
+                entity.Property(e => e.IdPropietario).HasComment("Identificador del propietario del vehículo.\n");
 
                 entity.Property(e => e.Imagen)
                     .HasMaxLength(600)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasComment("Ruta de la imagen del vehículo.\n\nExportar a Hojas de cálculo\n");
 
-                entity.Property(e => e.Inhabilitado).HasDefaultValueSql("((0))");
+                entity.Property(e => e.Inhabilitado)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Indica si el vehículo está inhabilitado (1) o no (0).\n");
+
+                entity.Property(e => e.Kilometraje).HasComment("Kilometraje total del vehículo.\n");
 
                 entity.Property(e => e.Marca)
                     .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasComment("Marca del vehículo.\n");
+
+                entity.Property(e => e.Millaje).HasComment("Millaje total del vehículo.\n");
+
+                entity.Property(e => e.MillajeActual).HasComment("Millaje actual del vehículo.\n");
 
                 entity.Property(e => e.Modelo)
                     .HasMaxLength(255)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasComment("Modelo del vehículo.\n");
 
                 entity.Property(e => e.Placa)
                     .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasComment("Número de placa del vehículo.\n");
+
+                entity.Property(e => e.TarifaAhorro).HasComment("Tarifa de alquiler con descuento.\n");
+
+                entity.Property(e => e.TarifaDiaria).HasComment("Tarifa diaria de alquiler del vehículo.\n");
 
                 entity.Property(e => e.TipoAceite)
                     .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasComment("Tipo de aceite recomendado para el vehículo.\n");
 
                 entity.Property(e => e.VIN)
                     .HasMaxLength(17)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasComment("Número de identificación del vehículo (VIN).\n");
 
                 entity.HasOne(d => d.IdConductorNavigation)
                     .WithMany(p => p.tbVehiculo)

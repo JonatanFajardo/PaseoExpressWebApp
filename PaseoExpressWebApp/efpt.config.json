@@ -23,18 +23,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[InformacionCompra]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[SaleInformation]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[tbGroups]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[tbHistorialMantenimiento]",
          "ObjectType": 0
       },
@@ -79,54 +67,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[CierreDiario]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[ConfirmarTransaccion]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[InsertarDatosTransaccion]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[InsertarUnServicios]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[ObtenerServicios]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[ObtenerServiciosPorVehiculo]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[ObtenerServiciosProximoCambio]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[ObtenerTransacciones]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[ObtenerTransaccionesPorVehiculo]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[ObtenerVehiculoInformacionDashboard]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[ObtenerVehiculos]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[ObtenerVehiculosSinExistenciaHoy]",
-         "ObjectType": 1
-      },
-      {
          "Name": "[dbo].[PR_Chat_ObtenerMensajesUsuario]",
          "ObjectType": 1
       },
@@ -135,27 +75,71 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[PR_CierreDiario]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[PR_ConfirmarTransaccion]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[PR_InsertarDatosTransaccion]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[PR_InsertarUnServicios]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[PR_InsertMessageWithDetail]",
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[PR_ObtenerServicios]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[PR_ObtenerServiciosPorVehiculo]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[PR_ObtenerServiciosProximoCambio]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[PR_ObtenerTransacciones]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[PR_ObtenerTransaccionesPorVehiculo]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[PR_ObtenerVehiculoInformacionDashboard]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[PR_ObtenerVehiculos]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[PR_ObtenerVehiculosSinExistenciaHoy]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[PR_ResumenTotal]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[PR_TransaccionTarifaNoPagada]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[PR_TransaccionTarifaNoPagadaNoConfirmada]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[PR_VerificandoUsuario]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[ResumenTotal]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[TransaccionTarifaNoPagada]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[TransaccionTarifaNoPagadaDos]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[TransaccionTarifaNoPagadaNoConfirmada]",
          "ObjectType": 1
       }
    ],

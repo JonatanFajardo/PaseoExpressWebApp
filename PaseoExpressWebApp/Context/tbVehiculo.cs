@@ -5,34 +5,105 @@ using System.Collections.Generic;
 
 namespace PaseoExpressWebApp.Context
 {
+    /// <summary>
+    /// Almacena la información de los vehículos.
+    /// </summary>
     public partial class tbVehiculo
     {
         public tbVehiculo()
         {
-            SaleInformation = new HashSet<SaleInformation>();
             tbServicios = new HashSet<tbServicios>();
         }
 
+        /// <summary>
+        /// Identificador único del vehículo.
+        /// 
+        /// </summary>
         public int IdVehiculo { get; set; }
+        /// <summary>
+        /// Marca del vehículo.
+        /// 
+        /// </summary>
         public string Marca { get; set; }
+        /// <summary>
+        /// Modelo del vehículo.
+        /// 
+        /// </summary>
         public string Modelo { get; set; }
+        /// <summary>
+        /// Color del vehículo.
+        /// 
+        /// </summary>
         public string Color { get; set; }
+        /// <summary>
+        /// Año de fabricación del vehículo.
+        /// 
+        /// </summary>
         public int? Anio { get; set; }
+        /// <summary>
+        /// Número de identificación del vehículo (VIN).
+        /// 
+        /// </summary>
         public string VIN { get; set; }
+        /// <summary>
+        /// Número de placa del vehículo.
+        /// 
+        /// </summary>
         public string Placa { get; set; }
+        /// <summary>
+        /// Kilometraje total del vehículo.
+        /// 
+        /// </summary>
         public long? Kilometraje { get; set; }
+        /// <summary>
+        /// Millaje total del vehículo.
+        /// 
+        /// </summary>
         public long? Millaje { get; set; }
+        /// <summary>
+        /// Millaje actual del vehículo.
+        /// 
+        /// </summary>
         public long? MillajeActual { get; set; }
+        /// <summary>
+        /// Tarifa diaria de alquiler del vehículo.
+        /// 
+        /// </summary>
         public int TarifaDiaria { get; set; }
+        /// <summary>
+        /// Tarifa de alquiler con descuento.
+        /// 
+        /// </summary>
         public int TarifaAhorro { get; set; }
+        /// <summary>
+        /// Tipo de aceite recomendado para el vehículo.
+        /// 
+        /// </summary>
         public string TipoAceite { get; set; }
+        /// <summary>
+        /// Identificador del propietario del vehículo.
+        /// 
+        /// </summary>
         public int? IdPropietario { get; set; }
+        /// <summary>
+        /// Identificador del conductor del vehículo.
+        /// 
+        /// </summary>
         public int? IdConductor { get; set; }
+        /// <summary>
+        /// Indica si el vehículo está inhabilitado (1) o no (0).
+        /// 
+        /// </summary>
         public bool? Inhabilitado { get; set; }
+        /// <summary>
+        /// Ruta de la imagen del vehículo.
+        /// 
+        /// Exportar a Hojas de cálculo
+        /// 
+        /// </summary>
         public string Imagen { get; set; }
 
         public virtual tbUsuarios IdConductorNavigation { get; set; }
-        public virtual ICollection<SaleInformation> SaleInformation { get; set; }
         public virtual ICollection<tbServicios> tbServicios { get; set; }
     }
 }

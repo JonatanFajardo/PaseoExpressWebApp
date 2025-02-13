@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace PaseoExpressWebApp.Context
 {
+    /// <summary>
+    /// almacena los mensajes enviados en el sistema.
+    /// </summary>
     public partial class tbMessage
     {
         public tbMessage()
@@ -12,9 +15,24 @@ namespace PaseoExpressWebApp.Context
             tbDetail = new HashSet<tbDetail>();
         }
 
+        /// <summary>
+        /// Identificador único del mensaje.
+        /// 
+        /// </summary>
         public int IdMessage { get; set; }
+        /// <summary>
+        /// Descripción o contenido del mensaje.
+        /// 
+        /// </summary>
         public string Description { get; set; }
+        /// <summary>
+        /// Indica si el mensaje ha sido leído (1) o no (0).
+        /// 
+        /// </summary>
         public bool IsRead { get; set; }
+        /// <summary>
+        /// Fecha y hora del mensaje.
+        /// </summary>
         public DateTime Time { get; set; }
 
         public virtual ICollection<tbDetail> tbDetail { get; set; }

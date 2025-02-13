@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace PaseoExpressWebApp.Context
 {
+    /// <summary>
+    /// Almacena la información de los usuarios del sistema, incluyendo datos personales y de acceso.
+    /// </summary>
     public partial class tbUsuarios
     {
         public tbUsuarios()

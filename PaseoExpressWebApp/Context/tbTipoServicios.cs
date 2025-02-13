@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace PaseoExpressWebApp.Context
 {
+    /// <summary>
+    /// Contiene los diferentes tipos de servicios vehiculares.
+    /// </summary>
     public partial class tbTipoServicios
     {
         public tbTipoServicios()
@@ -12,10 +15,29 @@ namespace PaseoExpressWebApp.Context
             tbServicios = new HashSet<tbServicios>();
         }
 
+        /// <summary>
+        /// Identificador único del tipo de servicio.
+        /// 
+        /// </summary>
         public int IdTipoServicio { get; set; }
+        /// <summary>
+        /// Nombre o descripción del tipo de servicio.
+        /// 
+        /// </summary>
         public string Nombre { get; set; }
+        /// <summary>
+        /// Millaje recomendado para realizar el servicio.
+        /// 
+        /// </summary>
         public string MillajeCambioRecomendado { get; set; }
+        /// <summary>
+        /// Kilometraje recomendado para realizar el servicio.
+        /// 
+        /// </summary>
         public string KilometrajeCambioRecomendado { get; set; }
+        /// <summary>
+        /// Intervalo en meses recomendado para realizar el servicio.
+        /// </summary>
         public decimal? Meses { get; set; }
 
         public virtual ICollection<tbServicios> tbServicios { get; set; }

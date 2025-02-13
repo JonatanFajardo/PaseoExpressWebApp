@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace PaseoExpressWebApp.Context
 {
+    /// <summary>
+    /// Contiene los diferentes tipos de mantenimiento vehicular.
+    /// </summary>
     public partial class tbTipoMantenimientos
     {
         public tbTipoMantenimientos()
@@ -12,7 +15,14 @@ namespace PaseoExpressWebApp.Context
             tbServicios = new HashSet<tbServicios>();
         }
 
+        /// <summary>
+        /// Identificador único del tipo de mantenimiento.
+        /// 
+        /// </summary>
         public int IdTipoMantenimiento { get; set; }
+        /// <summary>
+        /// Nombre o descripción del tipo de mantenimiento.
+        /// </summary>
         public string Nombre { get; set; }
 
         public virtual ICollection<tbServicios> tbServicios { get; set; }

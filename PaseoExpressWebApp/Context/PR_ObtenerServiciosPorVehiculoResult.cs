@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PaseoExpressWebApp.Context
 {
-    public partial class ObtenerServiciosPorVehiculoResult
+    public partial class PR_ObtenerServiciosPorVehiculoResult
     {
         public int IdServicios { get; set; }
         public int IdTipoServicio { get; set; }

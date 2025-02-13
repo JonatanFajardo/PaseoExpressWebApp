@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace PaseoExpressWebApp.Context
 {
     /// <summary>
-    /// Fecha de hasta el dia que pago
+    /// Registra las transacciones realizadas en cuotas diarias y servicios.
     /// </summary>
     public partial class tbTransacciones
     {
@@ -15,18 +15,69 @@ namespace PaseoExpressWebApp.Context
             IdServicios = new HashSet<tbServicios>();
         }
 
+        /// <summary>
+        /// Identificador único de la transacción.
+        /// 
+        /// </summary>
         public int IdTransaccion { get; set; }
+        /// <summary>
+        /// Ruta de la imagen relacionada con la transacción.
+        /// 
+        /// </summary>
         public string Imagen { get; set; }
+        /// <summary>
+        /// Tarifa diaria aplicada en la transacción.
+        /// 
+        /// </summary>
         public int TarifaDiaria { get; set; }
+        /// <summary>
+        /// Tarifa con descuento aplicada en la transacción.
+        /// 
+        /// </summary>
         public int TarifaAhorro { get; set; }
+        /// <summary>
+        /// Identificador del vehículo relacionado con la transacción.
+        /// 
+        /// </summary>
         public int IdVehiculo { get; set; }
+        /// <summary>
+        /// Identificador del usuario que realizó la transacción.
+        /// 
+        /// </summary>
         public int? IdUsuario { get; set; }
+        /// <summary>
+        /// Fecha de inicio de la transacción.
+        /// 
+        /// </summary>
         public DateTime FechaTransaccion { get; set; }
+        /// <summary>
+        /// Fecha de fin de la transacción.
+        /// 
+        /// </summary>
         public DateTime? FechaTransaccionHasta { get; set; }
+        /// <summary>
+        /// Indica si la transacción ha sido confirmada (1) o no (0).
+        /// 
+        /// </summary>
         public bool Confirmada { get; set; }
+        /// <summary>
+        /// Última suma o total relacionado con la transacción.
+        /// 
+        /// </summary>
         public int? UltimaSuma { get; set; }
+        /// <summary>
+        /// Comentario o notas sobre la transacción.
+        /// 
+        /// </summary>
         public string Comentario { get; set; }
+        /// <summary>
+        /// Identificador del tipo de transacción.
+        /// 
+        /// </summary>
         public int IdTipoTransaccion { get; set; }
+        /// <summary>
+        /// Fecha de creación del registro de la transacción.
+        /// </summary>
         public DateTime FechaCreacion { get; set; }
 
         public virtual ICollection<tbServicios> IdServicios { get; set; }

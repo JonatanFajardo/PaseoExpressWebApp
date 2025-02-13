@@ -193,7 +193,7 @@
                     <MudGrid>
                         <MudItem sm="3">
                             @*<img src="@item.Imagen" class="img-fluid "/>*@
-                                        <MudImage Src="@item.Imagen" Class="rounded-lg" Width="50" Height="50" ObjectFit="ObjectFit.Cover" />
+                                        <img src="@item.ImagenUsuario" Class="img-fluid" Width="50" Height="50" ObjectFit="ObjectFit.Cover" />
 
                                     </MudItem>
                         <MudItem sm="9">
@@ -223,12 +223,12 @@
 @*<canvas id="transaccionesChartVehiculo" width="400" height="200"></canvas>*@
 
 @code {
-    private List<ObtenerTransaccionesResult> transacciones;
+    private List<PR_ObtenerTransaccionesResult> transacciones;
     private List<TransaccionesMensuales> transaccionesMensuales;
     private List<TransaccionesMensuales> transaccionesMensualesVehiculo;
     private List<Vehiculo> vehiculos;
     private int selectedVehiculoId;
-    private List<ObtenerVehiculoInformacionDashboardResult> vehiculoInformacionDashboardResults = new List<ObtenerVehiculoInformacionDashboardResult>();
+    private List<PR_ObtenerVehiculoInformacionDashboardResult> vehiculoInformacionDashboardResults = new List<PR_ObtenerVehiculoInformacionDashboardResult>();
 
 
     //Carousel
@@ -317,6 +317,6 @@
     }
 
     //fin graficas
-    private List<ObtenerVehiculosSinExistenciaHoyResult> vehiculosDiario;
+    private List<PR_ObtenerVehiculosSinExistenciaHoyResult> vehiculosDiario;
 
 }

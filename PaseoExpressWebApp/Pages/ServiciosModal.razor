@@ -175,7 +175,7 @@
     public MudDialogInstance MudDialog { get; set; }
 
     [Parameter]
-    public ObtenerServiciosPorVehiculoResult servicio { get; set; }
+    public PR_ObtenerServiciosPorVehiculoResult servicio { get; set; }
     private void Submit() => MudDialog.Close(DialogResult.Ok(true));
     private void Cancel() => MudDialog.Cancel();
     string EsRecurrente;

@@ -5,14 +5,46 @@ using System.Collections.Generic;
 
 namespace PaseoExpressWebApp.Context
 {
+    /// <summary>
+    /// Almacena los detalles de los mensajes entre usuarios o grupos, incluyendo remitente, destinatario, fecha, mensaje y estado de lectura.
+    /// 
+    /// 
+    /// </summary>
     public partial class tbDetail
     {
+        /// <summary>
+        /// Identificador único del detalle del mensaje.
+        /// 
+        /// </summary>
         public int IdDetail { get; set; }
+        /// <summary>
+        /// Identificador del remitente del mensaje.
+        /// 
+        /// </summary>
         public int SenderId { get; set; }
+        /// <summary>
+        /// Identificador del destinatario del mensaje.
+        /// 
+        /// </summary>
         public int ReceiverId { get; set; }
+        /// <summary>
+        /// Identificador del grupo (si aplica) al que pertenece el mensaje.
+        /// 
+        /// </summary>
         public int? GroupId { get; set; }
+        /// <summary>
+        /// Fecha y hora del mensaje.
+        /// 
+        /// </summary>
         public DateTime? Timestamp { get; set; }
+        /// <summary>
+        /// Identificador del mensaje al que pertenece este detalle.
+        /// 
+        /// </summary>
         public int IdMessage { get; set; }
+        /// <summary>
+        /// Indica si el mensaje ha sido leído (1) o no (0).
+        /// </summary>
         public bool IsRead { get; set; }
 
         public virtual tbMessage IdMessageNavigation { get; set; }

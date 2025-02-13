@@ -5,22 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PaseoExpressWebApp.Context
 {
-    public partial class ObtenerTransaccionesResult
+    public partial class PR_ObtenerTransaccionesPorVehiculoResult
     {
         public string Imagen { get; set; }
         public int? UltimaSuma { get; set; }
-        public int IdVehiculo { get; set; }
-        public int? Anio { get; set; }
-        public string Placa { get; set; }
-        public string Nombre { get; set; }
-        public string ImagenUsuario { get; set; }
+        public string Conductor { get; set; }
         public int TarifaDiaria { get; set; }
         public int TarifaAhorro { get; set; }
         public DateTime FechaTransaccion { get; set; }
+        public DateTime? FechaTransaccionHasta { get; set; }
         public string Comentario { get; set; }
-        public int IdTipoTransaccion { get; set; }
-        public string NombreTipoTransaccion { get; set; }
-        public bool Confirmada { get; set; }
-        public DateTime FechaCreacion { get; set; }
     }
 }

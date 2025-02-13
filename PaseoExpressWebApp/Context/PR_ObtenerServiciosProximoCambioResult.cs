@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PaseoExpressWebApp.Context
 {
-    public partial class ObtenerServiciosProximoCambioResult
+    public partial class PR_ObtenerServiciosProximoCambioResult
     {
         public string Titulo { get; set; }
         public long? MillajeActual { get; set; }

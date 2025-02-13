@@ -9,7 +9,7 @@ namespace PaseoExpressWebApp
     {
         public MappingProfile()
         {
-            CreateMap<ObtenerVehiculosResult, VehiculoModel>(); // Definición del mapeo de ObtenerVehiculosResult a Vehiculo
+            CreateMap<PR_ObtenerVehiculosResult, VehiculoModel>(); // Definición del mapeo de ObtenerVehiculosResult a Vehiculo
         }
     }
 }

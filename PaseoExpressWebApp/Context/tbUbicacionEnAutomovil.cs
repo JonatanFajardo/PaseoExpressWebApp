@@ -5,9 +5,19 @@ using System.Collections.Generic;
 
 namespace PaseoExpressWebApp.Context
 {
+    /// <summary>
+    /// Contiene las diferentes ubicaciones dentro de un automóvil para identificar donde se encuentran las piezas.
+    /// </summary>
     public partial class tbUbicacionEnAutomovil
     {
+        /// <summary>
+        /// Identificador único de la ubicación en el automóvil.
+        /// 
+        /// </summary>
         public int IdUbicacionEnAutomovil { get; set; }
+        /// <summary>
+        /// Descripción de la ubicación en el automóvil.
+        /// </summary>
         public string Ubicacion { get; set; }
     }
 }

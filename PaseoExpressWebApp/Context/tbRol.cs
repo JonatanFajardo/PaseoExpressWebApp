@@ -6,7 +6,9 @@ using System.Collections.Generic;
 namespace PaseoExpressWebApp.Context
 {
     /// <summary>
-    /// Idica si se el mensaje sera con codigo o simple.
+    /// Define los roles de usuario en el sistema (ej: &quot;Administrador&quot;, &quot;Usuario&quot;), cada uno con un identificador y nombre.
+    /// 
+    /// 
     /// </summary>
     public partial class tbRol
     {

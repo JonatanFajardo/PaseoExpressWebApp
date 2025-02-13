@@ -120,8 +120,8 @@
     [Parameter]
     public int IdVehiculo { get; set; }
 
-    private List<ObtenerTransaccionesPorVehiculoResult> cuotaDiaria;
-    List<ObtenerServiciosPorVehiculoResult> servicios;
+    private List<PR_ObtenerTransaccionesPorVehiculoResult> cuotaDiaria;
+    List<PR_ObtenerServiciosPorVehiculoResult> servicios;
     
 
     protected override async Task OnInitializedAsync()
@@ -132,7 +132,7 @@
         cuotaDiaria.OrderBy(x => x.FechaTransaccionHasta).ToList();
     }
     //Modal
-    private Task OpenDialogAsync(DialogOptions options, ObtenerServiciosPorVehiculoResult servicio)
+    private Task OpenDialogAsync(DialogOptions options, PR_ObtenerServiciosPorVehiculoResult servicio)
     {
         var parameters = new DialogParameters
         {

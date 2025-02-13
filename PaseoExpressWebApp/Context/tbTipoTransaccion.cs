@@ -5,9 +5,19 @@ using System.Collections.Generic;
 
 namespace PaseoExpressWebApp.Context
 {
+    /// <summary>
+    /// Contiene los diferentes tipos de transacciones registradas en el sistema.
+    /// </summary>
     public partial class tbTipoTransaccion
     {
+        /// <summary>
+        /// Identificador único del tipo de transacción.
+        /// 
+        /// </summary>
         public int IdTipoTransaccion { get; set; }
+        /// <summary>
+        /// Nombre o descripción del tipo de transacción.
+        /// </summary>
         public string Nombre { get; set; }
     }
 }

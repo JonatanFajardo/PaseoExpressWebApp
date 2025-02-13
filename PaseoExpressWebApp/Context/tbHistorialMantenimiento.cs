@@ -5,6 +5,11 @@ using System.Collections.Generic;
 
 namespace PaseoExpressWebApp.Context
 {
+    /// <summary>
+    /// Registra el historial de mantenimiento de los vehículos, incluyendo fecha, tipo de mantenimiento, vehículo, kilometraje y costo.
+    /// 
+    /// 
+    /// </summary>
     public partial class tbHistorialMantenimiento
     {
         public int IdMantenimiento { get; set; }
