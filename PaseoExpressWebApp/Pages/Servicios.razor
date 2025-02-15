@@ -9,9 +9,9 @@
 @inject IJSRuntime JsRuntime
 @inject IWebHostEnvironment WebHostEnvironment
 @inject VehiculoService Vehiculo
-
-
 @using Microsoft.AspNetCore.SignalR.Client;
+@inject ISnackbar Snackbar
+
 
 <PageTitle>Servicios</PageTitle>
 
@@ -19,13 +19,13 @@
 
 <MudCard>
     <MudCardContent>
-    <EditForm Model="@servicio" >
-        @*OnValidSubmit="HandleValidSubmit"*@
+    <EditForm Model="@servicio" 
+    OnValidSubmit="EnviarSolicitudActualizarTransaccion">
     <DataAnnotationsValidator />
-    <ValidationSummary class="alert alert-danger" />
+    @*<ValidationSummary class="alert alert-danger" />*@
 
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Tipo Servicio</label>
                 <select class="form-select" @onchange="OnTipoServicioChanged">
@@ -35,19 +35,21 @@
                         <option value="@tipoServicio.IdTipoServicio">@tipoServicio.Nombre</option>
                     }
                 </select>
+                        @*<ValidationMessage For="@(() => servicio.IdTipoServicio)" />*@
             </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Título</label>
-                <InputText @bind-Value="servicio.Titulo" class="form-control" />
+                    <InputText @bind-Value="servicio.Titulo" class="form-control" />
+                    <ValidationMessage For="@(() => servicio.Titulo)" />
                 </div>
         </div>
     </div>
 
     <div class="row">
 
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <!-- Otros campos para PC -->
             <div class="form-group">
                 <label class="form-label">Descripción</label>
@@ -55,7 +57,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <!-- Otros campos para PC -->
             <div class="form-group">
                 <label class="form-label">Fecha Servicio</label>
@@ -65,13 +67,13 @@
     </div>
 
     @*<div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Cantidad Comprada</label>
                 <InputNumber @bind-Value="servicio.CantidadComprada" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
             </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Costo Unitario</label>
                 <InputNumber @bind-Value="servicio.CostoUnitario" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
@@ -80,13 +82,13 @@
     </div>
 *@
   @*  <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Cantidad Comprada</label>
                 <InputNumber @bind-Value="servicio.CantidadComprada" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
             </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Costo Unitario</label>
                 <InputNumber @bind-Value="servicio.CostoUnitario" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
@@ -95,56 +97,60 @@
     </div>
 *@
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
-                <label class="form-label">Costo Total</label>
-                <InputNumber @bind-Value="servicio.CostoTotal" class="form-control" Disabled="true" />
+                <label class="form-label">Costo</label>
+                <InputNumber @bind-Value="servicio.CostoTotal" class="form-control"/>
+                <ValidationMessage For="@(() => servicio.CostoTotal)" />
             </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Ubicación en Automóvil</label>
-                <select @bind="servicio.IdUbicacionEnAutomovil" class="form-select">
+                        <InputSelect @bind-Value="servicio.IdUbicacionEnAutomovil" class="form-select">
                     <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
                     @foreach (var ubicacion in ubicacionesEnAutomovil)
                     {
                         <option value="@ubicacion.IdUbicacionEnAutomovil">@ubicacion.Ubicacion</option>
                     }
-                </select>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => servicio.IdUbicacionEnAutomovil)" class="text-danger" />
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Tipo Mantenimiento</label>
-                <select @bind="servicio.IdTipoMantenimiento" class="form-select">
+                <InputSelect @bind-Value="servicio.IdTipoMantenimiento" class="form-select">
                     <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
                     @foreach (var tipoMantenimiento in tiposMantenimientos)
                     {
                         <option value="@tipoMantenimiento.IdTipoMantenimiento">@tipoMantenimiento.Nombre</option>
                     }
-                </select>
+                </InputSelect>
+                <ValidationMessage For="@(() => servicio.IdTipoMantenimiento)" />
             </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Vehículo</label>
-                <select @bind="servicio.IdVehiculo" class="form-select">
+                    <InputSelect @bind-Value="servicio.IdVehiculo" class="form-select">
                     <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
                     @foreach (var vehiculo in vehiculos)
                     {
                         <option value="@vehiculo.IdVehiculo">@vehiculo.Placa</option>
                     }
-                </select>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => servicio.IdVehiculo)" class="text-danger" />
             </div>
         </div>
     </div>
 
 
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <input type="checkbox" @bind="isCheckboxChecked" />
                 <label for="checkbox">Conductor actual</label>
@@ -152,7 +158,7 @@
                     @if (!isCheckboxChecked)
                     {
                         <div class="form-group">
-                            <label class="form-label">Conductor</label>
+                            <label class="form-label">Seleccionar el conductor que conducia el vehículo en el momento del servicio.</label>
                             <select @bind="servicio.IdUsuario" class="form-select">
                                 <option value="0">--Seleccionar--</option>
                                 @foreach (var conductor in Conductores)
@@ -166,7 +172,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Precio Mano Obra</label>
                 <InputNumber @bind-Value="servicio.PrecioManoObra" class="form-control" />
@@ -177,13 +183,13 @@
     
         
     <div class="row">
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6 mb-3">
         <div class="form-group form-check">
             <InputCheckbox @bind-Value="servicio.Confirmado" class="form-check-input" />
             <label class="form-check-label">Confirmado</label>
         </div>
     </div>
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6 mb-3">
         <div class="form-group">
             <label class="form-label">Viáticos</label>
             <InputTextArea @bind-Value="servicio.Viaticos" class="form-control" />
@@ -196,13 +202,13 @@
 
 
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Mano Obra Personal</label>
                 <InputNumber @bind-Value="servicio.ManoObraPersonal" class="form-control" />
             </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Próxima Fecha Mantenimiento</label>
                 <InputDate @bind-Value="servicio.ProximaFechaMantenimiento" class="form-control" />
@@ -211,13 +217,13 @@
     </div>
 
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Imágenes</label>
                 <InputFile OnChange="OnInputFileChange" class="form-control" />
             </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Marca</label>
                 <InputText @bind-Value="servicio.Marca" class="form-control" />
@@ -226,13 +232,13 @@
     </div>
 
     <div class="row">
-       @* <div class="col-12 col-md-6">
+       @* <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Kilometraje Vehículo</label>
                 <InputNumber @bind-Value="servicio.KilometrajeVehiculo" class="form-control" />
             </div>
         </div>*@
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
                 <label class="form-label">Millaje Vehículo</label>
                 <InputNumber @bind-Value="servicio.MillajeVehiculo" class="form-control" />
@@ -243,12 +249,12 @@
 
         
 
-    <button @onclick="EnviarSolicitudActualizarTransaccion" type="submit" class="btn btn-primary">Guardar</button>
+    <button  type="submit" class="btn btn-primary">Guardar</button>
 </EditForm>
 
     </MudCardContent>
 
-
+  
 </MudCard>
 
 @code {
@@ -264,6 +270,9 @@
     private bool isDropdownVisible = false;
     private int? IdConductorCheckbox;
 
+    bool estadoResultado = false;
+    bool mostrarAlerta = false;
+
 
     private HubConnection? hubConnection;
 
@@ -271,14 +280,14 @@
     private async void MetodoSeleccionado()
     {
         servicio.IdUsuario = vehiculos.Where(x => x.IdVehiculo == servicio.IdVehiculo).FirstOrDefault().IdConductor;
-        
+
         // Lógica para el método cuando el checkbox está seleccionado
         Console.WriteLine("Checkbox seleccionado. ID del vehículo: [tu ID de vehículo aquí]");
     }
 
     private void MetodoNoSeleccionado()
     {
-         //vehiculos = Vehiculo.Obtenervehiculos();
+        //vehiculos = Vehiculo.Obtenervehiculos();
         servicio.IdUsuario = servicio.IdVehiculo;
         // Lógica para el método cuando el checkbox no está seleccionado
         Console.WriteLine("Checkbox no seleccionado. ID del vehículo: [tu ID de vehículo aquí]");
@@ -286,7 +295,7 @@
 
     protected override void OnInitialized()
     {
-             hubConnection = new HubConnectionBuilder()
+        hubConnection = new HubConnectionBuilder()
        .WithUrl(Navigation.ToAbsoluteUri("/YourHub"))
        .Build();
 
@@ -306,12 +315,9 @@
         selectedImage = e.File;
     }
 
-    //private async void HandleValidSubmit()
 
     private async Task EnviarSolicitudActualizarTransaccion()
     {
-         
-        //isDropdownVisible = isCheckboxChecked;
 
         if (isCheckboxChecked)
         {
@@ -341,11 +347,16 @@
             // Guarda la ruta relativa en el modelo
             servicio.Imagenes = Path.Combine("img", "servicios", selectedImage.Name);
         }
-        bool result =  await servicioServices.InsertarUnServicios(servicio);
-        if (result == false)
+
+        estadoResultado =  await servicioServices.InsertarUnServicios(servicio);
+        if (estadoResultado == false)
         {
+            Snackbar.Add("Ocurrio un problema al guardar el registro.", Severity.Error);
             return;
         }
+
+        Snackbar.Add("El registro se guardo exitosamente.", Severity.Success);
+
 
         if (hubConnection is not null && hubConnection.State == HubConnectionState.Connected)
         {
