@@ -41,9 +41,21 @@
                     <label class="form-check-label" for="rememberMe">Remember me</label>
                     <a href="#" class="float-end">Forgot Password?</a>
                 </div>*@
+         
 
-                <button type="submit"  @onkeydown="@Enter" class="btn btn-primary bg-primario-oscuro">Iniciar Sesión</button>
 
+
+                <button type="submit" @onkeydown="@Enter" class="btn btn-primary bg-primario-oscuro">
+                    <span>Iniciar Sesión</span>
+
+                    @if (isLoading)
+                    {
+                        <div class="spinner-border spinner-border-sm mx-2" role="status">
+                        </div>
+                    }
+
+                </button>
+                    
                 <div class="signup-link">
                     <p>De ser necesario cambiar la contraseña o crear un usuario puedes ponerte en contacto con el administrador.</p>
                     @*Don't have an account? <a href="#">Sign Up</a>*@
@@ -62,7 +74,7 @@
 
 
     private LoginDto login = new LoginDto();
-
+    private bool isLoading = false;
 
     public void Enter(KeyboardEventArgs e)
     {
@@ -76,6 +88,7 @@
     {
         try
         {
+            isLoading = true; // Mostrar el loading
             var loginResponse = await httpClient.PostAsJsonAsync<LoginDto>("https://localhost:44384/api/Usuario/Login", login);
             if (loginResponse.IsSuccessStatusCode)
             {
@@ -90,6 +103,7 @@
                     await autenticacionExt.ActualizarEstadoAutenticacion(sesionUsuario);
 
                     // Redirigir al inicio después de un login exitoso
+                    isLoading = false;
                     navManager.NavigateTo("/Inicio");
                 }
                 else

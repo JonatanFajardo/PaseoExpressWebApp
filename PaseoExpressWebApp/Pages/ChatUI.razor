@@ -64,7 +64,7 @@
 		@if (usuarioSeleccionado != null) {
 		<div class="col-5 ">
 
-			<div class="card overflow-y-auto ajuste-altura" style="">
+			<div class="card ajuste-altura">
 				<div class="d-flex align-items-center mb-3 ">
 					<div class="flex-grow-1 ">
 						<div class="card-header-chat">
@@ -74,10 +74,7 @@
 
 				</div>
 
-				<div class="card-body d-flex flex-column-reverse" style="height: 100vh;">
-
-
-
+				<div class="card-body overflow-y-auto d-flex flex-column-reverse" style="height: 100vh;">
 					@foreach (var mensaje in mensajes) {
 					<div class="@(mensaje.SenderId == IdUsuario ? " message user-receiver " : "message user ")">
 						@mensaje.Description
