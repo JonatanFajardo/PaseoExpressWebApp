@@ -5,6 +5,7 @@
 @using PaseoExpressWebApp.Models;
 @using PaseoExpressWebApp.Services;
 @using PaseoExpressWebApp.Extensiones;
+@using System.Security.Claims;
 
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
@@ -68,7 +69,7 @@
 				<div class="d-flex align-items-center mb-3 ">
 					<div class="flex-grow-1 ">
 						<div class="card-header-chat">
-							<h5 class=" ">tony</h5>
+								<h5 class=" ">@usuarioSeleccionado.Nombre</h5>
 						</div>
 					</div>
 
@@ -145,24 +146,19 @@
     List<PR_Chat_ObtenerMensajesUsuarioResult> mensajes;
     PR_Chat_ObtenerUltimoMensajePorUsuarioResult usuarioSeleccionado;
 
-
-
-
-    private string userId;
-
-    int IdUsuario = 1;
+    private int IdUsuario;
 
     protected override async Task OnInitializedAsync()
-    {
-
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-
+    { 
+		// Obtener el estado de autenticación
+		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();  
+		IdUsuario = Convert.ToInt32(authState.User.FindFirst(c => c.Type == "IdUser")?.Value);
+		 
+		//obteber mensajes por usuario.
         usuarios = await chatSignalService.ObtenerUltimoMensajePorUsuario(IdUsuario);
 
         // Inicializamos los usuarios filtrados con todos los usuarios al inicio
         usuariosFiltrados = usuarios;
-
     }
 
     private void MostrarTodos() => AplicarFiltro("Todos");
@@ -189,7 +185,7 @@
     public async Task ClickEnUsuario(int IdUsuarioOne, int IdUsuarioTwo)
     {
         mensajes = await chatSignalService.ObtenerMensajesPorUsuario(IdUsuarioOne, IdUsuarioTwo);
-        usuarioSeleccionado = usuarios.Find(x => x.IdUsuario == IdUsuarioOne);
+		usuarioSeleccionado = usuarios.Find(x => x.IdUsuario == IdUsuarioTwo);
     }
 
 

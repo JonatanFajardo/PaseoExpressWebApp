@@ -21,12 +21,12 @@
         <MudCardContent>
             <MudTable Items="@servicios"  Height="500px" SortLabel="Sort By" Dense="true" Hover="true" Bordered="true" Striped="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info" Virtualize="true" FixedHeader="true">
                 <HeaderContent>
+                    <MudTh>Detalle</MudTh>
                     <MudTh>Título</MudTh>
                     <MudTh>Fecha de Servicio</MudTh>
                     <MudTh>Marca</MudTh>
                     <MudTh>Próximo Millaje</MudTh>
                     <MudTh>Ubicación en el Automóvil</MudTh>
-                    <MudTh>Detalle</MudTh>
                 </HeaderContent>
                 <RowTemplate>
                  @*   <MudTd>
@@ -35,14 +35,14 @@
                             <img src="@context.Imagenes" alt="Imagen" width="50" height="50" />
                         }
                     </MudTd>*@
+                    <MudTd>
+                    <MudButton Class="bg-primario-oscuro" OnClick="@(() => OpenDialogAsync(_maxWidth, @context))">Mostrar</MudButton>
+                    </MudTd>
                     <MudTd>@context.Titulo</MudTd>
                     <MudTd>@context.FechaServicio.ToShortDateString()</MudTd>
                     <MudTd>@context.Marca</MudTd>
                     <MudTd>@context.ProximoMillaje</MudTd>
                     <MudTd>@context.UbicacionEnAutomovil</MudTd>
-                    <MudTd>
-                    <MudButton Class="bg-primario-oscuro" OnClick="@(() => OpenDialogAsync(_maxWidth, @context))">Mostrar</MudButton>
-                    </MudTd>
                     </RowTemplate>
                 <PagerContent>
                     <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100, int.MaxValue }"
