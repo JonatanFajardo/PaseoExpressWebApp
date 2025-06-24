@@ -5,10 +5,12 @@
 @using PaseoExpressWebApp.Extensiones
 @using PaseoExpressWebApp.Models
 @using Microsoft.AspNetCore.Components.Authorization
+@using PaseoExpressWebApp.Services
 @inject AuthenticationStateProvider autenticacionProvider
 @inject NavigationManager navManager
 @inject IJSRuntime JSRuntime
 @inject ISnackbar Snackbar
+@inject AuthService AuthService
 
 <EditForm Model="login" OnValidSubmit="IniciarSesion">
     <div class="container-fluid vh-100">
@@ -41,9 +43,12 @@
                     <label class="form-check-label" for="rememberMe">Remember me</label>
                     <a href="#" class="float-end">Forgot Password?</a>
                 </div>*@
-         
 
 
+                @if (@warning == true)
+                {
+                    <small class="d-inline-flex mb-3 px-2 py-1 fw-semibold bg-danger text-white bg-success-subtle border border-success-subtle rounded-2">@warningMessage</small>
+                }
 
                 <button type="submit" @onkeydown="@Enter" class="btn btn-primary bg-primario-oscuro">
                     <span>Iniciar Sesión</span>
@@ -75,6 +80,8 @@
 
     private LoginDto login = new LoginDto();
     private bool isLoading = false;
+    private bool warning = false;
+    private string warningMessage = string.Empty;
 
     public void Enter(KeyboardEventArgs e)
     {
@@ -89,22 +96,25 @@
         try
         {
             isLoading = true; // Mostrar el loading
-            var loginResponse = await httpClient.PostAsJsonAsync<LoginDto>("https://localhost:44384/api/Usuario/Login", login);
-            if (loginResponse.IsSuccessStatusCode == false)
-            {
-                Snackbar.Add("Ocurrio un problema al ingresar.", Severity.Error);
-                isLoading = false;
-                return;
-            }
-            var sesionUsuario = await loginResponse.Content.ReadFromJsonAsync<LoginDto>();
+            StateHasChanged(); // Actualización inmediata de la UI
 
+            //obteniendo informacion del usuario y validandolo.
+            var sesionUsuario = await AuthService.Login(login);
+
+            if (sesionUsuario.Success == false)
+            {
+                warning = true;
+                warningMessage = sesionUsuario.ErrorMessage;
+                isLoading = false; 
+                return;
+            } 
 
             // Verificar si los datos del usuario son válidos
             if (sesionUsuario != null)
             {
                 // Si los datos son válidos, actualizar el estado de autenticación
                 var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
-                await autenticacionExt.ActualizarEstadoAutenticacion(sesionUsuario);
+                await autenticacionExt.ActualizarEstadoAutenticacion(sesionUsuario.Data);
 
                 // Redirigir al inicio después de un login exitoso
                 isLoading = false;
@@ -123,12 +133,4 @@
 
         }
     }
-
-    //protected override async Task OnAfterRenderAsync(bool firstRender)
-    //{
-    //    if (firstRender)
-    //    {
-    //        await JSRuntime.InvokeVoidAsync("blazorFocus.focusElement", "email"); // Assuming the input has id="email"
-    //    }
-    //}
 }

@@ -39,26 +39,7 @@ namespace PaseoExpressWebApp.Controllers
         {
             _loginService = loginService;
         }
-
-        [HttpPost]
-        [Route("Login")]
-        public async Task<IActionResult> Login(LoginDto login)
-        {
-            PR_VerificandoUsuarioResult result = (await _loginService.VerificandoUsuario(login)).ToList().FirstOrDefault();
-
-            LoginDto resultLogin = new LoginDto
-            {
-                IdUser = result.IdUsuario,
-                Imagen = result.Imagen,
-                Usuario = result.Usuario,
-                Clave = result.Password,
-                Rol = result.NombreRol
-            };
-
-            return Ok(resultLogin);
-        }
-
-
+          
         [HttpPost]
         [Route("Usuarios")]
         public async Task<IActionResult> Usuarios(LoginDto login)

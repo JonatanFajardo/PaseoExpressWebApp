@@ -152,6 +152,7 @@
     <div class="row">
         <div class="col-12 col-md-6 mb-3">
             <div class="form-group">
+                <label class="form-label">Quien es el conductor?</label>
                 <input type="checkbox" @bind="isCheckboxChecked" />
                 <label for="checkbox">Conductor actual</label>
                 <div class="m-3">
@@ -186,7 +187,7 @@
     <div class="col-12 col-md-6 mb-3">
         <div class="form-group form-check">
             <InputCheckbox @bind-Value="servicio.Confirmado" class="form-check-input" />
-            <label class="form-check-label">Confirmado</label>
+            <label class="form-check-label">Confirmar el servicio</label>
         </div>
     </div>
     <div class="col-12 col-md-6 mb-3">
@@ -244,12 +245,14 @@
                 <InputNumber @bind-Value="servicio.MillajeVehiculo" class="form-control" />
             </div>
         </div>
+         <div class="col-12 col-md-6 mb-3">
+            <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
+            </div>
+        </div>
     </div>
 
 
-        
-
-    <button  type="submit" class="btn btn-primary">Guardar</button>
 </EditForm>
 
     </MudCardContent>
