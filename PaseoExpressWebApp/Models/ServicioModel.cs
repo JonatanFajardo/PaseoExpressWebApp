@@ -3,7 +3,7 @@
 namespace PaseoExpressWebApp.Models
 {
 
-    public class ServicioModel
+    public class ServicioModel : IValidatableObject
     {
         public int IdTipoServicio { get; set; }
 
@@ -11,24 +11,18 @@ namespace PaseoExpressWebApp.Models
         public string Imagenes { get; set; }
 
         [StringLength(250)]
-        [Required(ErrorMessage = "El campo es obligatorio.")]
+        [Required(ErrorMessage = "El campo Título es obligatorio.")]
         public string Titulo { get; set; }
 
         [StringLength(550)]
-        [Required(ErrorMessage = "El campo es obligatorio2.")]
+        [Required(ErrorMessage = "El campo Descripción es obligatorio.")]
         public string Descripcion { get; set; }
 
+        [Required(ErrorMessage = "La fecha del servicio es obligatoria")]
         public DateTime FechaServicio { get; set; }
 
-        [Required(ErrorMessage = "El campo es obligatorio.")]
-        public int CantidadComprada { get; set; }
-
-        [Range(0, 9999999999.99)]
-        [Required(ErrorMessage = "El campo es obligatorio.")]
-        public decimal CostoUnitario { get; set; }
-
-        [Range(1, 9999999999.99)]
-        [Required(ErrorMessage = "El campo es obligatorio.")]
+        [Display(Name = "Costo Total")]
+        [RangoPersonalizado(1, 999999999.99)]
         public decimal CostoTotal { get; set; }
 
         [StringLength(250)]
@@ -51,11 +45,13 @@ namespace PaseoExpressWebApp.Models
 
         public long ProximoMillaje { get; set; }
 
-        //[Required(ErrorMessage = "Debe seleccionar una ubicación.")]
         [Range(1, int.MaxValue, ErrorMessage = "Debe seleccionar una ubicación en el automóvil.")]
         public int IdUbicacionEnAutomovil { get; set; }
 
-        [Range(0, 9999999999.99)]
+        //[Display(Name = "Costo Total")]
+        //[RangoPersonalizado(1, 999999999.99)]
+        //public decimal Monto { get; set; }
+
         public decimal PrecioManoObra { get; set; }
 
         public bool Confirmado { get; set; }
@@ -64,6 +60,26 @@ namespace PaseoExpressWebApp.Models
         public string Viaticos { get; set; }
 
         public int ManoObraPersonal { get; set; }
+
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (ProximaFechaMantenimiento < FechaServicio)
+            {
+                yield return new ValidationResult(
+                    "La Próxima Fecha de Mantenimiento no puede ser menor que la Fecha de Servicio.",
+                    new[] { nameof(ProximaFechaMantenimiento) }
+                );
+            }
+        }
+    }
+    public class RangoPersonalizadoAttribute : RangeAttribute
+    {
+        public RangoPersonalizadoAttribute(double minimum, double maximum)
+            : base(minimum, maximum)
+        {
+            ErrorMessage = "El campo {0} debe estar entre {1} y {2}";
+        }
     }
 
 }

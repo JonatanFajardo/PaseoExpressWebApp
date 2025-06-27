@@ -5,168 +5,165 @@
 @using System.ComponentModel.DataAnnotations
 
   <div class="container">
-        <EditForm Model="@servicio" >
-    <ValidationSummary class="alert alert-danger"/>
-             <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                <label class="form-label">Título</label>
-                <InputText @bind-Value="servicio.Titulo" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                <label class="form-label">Descripción</label>
-                        <InputText @bind-Value="servicio.Descripcion" class="form-control" disabled/>
-                    </div>
-                </div>
-            </div>
-             <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                <label class="form-label">Fecha del Servicio</label>
-                    <InputDate @bind-Value="servicio.FechaServicio" class="form-control" disabled/>
-                    </div>
-                </div>
-               @* <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Cantidad Comprada</label>
-                    <InputNumber @bind-Value="servicio.CantidadComprada" class="form-control" disabled/>
-                    </div>
-                </div>*@
-            </div>
-            <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                <label class="form-label">Costo Unitario</label>
-                    <InputNumber @bind-Value="servicio.CostoTotal" class="form-control" disabled/>
-                    </div>
-                </div>
-            @* <div class="col-12 col-md-6">
-            <div class="form-group">
-            <label class="form-label">Costo Unitario</label>
-            <InputNumber @bind-Value="servicio.CostoUnitario" class="form-control" disabled/>
-            </div>
-            </div>*@
-               @* <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Costo Total</label>
-                    <InputNumber @bind-Value="servicio.CostoTotal" class="form-control" disabled/>
-                    </div>
-                </div>*@
-            </div>
-             <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                <label class="form-label">Marca</label>
-                        <InputText @bind-Value="servicio.Marca" class="form-control" disabled/>
-                    </div>
-                </div>
-               @* <div class="col-12 col-md-6">
-                    <div class="form-group">
-                <label class="form-label">Kilometraje del Vehiculo</label>
-                    <InputNumber @bind-Value="servicio.KilometrajeVehiculo" class="form-control" disabled/>
-                    </div>
-                </div>*@
-            </div>
-             <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                <label class="form-label">Millaje del Vehiculo</label>
-                    <InputNumber @bind-Value="servicio.MillajeVehiculo" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label class="form-label"></label>
-                        <InputDate @bind-Value="servicio.ProximaFechaMantenimiento" class="form-control" disabled/>
-                    </div>
-                </div>
-            </div>
-             <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Marca del Vehiculo</label>
-                        <InputText @bind-Value="servicio.VehiculoMarca" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                <label class="form-label">Modelo del Vehiculo</label>
-                        <InputText @bind-Value="servicio.VehiculoModelo" class="form-control" disabled/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                <label class="form-label">año del Vehiculo</label>
-                        <InputNumber @bind-Value="servicio.VehiculoAnio" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Recurrente</label>
-                        <InputText @bind-Value="EsRecurrente" class="form-control" disabled/>
-                    </div>
-                </div>
-            </div>
-              <div class="row">
-                @*<div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Proximo Kilometraje</label>
-                        <InputNumber @bind-Value="servicio.ProximoKilometraje" class="form-control" disabled/>
-                    </div>
-                </div>*@
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                <label class="form-label">Proximo Millaje</label>
-                    <InputNumber @bind-Value="servicio.ProximoMillaje" class="form-control" disabled/>
-                    </div>
-                </div>
-            </div>
-             <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Ubicacion En Automovil</label>
-                        <InputText @bind-Value="servicio.UbicacionEnAutomovil" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Precio en Mano de Obra</label>
-                    <InputNumber @bind-Value="servicio.PrecioManoObra" class="form-control" disabled/>
-                    </div>
-                </div>
-            </div>
-             <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                <label class="form-label">Confirmado</label>
-                        <InputText @bind-Value="Confirmado" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                <label class="form-label">Viaticos</label>
-                        <InputText @bind-Value="servicio.Viaticos" class="form-control" disabled/>
-                    </div>
-                </div>
+    <EditForm Model="@servicio">
+        <ValidationSummary class="alert alert-danger" />
 
-                
+        <!-- Sección: Información General del Servicio -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-clipboard-list me-2"></i>Información General del Servicio</h5>
             </div>
-
-            <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                <label class="form-label">Mano en Obra Personal</label>
-                    <InputNumber @bind-Value="servicio.ManoObraPersonal" class="form-control" disabled/>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Título</label>
+                            <InputText @bind-Value="servicio.Titulo" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Descripción</label>
+                            <InputText @bind-Value="servicio.Descripcion" class="form-control" disabled />
+                        </div>
                     </div>
                 </div>
-  
-                
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Fecha del Servicio</label>
+                            <InputDate @bind-Value="servicio.FechaServicio" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Próxima Fecha de Mantenimiento</label>
+                            <InputDate @bind-Value="servicio.ProximaFechaMantenimiento" class="form-control" disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Marca</label>
+                            <InputText @bind-Value="servicio.Marca" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Ubicación en Automóvil</label>
+                            <InputText @bind-Value="servicio.UbicacionEnAutomovil" class="form-control" disabled />
+                        </div>
+                    </div>
+                </div>
             </div>
-        </EditForm> 
+        </div>
+
+        <!-- Sección: Información del Vehículo -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-car me-2"></i>Información del Vehículo</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Marca del Vehículo</label>
+                            <InputText @bind-Value="servicio.VehiculoMarca" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Modelo del Vehículo</label>
+                            <InputText @bind-Value="servicio.VehiculoModelo" class="form-control" disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Año del Vehículo</label>
+                            <InputNumber @bind-Value="servicio.VehiculoAnio" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Millaje del Vehículo</label>
+                            <InputNumber @bind-Value="servicio.MillajeVehiculo" class="form-control" disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Próximo Millaje</label>
+                            <InputNumber @bind-Value="servicio.ProximoMillaje" class="form-control" disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección: Costos y Precios -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-dollar-sign me-2"></i>Costos y Precios</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Costo Total</label>
+                            <InputNumber @bind-Value="servicio.CostoTotal" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Precio en Mano de Obra</label>
+                            <InputNumber @bind-Value="servicio.PrecioManoObra" class="form-control" disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Mano de Obra Personal</label>
+                            <InputNumber @bind-Value="servicio.ManoObraPersonal" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Viáticos</label>
+                            <InputText @bind-Value="servicio.Viaticos" class="form-control" disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección: Estado del Servicio -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-check-circle me-2"></i>Estado del Servicio</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Recurrente</label>
+                            <InputText @bind-Value="EsRecurrente" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Confirmado</label>
+                            <InputText @bind-Value="Confirmado" class="form-control" disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
     </div>
 
        

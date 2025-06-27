@@ -19,241 +19,302 @@
 
 <MudCard>
     <MudCardContent>
-    <EditForm Model="@servicio" 
-    OnValidSubmit="EnviarSolicitudActualizarTransaccion">
-    <DataAnnotationsValidator />
-    @*<ValidationSummary class="alert alert-danger" />*@
+        <EditForm Model="@servicio" OnValidSubmit="EnviarSolicitudActualizarTransaccion">
+            <DataAnnotationsValidator />
 
-    <div class="row">
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Tipo Servicio</label>
-                <select class="form-select" @onchange="OnTipoServicioChanged">
-                    <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
-                    @foreach (var tipoServicio in tiposServicios)
-                    {
-                        <option value="@tipoServicio.IdTipoServicio">@tipoServicio.Nombre</option>
-                    }
-                </select>
-                        @*<ValidationMessage For="@(() => servicio.IdTipoServicio)" />*@
-            </div>
-        </div>
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Título</label>
-                    <InputText @bind-Value="servicio.Titulo" class="form-control" />
-                    <ValidationMessage For="@(() => servicio.Titulo)" />
+            <!-- Información Básica del Servicio -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-info-circle me-2"></i>Información Básica del Servicio
+                    </h5>
                 </div>
-        </div>
-    </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-cogs me-1"></i>Tipo Servicio
+                                </label>
+                                <select class="form-select" @onchange="OnTipoServicioChanged">
+                                    <option value="0">--Seleccionar--</option>
+                                    @foreach (var tipoServicio in tiposServicios)
+                                    {
+                                        <option value="@tipoServicio.IdTipoServicio">@tipoServicio.Nombre</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-heading me-1"></i>Título
+                                </label>
+                                <InputText @bind-Value="servicio.Titulo" class="form-control" />
+                                <ValidationMessage For="@(() => servicio.Titulo)" />
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="row">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-align-left me-1"></i>Descripción
+                                </label>
+                                <InputTextArea @bind-Value="servicio.Descripcion" class="form-control" rows="3" />
+                                <ValidationMessage For="@(() => servicio.Descripcion)" />
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="col-12 col-md-6 mb-3">
-            <!-- Otros campos para PC -->
-            <div class="form-group">
-                <label class="form-label">Descripción</label>
-                <InputTextArea @bind-Value="servicio.Descripcion" class="form-control" />
-            </div>
-        </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-calendar-alt me-1"></i>Fecha Servicio
+                                </label>
+                                <InputDate @bind-Value="servicio.FechaServicio" class="form-control" />
+                                <ValidationMessage For="@(() => servicio.FechaServicio)" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-calendar-check me-1"></i>Próxima Fecha Mantenimiento
+                                </label>
+                                <InputDate @bind-Value="servicio.ProximaFechaMantenimiento" class="form-control" />
+                                <ValidationMessage For="@(() => servicio.ProximaFechaMantenimiento)" />
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="col-12 col-md-6 mb-3">
-            <!-- Otros campos para PC -->
-            <div class="form-group">
-                <label class="form-label">Fecha Servicio</label>
-                <InputDate @bind-Value="servicio.FechaServicio" class="form-control" />
-            </div>
-        </div>
-    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-tag me-1"></i>Marca
+                                </label>
+                                <InputText @bind-Value="servicio.Marca" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
 
-    @*<div class="row">
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Cantidad Comprada</label>
-                <InputNumber @bind-Value="servicio.CantidadComprada" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
+                </div>
             </div>
-        </div>
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Costo Unitario</label>
-                <InputNumber @bind-Value="servicio.CostoUnitario" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
-            </div>
-        </div>
-    </div>
-*@
-  @*  <div class="row">
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Cantidad Comprada</label>
-                <InputNumber @bind-Value="servicio.CantidadComprada" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
-            </div>
-        </div>
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Costo Unitario</label>
-                <InputNumber @bind-Value="servicio.CostoUnitario" class="form-control" @oninput="CalcularCostoTotal" @onblur="CalcularCostoTotal" />
-            </div>
-        </div>
-    </div>
-*@
-    <div class="row">
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Costo</label>
-                <InputNumber @bind-Value="servicio.CostoTotal" class="form-control"/>
-                <ValidationMessage For="@(() => servicio.CostoTotal)" />
-            </div>
-        </div>
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Ubicación en Automóvil</label>
-                        <InputSelect @bind-Value="servicio.IdUbicacionEnAutomovil" class="form-select">
-                    <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
-                    @foreach (var ubicacion in ubicacionesEnAutomovil)
-                    {
-                        <option value="@ubicacion.IdUbicacionEnAutomovil">@ubicacion.Ubicacion</option>
-                    }
-                    </InputSelect>
-                    <ValidationMessage For="@(() => servicio.IdUbicacionEnAutomovil)" class="text-danger" />
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Tipo Mantenimiento</label>
-                <InputSelect @bind-Value="servicio.IdTipoMantenimiento" class="form-select">
-                    <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
-                    @foreach (var tipoMantenimiento in tiposMantenimientos)
-                    {
-                        <option value="@tipoMantenimiento.IdTipoMantenimiento">@tipoMantenimiento.Nombre</option>
-                    }
-                </InputSelect>
-                <ValidationMessage For="@(() => servicio.IdTipoMantenimiento)" />
-            </div>
-        </div>
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Vehículo</label>
-                    <InputSelect @bind-Value="servicio.IdVehiculo" class="form-select">
-                    <option value="0">--Seleccionar--</option> <!-- Opción por defecto -->
-                    @foreach (var vehiculo in vehiculos)
-                    {
-                        <option value="@vehiculo.IdVehiculo">@vehiculo.Placa</option>
-                    }
-                    </InputSelect>
-                    <ValidationMessage For="@(() => servicio.IdVehiculo)" class="text-danger" />
-            </div>
-        </div>
-    </div>
+            <!-- Información del Vehículo -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-car me-2"></i>Información del Vehículo
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-car me-1"></i>Vehículo
+                                </label>
+                                <InputSelect @bind-Value="servicio.IdVehiculo" class="form-select">
+                                    <option value="0">--Seleccionar--</option>
+                                    @foreach (var vehiculo in vehiculos)
+                                    {
+                                        <option value="@vehiculo.IdVehiculo">@vehiculo.Placa</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => servicio.IdVehiculo)" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Ubicación en Automóvil
+                                </label>
+                                <InputSelect @bind-Value="servicio.IdUbicacionEnAutomovil" class="form-select">
+                                    <option value="0">--Seleccionar--</option>
+                                    @foreach (var ubicacion in ubicacionesEnAutomovil)
+                                    {
+                                        <option value="@ubicacion.IdUbicacionEnAutomovil">@ubicacion.Ubicacion</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => servicio.IdUbicacionEnAutomovil)" class="text-danger" />
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-wrench me-1"></i>Tipo Mantenimiento
+                                </label>
+                                <InputSelect @bind-Value="servicio.IdTipoMantenimiento" class="form-select">
+                                    <option value="0">--Seleccionar--</option>
+                                    @foreach (var tipoMantenimiento in tiposMantenimientos)
+                                    {
+                                        <option value="@tipoMantenimiento.IdTipoMantenimiento">@tipoMantenimiento.Nombre</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => servicio.IdTipoMantenimiento)" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-tachometer-alt me-1"></i>Millaje Vehículo
+                                </label>
+                                <InputNumber @bind-Value="servicio.MillajeVehiculo" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="row">
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Quien es el conductor?</label>
-                <input type="checkbox" @bind="isCheckboxChecked" />
-                <label for="checkbox">Conductor actual</label>
-                <div class="m-3">
-                    @if (!isCheckboxChecked)
-                    {
+                    
+                </div>
+            </div>
+
+            <!-- Información del Conductor -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-user me-2"></i>Información del Conductor
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" @bind="isCheckboxChecked" class="form-check-input" id="conductorActual" />
+                            <label class="form-check-label fw-semibold" for="conductorActual">
+                                <i class="fas fa-user-check me-1"></i>Conductor actual
+                            </label>
+                        </div>
+                    </div>
+
+                    
                         <div class="form-group">
-                            <label class="form-label">Seleccionar el conductor que conducia el vehículo en el momento del servicio.</label>
-                            <select @bind="servicio.IdUsuario" class="form-select">
+                            <label class="form-label fw-semibold">
+                                <i class="fas fa-users me-1"></i>Seleccionar el conductor que conducía el vehículo
+                            </label>
+                            <select @bind="servicio.IdUsuario" class="form-select" disabled="@isCheckboxChecked">
                                 <option value="0">--Seleccionar--</option>
                                 @foreach (var conductor in Conductores)
                                 {
                                     <option value="@conductor.IdUsuario">@conductor.Nombre</option>
                                 }
-                                }
                             </select>
                         </div>
-                    }
+                    
                 </div>
             </div>
-        </div>
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Precio Mano Obra</label>
-                <InputNumber @bind-Value="servicio.PrecioManoObra" class="form-control" />
+
+            <!-- Información de Costos -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-dollar-sign me-2"></i>Información de Costos
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-calculator me-1"></i>Costo Total
+                                </label>
+                                <InputNumber @bind-Value="servicio.CostoTotal" class="form-control" />
+                                <ValidationMessage For="@(() => servicio.CostoTotal)" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-tools me-1"></i>Precio Mano de Obra
+                                </label>
+                                <InputNumber @bind-Value="servicio.PrecioManoObra" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-user-cog me-1"></i>Mano de Obra Personal
+                                </label>
+                                <InputNumber @bind-Value="servicio.ManoObraPersonal" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <div class="form-group">
+                                <label class="form-label fw-semibold">
+                                    <i class="fas fa-route me-1"></i>Viáticos
+                                </label>
+                                <InputTextArea @bind-Value="servicio.Viaticos" class="form-control" rows="2" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    
-        
-    <div class="row">
-    <div class="col-12 col-md-6 mb-3">
-        <div class="form-group form-check">
-            <InputCheckbox @bind-Value="servicio.Confirmado" class="form-check-input" />
-            <label class="form-check-label">Confirmar el servicio</label>
-        </div>
-    </div>
-    <div class="col-12 col-md-6 mb-3">
-        <div class="form-group">
-            <label class="form-label">Viáticos</label>
-            <InputTextArea @bind-Value="servicio.Viaticos" class="form-control" />
-        </div>
-    </div>
-</div>
-
-
-
-
-
-    <div class="row">
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Mano Obra Personal</label>
-                <InputNumber @bind-Value="servicio.ManoObraPersonal" class="form-control" />
+            <!-- Documentación -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-file-image me-2"></i>Documentación
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label fw-semibold">
+                            <i class="fas fa-images me-1"></i>Imágenes
+                        </label>
+                        <InputFile OnChange="OnInputFileChange" class="form-control" />
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Próxima Fecha Mantenimiento</label>
-                <InputDate @bind-Value="servicio.ProximaFechaMantenimiento" class="form-control" />
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Imágenes</label>
-                <InputFile OnChange="OnInputFileChange" class="form-control" />
-            </div>
-        </div>
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Marca</label>
-                <InputText @bind-Value="servicio.Marca" class="form-control" />
-            </div>
-        </div>
-    </div>
+            <!-- Confirmación y Acciones -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-check-circle me-2"></i>Confirmación
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <div class="form-check">
+                            <InputCheckbox @bind-Value="servicio.Confirmado" class="form-check-input" id="confirmarServicio" />
+                            <label class="form-check-label fw-semibold" for="confirmarServicio">
+                                <i class="fas fa-check-double me-1"></i>Confirmar el servicio
+                            </label>
+                        </div>
+                    </div>
+ 
 
-    <div class="row">
-       @* <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Kilometraje Vehículo</label>
-                <InputNumber @bind-Value="servicio.KilometrajeVehiculo" class="form-control" />
-            </div>
-        </div>*@
-        <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                <label class="form-label">Millaje Vehículo</label>
-                <InputNumber @bind-Value="servicio.MillajeVehiculo" class="form-control" />
-            </div>
-        </div>
-         <div class="col-12 col-md-6 mb-3">
-            <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
-            </div>
-        </div>
-    </div>
+                    <!-- Resumen de errores de validación con estilos mejorados -->
+                    <ValidationSummary>
+                    <div class='alert alert-danger alert-dismissible fade show' role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <strong>Por favor, corrija los siguientes errores:</strong>
+                            <ul class="mb-0 mt-2">
+                                @foreach (var error in context.GetValidationMessages())
+                                {
+                                    <li>@error</li>
+                                }
+                            </ul>
+                        </div>
+                    </ValidationSummary>
 
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-save me-2"></i>Guardar Servicio
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-</EditForm>
+        </EditForm>
 
     </MudCardContent>
 
@@ -283,17 +344,12 @@
     private async void MetodoSeleccionado()
     {
         servicio.IdUsuario = vehiculos.Where(x => x.IdVehiculo == servicio.IdVehiculo).FirstOrDefault().IdConductor;
-
-        // Lógica para el método cuando el checkbox está seleccionado
-        Console.WriteLine("Checkbox seleccionado. ID del vehículo: [tu ID de vehículo aquí]");
+         
     }
 
     private void MetodoNoSeleccionado()
     {
-        //vehiculos = Vehiculo.Obtenervehiculos();
-        servicio.IdUsuario = servicio.IdVehiculo;
-        // Lógica para el método cuando el checkbox no está seleccionado
-        Console.WriteLine("Checkbox no seleccionado. ID del vehículo: [tu ID de vehículo aquí]");
+        servicio.IdUsuario = servicio.IdVehiculo; 
     }
 
     protected override void OnInitialized()
@@ -303,6 +359,7 @@
        .Build();
 
         servicio.FechaServicio = DateTime.Now;
+        servicio.ProximaFechaMantenimiento = DateTime.Now;
         tiposServicios = servicioServices.TipoServicios();
         tiposMantenimientos = servicioServices.TipoMantenimientos();
         vehiculos = servicioServices.Vehiculos();
@@ -378,10 +435,10 @@
     }
 
 
-    private void CalcularCostoTotal()
-    {
-        servicio.CostoTotal = servicio.CantidadComprada * servicio.CostoUnitario;
-    }
+    // private void CalcularCostoTotal()
+    // {
+    //     servicio.CostoTotal = servicio.CantidadComprada * servicio.CostoUnitario;
+    // }
 
 
     private void OnTipoServicioChanged(ChangeEventArgs e)
@@ -395,20 +452,6 @@
             servicio.Titulo = selectedTipoServicio.Nombre;
         }
     }
-
-
-    //private async Task EnviarSolicitudActualizarTransaccion()
-    //{
-    //    if (hubConnection is not null && hubConnection.State == HubConnectionState.Connected)
-    //    {
-    //        await hubConnection.SendAsync("ActualizarTransaccion");
-    //    }
-    //    else
-    //    {
-    //        Console.WriteLine($"La conexión no está establecida. Estado actual: {hubConnection?.State}");
-    //    }
-    //}
-
      
     private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
     {
